@@ -239,7 +239,7 @@
         </div>
 
         <!-- Lead Generation Form (Berlangganan) -->
-        <div class="mt-8 mb-6 px-4 w-full animate-stagger delay-3">
+        <div id="vip-list-section" class="mt-8 mb-6 px-4 w-full animate-stagger delay-3">
             <div class="glass glass-card rounded-[1.5rem] p-6 text-center relative overflow-hidden border border-white/50 dark:border-white/20">
                 <!-- Decorative Blur Element -->
                 <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl"></div>
@@ -264,7 +264,9 @@
                     </div>
                     <div class="relative">
                         <i class="fab fa-whatsapp absolute top-3.5 left-4 text-gray-400"></i>
-                        <input type="tel" id="lead-wa" placeholder="No. WhatsApp" required 
+                        <!-- Auto convert 0 to 62 -->
+                        <input type="tel" id="lead-wa" placeholder="No. WhatsApp (Misal: 0812... otomatis jadi 62)" required 
+                               oninput="if(this.value.startsWith('0')) this.value = '62' + this.value.substring(1);"
                                class="w-full glass-input rounded-xl pl-10 pr-4 py-3 text-sm outline-none focus:ring-2 focus:ring-purple-400 transition-all font-medium">
                     </div>
 
@@ -336,7 +338,6 @@
     <!-- Main Logic -->
     <script>
         // --- API CONFIGURATION ---
-        // INI URL BARU KAMU YANG SUDAH TERHUBUNG:
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOOuq8euMjbH-XNkjqdBASmj_a1qvK4DP5SiHotX_mEOspwvybUuUdFwUibl8N4r6Olw/exec';
         
         const isUsingPlaceholder = SCRIPT_URL === 'ISI_DENGAN_URL_WEB_APP_GOOGLE_APPS_SCRIPT_DI_SINI';
@@ -355,7 +356,8 @@
                 profile_title: "Digital Creator & Visionary",
                 profile_image: "https://ui-avatars.com/api/?name=iMersBiopage&background=7c3aed&color=fff&size=256",
                 verified_badge: "true",
-                footer_text: "Designed with Glassmorphism."
+                footer_text: "Designed with Glassmorphism.",
+                show_vip_form: "true" // Pengaturan default toggle form
             },
             socials: [
                 { Platform: "WhatsApp", Url: "https://wa.me", IconClass: "fab fa-whatsapp", ColorClass: "text-green-600 dark:text-green-400", Visible: "true" },
@@ -439,6 +441,14 @@
             
             // Panggil fungsi update untuk merender list sesuai pagination
             updateDisplay();
+
+            // Toggle form berlangganan sesuai config dari Sheets
+            const vipSection = document.getElementById('vip-list-section');
+            if (data.config.show_vip_form && String(data.config.show_vip_form).toLowerCase() === 'false') {
+                vipSection.classList.add('hidden');
+            } else {
+                vipSection.classList.remove('hidden');
+            }
 
             document.getElementById('loading-spinner').classList.add('hidden');
             const mainContent = document.getElementById('main-content');
