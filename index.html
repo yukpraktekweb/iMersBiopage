@@ -3,34 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iMersBiopage - Smart Landing Page</title>
+    <title>iMers Biopage - Smart Landing Page Solution</title>
     
-    <!-- Favicon -->
+    <!-- ==========================================
+         1. ASSET & RESOURCE INITIALIZATION
+         ========================================== -->
+    
+    <!-- Favicon: Menggunakan UI Avatars sebagai placeholder logo -->
     <link rel="icon" type="image/png" href="https://ui-avatars.com/api/?name=iMersBiopage&background=7c3aed&color=fff&size=32">
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Memuat kombinasi font premium untuk tipografi yang elegan -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS: Framework utama untuk styling dan tata letak -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome -->
+    <!-- Font Awesome: Library icon untuk mempercantik elemen antarmuka -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Tailwind Config -->
+    <!-- Tailwind Configuration: Pengaturan tema, font, dan animasi kustom -->
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: { 
-                        sans: ['"Outfit"', 'sans-serif'] 
+                        sans: ['"Outfit"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        poppins: ['"Poppins"', 'sans-serif']
                     },
                     animation: { 
                         blob: "blob 7s infinite", 
-                        pulseGlow: "pulseGlow 2s infinite" 
+                        pulseGlow: "pulseGlow 2s infinite",
+                        float: "float 3s ease-in-out infinite"
                     },
                     keyframes: {
                         blob: {
@@ -42,6 +49,10 @@
                         pulseGlow: { 
                             "0%, 100%": { opacity: 1, transform: "scale(1)" }, 
                             "50%": { opacity: .9, transform: "scale(1.02)" } 
+                        },
+                        float: {
+                            "0%, 100%": { transform: "translateY(0)" },
+                            "50%": { transform: "translateY(-10px)" }
                         }
                     }
                 }
@@ -49,114 +60,143 @@
         }
     </script>
 
-    <!-- GLASSMORPHISM CSS -->
+    <!-- ==========================================
+         2. CUSTOM GLASSMORPHISM & UTILITY CSS
+         ========================================== -->
     <style>
+        /* Pengaturan Dasar Body */
         body { 
             font-family: 'Outfit', sans-serif; 
             background-color: #f3f4f6; 
             color: #1f2937; 
             transition: background-color 0.4s ease, color 0.4s ease; 
         }
+
+        /* Konfigurasi Mode Gelap */
         .dark body { 
-            background-color: #111827; 
-            color: #f9fafb; 
-        }
-        .glass { 
-            background: rgba(255, 255, 255, 0.4); 
-            backdrop-filter: blur(16px); 
-            -webkit-backdrop-filter: blur(16px); 
-            border: 1px solid rgba(255, 255, 255, 0.6); 
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        .dark .glass { 
-            background: rgba(17, 24, 39, 0.6); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); 
-        }
-        .glass-btn:hover, .glass-card:hover { 
-            background: rgba(255, 255, 255, 0.6); 
-            transform: translateY(-3px); 
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15); 
-            border: 1px solid rgba(255, 255, 255, 0.8); 
-        }
-        .dark .glass-btn:hover, .dark .glass-card:hover { 
-            background: rgba(31, 41, 55, 0.8); 
-            border: 1px solid rgba(255, 255, 255, 0.2); 
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); 
-        }
-        .glass-input { 
-            background: rgba(255, 255, 255, 0.3); 
-            backdrop-filter: blur(8px); 
-            border: 1px solid rgba(255, 255, 255, 0.5); 
-        }
-        .dark .glass-input { 
-            background: rgba(0, 0, 0, 0.3); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-        }
-        .glass-active { 
-            background: rgba(255, 255, 255, 0.8) !important; 
-            border-color: rgba(255, 255, 255, 1) !important; 
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); 
-        }
-        .dark .glass-active { 
-            background: rgba(59, 130, 246, 0.5) !important; 
-            border-color: rgba(96, 165, 250, 0.8) !important; 
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); 
-        }
-        @keyframes fadeSlideUp { 
-            0% { opacity: 0; transform: translateY(20px); } 
-            100% { opacity: 1; transform: translateY(0); } 
-        }
-        .animate-stagger { 
-            opacity: 0; 
-            animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
-            will-change: transform, opacity; 
-        }
-        .tap-effect { 
-            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        .tap-effect:active { 
-            transform: scale(0.96) !important; 
-        }
-        ::-webkit-scrollbar { 
-            width: 0px; 
-            height: 0px; 
-        }
-        .fade-mask { 
-            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); 
-            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); 
-        }
-        input::placeholder, textarea::placeholder { 
-            color: inherit; 
-            opacity: 0.6; 
-        }
-        .pricing-list ul { 
-            padding-left: 0.5rem; 
-            margin-bottom: 1.5rem; 
-            text-align: left; 
-        }
-        .pricing-list li { 
-            margin-bottom: 0.5rem; 
-            display: flex; 
-            align-items: flex-start; 
-            gap: 0.5rem; 
+            background-color: #0f172a; 
+            color: #f1f5f9; 
         }
 
-        /* PERBAIKAN ZERO MARGIN: Biar konten di dalem box nempel mentok */
-        /* Teknik negative margin untuk nabrak padding container utama */
-        #landing-page-content {
-            padding: 1.5rem !important; /* Mobile padding */
+        /* Efek Kaca (Glassmorphism) Utama */
+        .glass { 
+            background: rgba(255, 255, 255, 0.45); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.5); 
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         }
+
+        .dark .glass { 
+            background: rgba(30, 41, 59, 0.7); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); 
+        }
+
+        /* Hover Effect untuk Kartu dan Tombol */
+        .glass-btn:hover, .glass-card:hover { 
+            background: rgba(255, 255, 255, 0.7); 
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.12); 
+            border: 1px solid rgba(255, 255, 255, 0.8); 
+        }
+
+        .dark .glass-btn:hover, .dark .glass-card:hover { 
+            background: rgba(51, 65, 85, 0.8); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+        }
+
+        /* Desain Input Field Kaca */
+        .glass-input { 
+            background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            transition: border-color 0.3s ease;
+        }
+
+        .glass-input:focus {
+            border-color: #8b5cf6;
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Status Aktif untuk Tab Kategori */
+        .glass-active { 
+            background: rgba(255, 255, 255, 0.9) !important; 
+            border-color: #7c3aed !important; 
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.2); 
+            color: #7c3aed !important;
+        }
+
+        .dark .glass-active { 
+            background: rgba(124, 58, 237, 0.3) !important; 
+            border-color: #a78bfa !important; 
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); 
+            color: #ddd6fe !important;
+        }
+
+        /* Animasi Muncul Halus */
+        @keyframes fadeSlideUp { 
+            0% { opacity: 0; transform: translateY(30px); } 
+            100% { opacity: 1; transform: translateY(0); } 
+        }
+
+        .animate-stagger { 
+            opacity: 0; 
+            animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+        }
+
+        /* Efek Ketukan Feedback */
+        .tap-effect { 
+            transition: transform 0.1s ease; 
+        }
+
+        .tap-effect:active { 
+            transform: scale(0.94) !important; 
+        }
+
+        /* Menyembunyikan Scrollbar demi Kebersihan UI */
+        ::-webkit-scrollbar { width: 0px; height: 0px; }
+
+        /* Masking Gradasi untuk Scroll Horizontal */
+        .fade-mask { 
+            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); 
+            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); 
+        }
+
+        /* Placeholder Styling */
+        input::placeholder, textarea::placeholder { color: inherit; opacity: 0.5; }
+
+        /* ==========================================
+           FIX: ZERO MARGIN CORE LOGIC
+           ========================================== */
+        
+        /* Kontainer Utama Landing Page: Kita set padding ke 0 agar gambar menempel mentok */
+        #landing-page-content {
+            padding: 0px !important; 
+            overflow: hidden;
+            border: none !important;
+        }
+
+        /* Mengatur agar teks di dalam landing page tetap punya jarak dari tembok */
+        /* Kita membungkus isian teks di Code.gs nanti dengan class 'px-6' atau 'px-8' */
+        .lp-body-container {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            padding-bottom: 2rem;
+        }
+
         @media (min-width: 768px) {
-            #landing-page-content {
-                padding: 2rem !important; /* Desktop padding */
+            .lp-body-container {
+                padding-left: 2rem;
+                padding-right: 2rem;
+                padding-bottom: 3rem;
             }
         }
     </style>
 
+    <!-- Inisialisasi Tema (Light/Dark) dari Local Storage -->
     <script>
-        // Load Theme Preference
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -164,439 +204,770 @@
         }
     </script>
 </head>
+
 <body class="min-h-screen flex flex-col items-center p-4 relative overflow-x-hidden selection:bg-purple-500/30">
 
-    <!-- Background Blobs -->
+    <!-- BACKGROUND ORNAMEN (BLOBS) -->
     <div class="fixed inset-0 w-full h-full -z-10 overflow-hidden pointer-events-none" id="bg-blobs">
-        <div class="absolute top-[-10%] left-[-10%] w-72 h-72 md:w-96 md:h-96 bg-purple-400 dark:bg-purple-800 rounded-full mix-blend-multiply filter blur-3xl opacity-50 dark:opacity-40 animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-72 h-72 md:w-96 md:h-96 bg-cyan-300 dark:bg-blue-800 rounded-full mix-blend-multiply filter blur-3xl opacity-50 dark:opacity-40 animate-blob" style="animation-delay: 2s"></div>
-        <div class="absolute bottom-[-10%] left-[20%] w-72 h-72 md:w-96 md:h-96 bg-pink-300 dark:bg-rose-800 rounded-full mix-blend-multiply filter blur-3xl opacity-50 dark:opacity-40 animate-blob" style="animation-delay: 4s"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-72 h-72 md:w-[30rem] md:h-[30rem] bg-purple-400 dark:bg-purple-900/40 rounded-full mix-blend-multiply filter blur-3xl opacity-40 dark:opacity-30 animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-72 h-72 md:w-[30rem] md:h-[30rem] bg-cyan-300 dark:bg-blue-900/40 rounded-full mix-blend-multiply filter blur-3xl opacity-40 dark:opacity-30 animate-blob" style="animation-delay: 2s"></div>
+        <div class="absolute bottom-[-10%] left-[20%] w-72 h-72 md:w-[30rem] md:h-[30rem] bg-pink-300 dark:bg-rose-900/40 rounded-full mix-blend-multiply filter blur-3xl opacity-40 dark:opacity-30 animate-blob" style="animation-delay: 4s"></div>
     </div>
 
-    <!-- Theme Toggle -->
+    <!-- TOMBOL GANTI TEMA -->
     <div class="absolute top-6 right-6 z-50">
-        <button onclick="toggleTheme()" class="w-12 h-12 rounded-full glass glass-btn flex items-center justify-center text-lg focus:outline-none shadow-sm">
+        <button onclick="toggleTheme()" class="w-12 h-12 rounded-full glass glass-btn flex items-center justify-center text-lg focus:outline-none shadow-lg border border-white/50">
             <i class="fas fa-sun hidden dark:block text-yellow-300"></i>
             <i class="fas fa-moon block dark:hidden text-indigo-700"></i>
         </button>
     </div>
 
-    <!-- Loading Spinner Keren -->
-    <div id="loading-spinner" class="fixed inset-0 flex flex-col items-center justify-center z-[100] backdrop-blur-xl bg-white/40 dark:bg-black/60 transition-opacity duration-500 p-4">
-        <div class="relative w-24 h-24 flex items-center justify-center mb-6">
-            <div class="absolute inset-0 rounded-full border-t-4 border-b-4 border-purple-500 animate-spin opacity-80"></div>
-            <div class="absolute inset-2 rounded-full border-r-4 border-l-4 border-pink-500 animate-spin opacity-80" style="animation-direction: reverse; animation-duration: 1.2s;"></div>
-            <div class="w-12 h-12 glass rounded-full flex items-center justify-center shadow-inner">
-                <i class="fas fa-rocket text-purple-600 dark:text-purple-400 text-xl animate-pulse"></i>
+    <!-- LOADING SCREEN (FULL SCREEN BLUR) -->
+    <div id="loading-spinner" class="fixed inset-0 flex flex-col items-center justify-center z-[100] backdrop-blur-2xl bg-white/50 dark:bg-black/70 transition-opacity duration-700 p-6">
+        <div class="relative w-28 h-28 flex items-center justify-center mb-8">
+            <div class="absolute inset-0 rounded-full border-t-4 border-b-4 border-purple-600 animate-spin opacity-90"></div>
+            <div class="absolute inset-3 rounded-full border-r-4 border-l-4 border-pink-500 animate-spin opacity-80" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+            <div class="w-14 h-14 glass rounded-full flex items-center justify-center shadow-inner border border-white/40">
+                <i class="fas fa-rocket text-purple-600 dark:text-purple-400 text-2xl animate-float"></i>
             </div>
         </div>
-        <div class="glass px-8 py-5 rounded-[2rem] text-center border border-white/50 shadow-2xl w-full max-w-sm animate-stagger">
-            <h3 class="text-xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 mb-2 font-[Poppins]">Memuat iMers Biopage...</h3>
-            <p class="text-xs font-medium opacity-80 leading-relaxed text-gray-700 dark:text-gray-200">Sedang mengambil data terbaru dari Google Sheets 🚀</p>
+        <div class="glass px-10 py-6 rounded-[2.5rem] text-center border border-white/60 shadow-2xl w-full max-w-sm">
+            <h3 class="text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-pink-500 mb-3 font-[Poppins]">iMers Biopage</h3>
+            <p class="text-sm font-semibold opacity-70 leading-relaxed text-slate-700 dark:text-slate-300">Sedang mengsinkronkan data dengan Google Sheets Engine...</p>
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- VIEW 1: LANDING PAGE ROUTER (FULL HTML)    -->
-    <!-- ========================================== -->
-    <div id="landing-page-view" class="w-full max-w-md mx-auto relative z-10 hidden pt-6 pb-12 px-2 animate-stagger">
-        <button onclick="goBackHome()" class="glass glass-btn tap-effect px-5 py-2.5 rounded-xl text-xs font-bold mb-6 flex items-center gap-2 shadow-sm border border-white/50 w-max mx-auto">
-            <i class="fas fa-arrow-left"></i> Kembali ke Menu
+    <!-- ==========================================
+         VIEW 1: FULL LANDING PAGE RENDERER
+         ========================================== -->
+    <div id="landing-page-view" class="w-full max-w-md mx-auto relative z-10 hidden pt-4 pb-16 px-0 animate-stagger">
+        <!-- Tombol Back Bergaya Floating -->
+        <button onclick="goBackHome()" class="glass glass-btn tap-effect px-6 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest mb-6 flex items-center gap-3 shadow-md border border-white/60 w-max mx-auto text-purple-700 dark:text-purple-300">
+            <i class="fas fa-chevron-left"></i> Kembali ke Menu
         </button>
         
-        <!-- Box Landing Page bergaya Kartu VIP (Zero Margin Supported) -->
-        <div id="landing-page-content" class="glass glass-card rounded-[2rem] text-center relative overflow-hidden border border-white/50 shadow-2xl w-full">
-            <!-- Konten di-inject dari Sheets via renderLandingPage() -->
+        <!-- Box Content Utama (Zero Margin Design) -->
+        <div id="landing-page-content" class="glass rounded-[2.5rem] relative overflow-hidden border border-white/50 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.3)] w-full">
+            <!-- Isi HTML Page dari Sheet_Pages di-inject di sini -->
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- VIEW 2: BIOLINK & MARKETPLACE HOME         -->
-    <!-- ========================================== -->
-    <main id="main-content" class="w-full max-w-md mx-auto relative z-10 hidden pt-12 pb-8 opacity-0 transition-opacity duration-700">
+    <!-- ==========================================
+         VIEW 2: BIOLINK HOME & CATALOG
+         ========================================== -->
+    <main id="main-content" class="w-full max-w-md mx-auto relative z-10 hidden pt-16 pb-12 opacity-0 transition-opacity duration-1000">
         
-        <!-- Profile Section -->
-        <div id="profile-section" class="flex flex-col items-center mb-8 text-center px-4 w-full animate-stagger">
-            <div class="glass rounded-[2.5rem] p-2 mb-4 relative shadow-lg">
-                <img id="profile-image" src="" alt="Profile" class="w-28 h-28 md:w-32 md:h-32 rounded-[2.3rem] object-cover border-2 border-white/20">
-                <div id="verified-badge" class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full glass flex items-center justify-center hidden text-blue-500 bg-white border border-white/50 shadow-md">
-                    <i class="fas fa-check text-xs"></i>
+        <!-- Profil Section (Header) -->
+        <div id="profile-section" class="flex flex-col items-center mb-12 text-center px-6 w-full animate-stagger">
+            <div class="glass rounded-[3rem] p-2 mb-6 relative shadow-2xl group transition-transform hover:scale-105 duration-500">
+                <img id="profile-image" src="" alt="Profile iMers" class="w-32 h-32 md:w-36 md:h-36 rounded-[2.8rem] object-cover border-4 border-white/40 shadow-inner">
+                <div id="verified-badge" class="absolute -bottom-2 -right-2 w-10 h-10 rounded-full glass flex items-center justify-center hidden bg-white dark:bg-slate-800 text-blue-500 border-4 border-white/30 shadow-xl">
+                    <i class="fas fa-check-circle text-lg"></i>
                 </div>
             </div>
-            <h1 id="profile-name" class="text-3xl font-black tracking-tight font-[Poppins]">...</h1>
-            <p id="profile-title" class="opacity-70 font-semibold mt-1 text-xs uppercase tracking-widest px-8">...</p>
-            <div id="socials-container" class="flex flex-wrap justify-center gap-4 mt-8"></div>
+            <h1 id="profile-name" class="text-3xl md:text-4xl font-black tracking-tighter font-[Poppins] text-slate-900 dark:text-white"></h1>
+            <p id="profile-title" class="opacity-60 font-bold mt-2 text-[11px] md:text-xs uppercase tracking-[0.3em] px-10 leading-relaxed"></p>
+            
+            <!-- Sosial Media Ikon Bar -->
+            <div id="socials-container" class="flex flex-wrap justify-center gap-5 mt-10"></div>
         </div>
 
-        <div class="space-y-6 px-4 w-full animate-stagger" style="animation-delay: 0.1s">
-            <!-- Category Tabs -->
+        <div class="space-y-8 px-5 w-full animate-stagger" style="animation-delay: 0.15s">
+            
+            <!-- Category Tabs Navigation -->
             <div class="w-full fade-mask" id="cat-wrapper">
-                <div id="category-container" class="flex gap-3 w-full overflow-x-auto pb-4 pt-2 snap-x"></div>
+                <div id="category-container" class="flex gap-4 w-full overflow-x-auto pb-5 pt-2 snap-x"></div>
             </div>
 
-            <!-- Search & Marketplace Button -->
-            <div class="w-full">
-                <div class="glass-input rounded-2xl flex items-center px-5 py-4 shadow-inner mb-3">
-                    <i class="fas fa-search opacity-50 mr-3"></i>
-                    <input type="text" id="app-search" class="w-full bg-transparent outline-none text-sm font-medium" placeholder="Cari konten iMers...">
+            <!-- Search Field & Portal Marketplace -->
+            <div class="w-full space-y-4">
+                <div class="glass-input rounded-2xl flex items-center px-6 py-5 shadow-inner focus-within:ring-4 focus-within:ring-purple-500/10 transition-all">
+                    <i class="fas fa-search opacity-40 mr-4 text-lg"></i>
+                    <input type="text" id="app-search" class="w-full bg-transparent outline-none text-sm font-semibold placeholder-slate-400" placeholder="Cari layanan atau produk...">
                 </div>
-                <button onclick="toggleMarketplace()" id="btn-marketplace" class="w-full glass tap-effect rounded-2xl py-4 font-black text-xs flex justify-center items-center gap-3 border-dashed border-2 border-purple-200 dark:border-purple-800 text-purple-600 dark:text-purple-400 uppercase tracking-widest hidden">
-                    <i class="fas fa-th-large"></i> Katalog Halaman Sales
+                
+                <!-- Tombol Buka Katalog -->
+                <button onclick="toggleMarketplace()" id="btn-marketplace" class="w-full glass tap-effect rounded-2xl py-5 font-black text-[10px] flex justify-center items-center gap-4 border-dashed border-2 border-purple-300 dark:border-purple-800 text-purple-600 dark:text-purple-400 uppercase tracking-[0.4em] shadow-sm hidden">
+                    <i class="fas fa-shapes text-lg"></i> <span id="text-marketplace">Buka Katalog Sales</span>
                 </button>
             </div>
 
-            <!-- Apps Container -->
-            <div id="apps-container" class="grid grid-cols-1 gap-4 pt-2"></div>
+            <!-- Area Grid Blok Konten (Apps) -->
+            <div id="apps-container" class="grid grid-cols-1 gap-5 pt-2"></div>
             
-            <!-- Marketplace Container -->
-            <div id="marketplace-container" class="hidden grid grid-cols-2 gap-4 pt-2"></div>
+            <!-- Area Grid Marketplace (Katalog) -->
+            <div id="marketplace-container" class="hidden grid grid-cols-2 gap-5 pt-2"></div>
 
-            <!-- Pagination -->
-            <div id="pagination-container" class="flex justify-center items-center gap-2 mt-8 mb-4"></div>
+            <!-- Kontrol Navigasi Halaman (Pagination) -->
+            <div id="pagination-container" class="flex justify-center items-center gap-3 mt-12 mb-6"></div>
         </div>
 
-        <!-- VIP List Section -->
-        <div id="vip-list-section" class="mt-12 px-4 w-full animate-stagger hidden">
-            <div class="glass glass-card rounded-[2rem] p-8 text-center relative overflow-hidden border border-white/50 shadow-xl">
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl"></div>
-                <h3 class="text-xl font-black mb-2 uppercase tracking-tight">Join VIP List 🚀</h3>
-                <p class="text-xs opacity-60 mb-6 px-4">Dapatkan akses promo dan update terbaru langsung ke kontakmu.</p>
-                <form id="lead-form" onsubmit="submitLeadForm(event)" class="space-y-3 relative z-10 text-left">
-                    <input type="text" id="lead-name" placeholder="Nama Lengkap" required class="w-full glass-input rounded-xl px-5 py-4 text-sm font-bold outline-none focus:ring-2 focus:ring-purple-400 transition-all">
-                    <input type="email" id="lead-email" placeholder="Email Aktif" required class="w-full glass-input rounded-xl px-5 py-4 text-sm font-bold outline-none focus:ring-2 focus:ring-purple-400 transition-all">
-                    <input type="tel" id="lead-wa" placeholder="Nomor WhatsApp" required class="w-full glass-input rounded-xl px-5 py-4 text-sm font-bold outline-none focus:ring-2 focus:ring-purple-400 transition-all">
-                    <button type="submit" id="lead-submit-btn" class="w-full glass glass-btn tap-effect bg-purple-600 text-white font-black py-4 rounded-xl mt-4 shadow-lg uppercase tracking-widest text-[11px]">Berlangganan Sekarang</button>
-                    <p id="lead-msg" class="text-[10px] text-center font-bold mt-4 hidden"></p>
+        <!-- VIP LEAD CAPTURE FORM -->
+        <div id="vip-list-section" class="mt-16 px-5 w-full animate-stagger hidden">
+            <div class="glass rounded-[3rem] p-10 text-center relative overflow-hidden border border-white/50 shadow-2xl">
+                <!-- Ornamen Latar Form -->
+                <div class="absolute -top-16 -right-16 w-48 h-48 bg-purple-600/10 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-16 -left-16 w-48 h-48 bg-pink-600/10 rounded-full blur-3xl"></div>
+
+                <div class="w-16 h-16 mx-auto rounded-[1.5rem] glass flex items-center justify-center text-purple-600 dark:text-purple-400 text-2xl mb-5 shadow-inner border border-white/40">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <h3 class="text-2xl font-black mb-2 uppercase tracking-tight text-slate-800 dark:text-white font-[Poppins]">Join VIP List ✨</h3>
+                <p class="text-[11px] font-medium opacity-60 mb-8 px-6 leading-relaxed uppercase tracking-wider">Dapatkan akses promo rahasia dan update tool terbaru langsung ke WhatsApp-mu.</p>
+
+                <form id="lead-form" onsubmit="handleLeadSubmission(event)" class="space-y-4 relative z-10 text-left">
+                    <div class="space-y-1">
+                        <input type="text" id="lead-name" placeholder="NAMA LENGKAP" required class="w-full glass-input rounded-xl px-6 py-4 text-xs font-black uppercase tracking-widest outline-none focus:ring-4 focus:ring-purple-500/20 transition-all">
+                    </div>
+                    <div class="space-y-1">
+                        <input type="email" id="lead-email" placeholder="EMAIL AKTIF" required class="w-full glass-input rounded-xl px-6 py-4 text-xs font-black uppercase tracking-widest outline-none focus:ring-4 focus:ring-purple-500/20 transition-all">
+                    </div>
+                    <div class="space-y-1">
+                        <input type="tel" id="lead-wa" placeholder="NOMOR WHATSAPP" required class="w-full glass-input rounded-xl px-6 py-4 text-xs font-black uppercase tracking-widest outline-none focus:ring-4 focus:ring-purple-500/20 transition-all">
+                    </div>
+                    
+                    <button type="submit" id="lead-submit-btn" class="w-full glass glass-btn tap-effect bg-purple-700 text-white font-black py-5 rounded-2xl mt-6 shadow-xl uppercase tracking-[0.3em] text-[10px]">
+                        BERLANGGANAN SEKARANG
+                    </button>
+                    
+                    <p id="lead-feedback" class="text-[10px] text-center font-black uppercase tracking-widest mt-5 hidden"></p>
                 </form>
             </div>
         </div>
 
-        <!-- Share & Footer -->
-        <div class="mt-12 mb-6 flex justify-center animate-stagger">
-            <button onclick="shareProfile()" class="glass glass-btn tap-effect px-8 py-4 rounded-full flex items-center gap-3 font-black text-[10px] uppercase tracking-widest shadow-md">
-                <i class="fas fa-share-nodes"></i> Bagikan Link iMers
+        <!-- SHARE ENGINE & FOOTER -->
+        <div class="mt-16 mb-10 flex justify-center animate-stagger">
+            <button onclick="activateShare()" class="glass glass-btn tap-effect px-10 py-5 rounded-full flex items-center gap-4 font-black text-[10px] uppercase tracking-[0.4em] shadow-xl border border-white/60">
+                <i class="fas fa-share-nodes text-base"></i> Bagikan iMers Biopage
             </button>
         </div>
-        <footer class="text-center mt-10 pb-8 opacity-40">
-            <p class="text-[9px] font-black uppercase tracking-[0.3em]"><span id="footer-name"></span> © <span id="year"></span>. <span id="footer-text"></span></p>
+
+        <footer class="text-center mt-12 pb-12 opacity-30">
+            <p class="text-[9px] font-black uppercase tracking-[0.5em] leading-loose">
+                <span id="footer-owner"></span> <br> 
+                POWERED BY iMERS BIOPAGE SYSTEM © <span id="current-year"></span>
+            </p>
         </footer>
     </main>
 
-    <!-- Password Modal -->
-    <div id="password-modal" class="fixed inset-0 hidden z-[200] flex items-center justify-center p-4 bg-gray-900/40 backdrop-blur-xl transition-all">
-        <div class="glass rounded-[3rem] border border-white/50 w-full max-w-sm p-10 transform scale-95 opacity-0 transition-all" id="password-modal-content">
-            <div class="text-center mb-8">
-                <div class="w-20 h-20 rounded-[2rem] glass flex items-center justify-center mx-auto mb-6 text-purple-600 shadow-inner">
-                    <i class="fas fa-lock-open text-3xl"></i>
+    <!-- SECURITY PORTAL (PASSWORD MODAL) -->
+    <div id="password-portal" class="fixed inset-0 hidden z-[200] flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-2xl transition-all duration-500">
+        <div class="glass rounded-[3.5rem] border border-white/40 w-full max-w-sm p-12 transform scale-90 opacity-0 transition-all duration-500 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]" id="password-portal-box">
+            <div class="text-center mb-10">
+                <div class="w-24 h-24 rounded-[2.5rem] glass flex items-center justify-center mx-auto mb-8 text-purple-600 shadow-inner border border-white/30 animate-float">
+                    <i class="fas fa-fingerprint text-4xl"></i>
                 </div>
-                <h3 class="text-2xl font-black tracking-tight">Area Terkunci</h3>
-                <p class="text-sm opacity-50 mt-2 px-4">Konten ini dilindungi sandi. Masukkan sandi akses untuk membukanya.</p>
+                <h3 class="text-2xl font-black tracking-tighter uppercase font-[Poppins]">Area Terbatas</h3>
+                <p class="text-[11px] font-bold opacity-40 mt-3 px-6 uppercase tracking-widest leading-loose">Halaman ini dilindungi sandi akses. Masukkan kode untuk melanjutkan.</p>
             </div>
-            <form id="password-form" class="space-y-6">
-                <input type="hidden" id="locked-app-id">
-                <input type="password" id="app-password" placeholder="PASSWORD..." class="w-full glass-input rounded-2xl px-6 py-5 text-center tracking-[0.5em] font-black text-xl outline-none focus:ring-4 focus:ring-purple-400/20" required>
-                <p id="password-error" class="text-red-500 text-[10px] text-center hidden font-black uppercase tracking-widest"></p>
+            
+            <form id="auth-form" class="space-y-8">
+                <input type="hidden" id="auth-target-id">
+                <div class="relative">
+                    <input type="password" id="auth-password" placeholder="••••••••" class="w-full glass-input rounded-2xl px-6 py-6 text-center tracking-[1em] font-black text-2xl outline-none focus:ring-8 focus:ring-purple-500/10 shadow-inner" required>
+                </div>
+                <p id="auth-error-msg" class="text-red-500 text-[10px] text-center hidden font-black uppercase tracking-widest animate-pulse"></p>
+                
                 <div class="flex gap-4">
-                    <button type="button" onclick="closePasswordModal()" class="flex-1 glass glass-btn py-4 rounded-2xl font-black text-[11px] uppercase">Batal</button>
-                    <button type="submit" id="unlock-btn" class="flex-1 glass glass-btn py-4 rounded-2xl font-black text-[11px] uppercase text-purple-600 bg-white shadow-xl">Buka</button>
+                    <button type="button" onclick="closeAuthPortal()" class="flex-1 glass glass-btn py-5 rounded-2xl font-black text-[10px] uppercase tracking-widest border border-white/40">BATAL</button>
+                    <button type="submit" id="auth-submit-btn" class="flex-1 glass glass-btn py-5 rounded-2xl font-black text-[10px] uppercase tracking-widest text-white bg-slate-900 shadow-2xl">BUKA AKSES</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 glass rounded-full px-8 py-4 opacity-0 transition-all pointer-events-none z-[300] flex items-center gap-3 shadow-2xl">
-        <i class="fas fa-check-circle text-green-500"></i>
-        <span class="text-xs font-black uppercase tracking-widest">Link Berhasil Disalin!</span>
+    <!-- NOTIFIKASI TOAST (COPY LINK) -->
+    <div id="toast-notif" class="fixed bottom-12 left-1/2 -translate-x-1/2 glass rounded-full px-10 py-5 opacity-0 transition-all duration-500 pointer-events-none z-[300] flex items-center gap-4 shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-white/60">
+        <div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-xs shadow-lg">
+            <i class="fas fa-check"></i>
+        </div>
+        <span class="text-[11px] font-black uppercase tracking-[0.2em] text-slate-700 dark:text-white">Link iMers Disalin Ke Clipboard!</span>
     </div>
 
-    <!-- MAIN LOGIC (SCRIPT ENGINE) -->
+    <!-- ==========================================
+         3. CORE JAVASCRIPT ENGINE (SANGAT DETAIL)
+         ========================================== -->
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOOuq8euMjbH-XNkjqdBASmj_a1qvK4DP5SiHotX_mEOspwvybUuUdFwUibl8N4r6Olw/exec';
+        /**
+         * INITIAL CONFIGURATION
+         * Masukkan URL Web App Google Apps Script Anda di sini.
+         */
+        const GOOGLE_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxOOuq8euMjbH-XNkjqdBASmj_a1qvK4DP5SiHotX_mEOspwvybUuUdFwUibl8N4r6Olw/exec';
         
-        let currentPage = 1;
-        let activeCategory = 'Semua';
-        let searchQuery = '';
-        let currentApps = [];
-        let currentPages = [];
-        let globalConfig = {};
-        let isMarketplaceOpen = false;
-        const ITEMS_PER_PAGE = 20;
+        /**
+         * GLOBAL STATE MANAGEMENT
+         * Variabel penampung data agar tidak perlu request berulang kali.
+         */
+        let state_currentPage = 1;
+        let state_activeCategory = 'Semua';
+        let state_searchQuery = '';
+        let state_appsData = [];
+        let state_pagesData = [];
+        let state_globalConfig = {};
+        let state_isMarketplaceMode = false;
+        
+        const PAGINATION_LIMIT = 20;
 
-        // --- FETCH & PIXEL ENGINE ---
-        async function init() {
+        /**
+         * FUNGSI INIT (ENTRY POINT)
+         * Menjalankan mesin pertama kali saat halaman dimuat.
+         */
+        async function iMersEngineInit() {
+            console.log("🚀 iMers Engine Starting...");
+            
             try {
-                const response = await fetch(`${SCRIPT_URL}?action=getData`);
-                const data = await response.json();
+                // Mengambil seluruh data dari Google Sheets Backend
+                const response = await fetch(`${GOOGLE_SCRIPT_ENDPOINT}?action=getData`);
+                const result = await response.json();
                 
-                globalConfig = data.config;
-                currentApps = (data.apps || []).filter(a => String(a.Visible).toLowerCase() === 'true');
-                currentPages = (data.pages || []).filter(p => String(p.visible).toLowerCase() === 'true');
+                // Menyimpan data ke state lokal
+                state_globalConfig = result.config;
+                state_appsData = (result.apps || []).filter(item => {
+                    const isVisible = String(item.Visible || item.visible).toLowerCase() === 'true';
+                    return isVisible;
+                });
+                state_pagesData = (result.pages || []).filter(page => {
+                    const isPageVisible = String(page.visible).toLowerCase() === 'true';
+                    return isPageVisible;
+                });
 
-                // Injeksi Pixel Facebook & TikTok
-                injectPixels(globalConfig);
+                // Menjalankan script Pixel Ads (FB & TikTok)
+                executeTrackingPixels(state_globalConfig);
                 
-                document.getElementById('loading-spinner').classList.add('hidden');
+                // Menghilangkan loading screen
+                const spinner = document.getElementById('loading-spinner');
+                spinner.classList.add('opacity-0');
+                setTimeout(() => spinner.classList.add('hidden'), 700);
 
-                const urlParams = new URLSearchParams(window.location.search);
-                const activeSlug = urlParams.get('page');
+                // Routing: Cek apakah ada parameter ?page=slug di URL
+                const queryParams = new URLSearchParams(window.location.search);
+                const requestedSlug = queryParams.get('page');
 
-                if (activeSlug) {
-                    renderLandingPage(activeSlug);
+                if (requestedSlug) {
+                    // Masuk ke Mode Landing Page spesifik
+                    processPageRouting(requestedSlug);
                 } else {
-                    renderProfile(data.config);
-                    renderSocials(data.socials);
-                    renderCategories(currentApps);
-                    updateDisplay();
+                    // Masuk ke Mode Bio-Link Home
+                    renderProfileInfo(state_globalConfig);
+                    renderSocialLinks(result.socials);
+                    renderCategoryTabs(state_appsData);
+                    refreshContentDisplay();
 
-                    if (globalConfig.show_marketplace !== 'false' && currentPages.length > 0) {
+                    // Cek pengaturan visibilitas Marketplace & VIP Form dari Sheets
+                    const isMkVisible = state_globalConfig.show_marketplace !== 'false';
+                    const isVipVisible = state_globalConfig.show_vip_form !== 'false';
+                    
+                    if (isMkVisible && state_pagesData.length > 0) {
                         document.getElementById('btn-marketplace').classList.remove('hidden');
                     }
-                    if (globalConfig.show_vip_form !== 'false') {
+                    if (isVipVisible) {
                         document.getElementById('vip-list-section').classList.remove('hidden');
                     }
                     
-                    const mainContent = document.getElementById('main-content');
-                    mainContent.classList.remove('hidden');
-                    setTimeout(() => mainContent.classList.remove('opacity-0'), 50);
+                    // Munculkan kontainer utama dengan transisi halus
+                    const mainUI = document.getElementById('main-content');
+                    mainUI.classList.remove('hidden');
+                    setTimeout(() => mainUI.classList.remove('opacity-0'), 100);
                 }
-
-                document.getElementById('footer-name').innerText = globalConfig.profile_name || 'iMers Biopage';
-                document.getElementById('footer-text').innerText = globalConfig.footer_text || '';
-                document.getElementById('year').innerText = new Date().getFullYear();
                 
-                setupSearch();
-            } catch (error) {
-                console.error("Engine failure:", error);
+                // Set data footer statis
+                document.getElementById('footer-owner').innerText = state_globalConfig.profile_name || 'iMers Biopage';
+                document.getElementById('current-year').innerText = new Date().getFullYear();
+                
+                // Mengaktifkan fitur pencarian dinamis
+                initiateSearchFeature();
+                
+            } catch (err) {
+                console.error("❌ Engine Error:", err);
+                // Fallback UI jika database gagal dimuat
             }
         }
 
-        function injectPixels(cfg) {
-            if (cfg.pixel_fb) {
-                !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', cfg.pixel_fb); fbq('track', 'PageView');
-                console.log("FB Pixel Active");
+        /**
+         * FUNGSI ADS TRACKING ENGINE
+         * Menyuntikkan script tracking secara runtime berdasarkan ID di Sheets.
+         */
+        function executeTrackingPixels(cfg) {
+            // A. FACEBOOK PIXEL LOGIC
+            if (cfg.pixel_fb && cfg.pixel_fb.trim() !== '') {
+                const fbId = cfg.pixel_fb.trim();
+                !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+                n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+                document,'script','https://connect.facebook.net/en_US/fbevents.js');
+                
+                fbq('init', fbId); 
+                fbq('track', 'PageView');
+                console.log("📡 Facebook Pixel Injected:", fbId);
             }
-            if (cfg.pixel_tiktok) {
-                !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","trackWithContext","setAndTrack"],ttq.instance=function(t){for(var e=ttq._instances[t]||[],n=0;n<ttq.methods.length;n++)ttq.set(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._instances=ttq._instances||{},ttq._instances[t]=ttq.instance(t),ttq._flex=ttq._flex||{},ttq._flex.p=ttq._flex.p||{};var o=d.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};ttq.load(cfg.pixel_tiktok);ttq.page();}(window,document,'ttq');
-                console.log("TikTok Pixel Active");
+            
+            // B. TIKTOK PIXEL LOGIC
+            if (cfg.pixel_tiktok && cfg.pixel_tiktok.trim() !== '') {
+                const ttId = cfg.pixel_tiktok.trim();
+                !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","trackWithContext","setAndTrack"],ttq.instance=function(t){for(var e=ttq._instances[t]||[],n=0;n<ttq.methods.length;n++)ttq.set(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};ttq.load(ttId);ttq.page();}(window,document,'ttq');
+                console.log("📡 TikTok Pixel Injected:", ttId);
             }
         }
 
-        // --- RENDER UI ---
-        function renderProfile(c) {
-            document.getElementById('profile-name').innerText = c.profile_name;
-            document.getElementById('profile-title').innerText = c.profile_title;
-            document.getElementById('profile-image').src = c.profile_image;
-            if (String(c.verified_badge).toLowerCase() === 'true') {
+        /**
+         * FUNGSI RENDER PROFIL
+         */
+        function renderProfileInfo(cfg) {
+            document.getElementById('profile-name').innerText = cfg.profile_name;
+            document.getElementById('profile-title').innerText = cfg.profile_title;
+            document.getElementById('profile-image').src = cfg.profile_image;
+            
+            // Tampilkan badge verifikasi jika statusnya 'true'
+            const isVerified = String(cfg.verified_badge).toLowerCase() === 'true';
+            if (isVerified) {
                 document.getElementById('verified-badge').classList.remove('hidden');
             }
         }
 
-        function renderSocials(socs) {
+        /**
+         * FUNGSI RENDER SOSIAL MEDIA
+         */
+        function renderSocialLinks(socials) {
             const container = document.getElementById('socials-container');
             container.innerHTML = '';
-            socs.filter(s => String(s.Visible).toLowerCase() === 'true').forEach((s, i) => {
-                const a = document.createElement('a');
-                a.href = s.Url; a.target = "_blank";
-                a.className = `w-12 h-12 md:w-14 md:h-14 rounded-2xl glass glass-btn flex items-center justify-center text-xl shadow-lg hover:scale-110 transition-transform ${s.ColorClass}`;
-                a.style.animationDelay = `${0.1 + (i * 0.05)}s`;
-                a.innerHTML = `<i class="${s.IconClass}"></i>`;
-                container.appendChild(a);
-            });
-        }
-
-        function updateDisplay() {
-            let filtered = currentApps.filter(app => {
-                const cats = (app.Category || '').split(',').map(c => c.trim());
-                const matchSearch = (app.Name || '').toLowerCase().includes(searchQuery) || (app.Description || '').toLowerCase().includes(searchQuery);
-                const matchCat = activeCategory === 'Semua' || cats.includes(activeCategory);
-                return matchSearch && matchCat;
-            });
             
-            const total = filtered.length;
-            const paginated = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
-            
-            renderApps(paginated);
-            renderPagination(total);
-        }
-
-        function renderApps(apps) {
-            const container = document.getElementById('apps-container');
-            container.innerHTML = '';
-            apps.forEach((app, index) => {
-                const div = document.createElement('div');
-                div.className = 'w-full animate-stagger';
-                div.style.animationDelay = `${0.1 + (index * 0.05)}s`;
-
-                const type = (app.Type || 'link').toLowerCase();
-                const isLocked = app.isLocked === true;
-
-                if (type === 'hero') {
-                    div.innerHTML = `
-                        <div class="text-center py-6">
-                            <img src="${app.LogoUrl}" class="h-16 mx-auto mb-4 rounded-full shadow-lg">
-                            <h2 class="text-2xl font-black tracking-tighter">${app.Name}</h2>
-                            <p class="text-[11px] opacity-60 mt-1 uppercase tracking-widest px-10">${app.Description}</p>
-                        </div>`;
-                } else if (type === 'image') {
-                    div.innerHTML = `
-                        <a href="${app.Url}" target="_blank" class="block glass rounded-3xl overflow-hidden tap-effect border-white/40 shadow-xl relative">
-                            ${renderBadge(app)}
-                            <img src="${app.ImageUrl}" class="w-full h-auto object-cover">
-                        </a>`;
-                } else if (type === 'pricing') {
-                    div.innerHTML = `
-                        <div class="glass rounded-[2rem] p-6 text-center border-t-4 shadow-xl" style="border-top-color: ${app.BadgeColor1 || '#9333ea'}">
-                            <h3 class="text-lg font-black uppercase tracking-widest mb-4 ${app.ColorClass}">${app.Name}</h3>
-                            <div class="text-sm opacity-80 mb-6 text-left whitespace-pre-line">${app.Description}</div>
-                            <a href="${app.Url}" target="_blank" class="block w-full py-4 rounded-xl font-black text-white shadow-lg tap-effect" style="background: linear-gradient(135deg, ${app.BadgeColor1 || '#9333ea'}, ${app.BadgeColor2 || '#ec4899'})">BELI SEKARANG</a>
-                        </div>`;
-                } else {
-                    div.innerHTML = `
-                        <div onclick="${isLocked ? `openPasswordModal('${app.ID}','${app.Name}')` : `window.open('${app.Url}','_blank'); sendTracking('Click','${app.Name}','${app.ID}')`}" class="glass rounded-2xl p-4 flex items-center gap-4 tap-effect cursor-pointer group shadow-sm relative">
-                            ${renderBadge(app)}
-                            <div class="w-12 h-12 rounded-xl glass-input flex items-center justify-center text-2xl ${app.ColorClass}">
-                                <i class="${isLocked ? 'fas fa-lock' : (app.IconClass || 'fas fa-link')}"></i>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <h4 class="font-bold text-sm truncate">${app.Name}</h4>
-                                <p class="text-[10px] opacity-40 uppercase tracking-widest truncate font-semibold">${app.Description}</p>
-                            </div>
-                            <i class="fas fa-chevron-right text-[10px] opacity-20 group-hover:opacity-100 transition-opacity pr-2"></i>
-                        </div>`;
-                }
-                container.appendChild(div);
+            socials.forEach((social, index) => {
+                const isVisible = String(social.Visible).toLowerCase() === 'true';
+                if (!isVisible) return;
+                
+                const anchor = document.createElement('a');
+                anchor.href = social.Url;
+                anchor.target = "_blank";
+                anchor.className = `w-14 h-14 rounded-[1.5rem] glass glass-btn flex items-center justify-center text-2xl shadow-xl hover:scale-110 transition-transform ${social.ColorClass}`;
+                anchor.style.animationDelay = `${0.1 + (index * 0.05)}s`;
+                anchor.innerHTML = `<i class="${social.IconClass}"></i>`;
+                
+                container.appendChild(anchor);
             });
         }
 
-        function renderBadge(app) {
-            if (!app.BadgeText) return '';
-            return `<div class="absolute top-2 right-2 rounded-bl-xl rounded-tr-xl px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg z-10" style="background: linear-gradient(135deg, ${app.BadgeColor1 || '#ec4899'}, ${app.BadgeColor2 || '#8b5cf6'})">${app.BadgeText}</div>`;
-        }
-
-        function renderCategories(apps) {
-            const container = document.getElementById('category-container');
-            const uniqueCats = ['Semua', ...new Set(apps.flatMap(a => (a.Category || '').split(',').map(c => c.trim())).filter(Boolean))];
-            container.innerHTML = uniqueCats.map(cat => `<button onclick="filterCategory('${cat}')" class="px-5 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-widest glass glass-btn ${cat === 'Semua' ? 'glass-active' : ''}">${cat}</button>`).join('');
-        }
-
-        window.filterCategory = (cat) => {
-            activeCategory = cat; currentPage = 1;
-            document.querySelectorAll('#category-container button').forEach(b => b.classList.remove('glass-active'));
-            event.target.classList.add('glass-active');
-            updateDisplay();
-        };
-
-        // --- LANDING PAGE ENGINE ---
-        function renderLandingPage(slug) {
-            const page = currentPages.find(p => p.slug === slug);
-            if (page) {
-                if (page.password) {
-                    openPasswordModal(page.slug, page.title);
+        /**
+         * FUNGSI ROUTING LANDING PAGE (VIEW 1)
+         * Menampilkan konten landing page secara utuh di View 1.
+         */
+        function processPageRouting(slug) {
+            const targetPage = state_pagesData.find(p => p.slug === slug);
+            
+            if (targetPage) {
+                // Cek Proteksi Sandi
+                if (targetPage.password && targetPage.password.trim() !== '') {
+                    openAuthPortal(targetPage.slug, targetPage.title);
                 } else {
-                    document.getElementById('landing-page-content').innerHTML = page.html_content;
+                    // Langsung Render Konten
+                    const contentContainer = document.getElementById('landing-page-content');
+                    
+                    // ==========================================
+                    // ZERO MARGIN LOGIC: Menginjeksi konten iMers
+                    // ==========================================
+                    contentContainer.innerHTML = `
+                        <!-- Latar belakang ornamen internal kartu -->
+                        <div class="absolute -top-20 -right-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        
+                        <!-- Konten HTML Mentah dari Sheets -->
+                        <div class="relative z-10 w-full text-center">
+                            ${targetPage.html_content}
+                        </div>
+                    `;
+                    
+                    // Munculkan View Page
                     document.getElementById('landing-page-view').classList.remove('hidden');
                     document.getElementById('main-content').classList.add('hidden');
-                    document.title = page.title;
-                    sendTracking('View Page', page.title, page.slug);
+                    
+                    // Update Judul Browser
+                    document.title = targetPage.title + " | iMers Biopage";
+                    
+                    // Catat Tracking Lead (Event: View Page)
+                    trackConversion('View Page', targetPage.title, targetPage.slug);
                 }
             }
         }
 
-        function goBackHome() {
-            const url = new URL(window.location);
-            url.searchParams.delete('page');
-            window.history.pushState({}, '', url);
-            window.location.reload();
+        /**
+         * FUNGSI DISPLAY BLOK (BIOLINK)
+         */
+        function refreshContentDisplay() {
+            // Proses Filter Data
+            let filteredList = state_appsData.filter(app => {
+                const appCategories = (app.Category || '').split(',').map(c => c.trim());
+                const isMatchSearch = (app.Name || '').toLowerCase().includes(state_searchQuery) || 
+                                     (app.Description || '').toLowerCase().includes(state_searchQuery);
+                const isMatchCategory = state_activeCategory === 'Semua' || appCategories.includes(state_activeCategory);
+                
+                return isMatchSearch && isMatchCategory;
+            });
+            
+            // Proses Paginasi
+            const totalItems = filteredList.length;
+            const startIndex = (state_currentPage - 1) * PAGINATION_LIMIT;
+            const paginatedItems = filteredList.slice(startIndex, startIndex + PAGINATION_LIMIT);
+            
+            renderBlockItems(paginatedItems);
+            renderPaginationControls(totalItems);
         }
 
+        /**
+         * FUNGSI RENDER ITEM BLOK KE DOM
+         */
+        function renderBlockItems(items) {
+            const container = document.getElementById('apps-container');
+            container.innerHTML = '';
+            
+            if (items.length === 0) {
+                container.innerHTML = `<div class="text-center py-20 opacity-30 font-bold uppercase tracking-widest italic text-xs">Konten tidak ditemukan...</div>`;
+                return;
+            }
+
+            items.forEach((app, index) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'w-full animate-stagger';
+                wrapper.style.animationDelay = `${0.1 + (index * 0.05)}s`;
+
+                const type = (app.Type || 'link').toLowerCase();
+                const isProtected = app.isLocked === true;
+
+                // TEMPLATE 1: HERO SECTION
+                if (type === 'hero') {
+                    wrapper.innerHTML = `
+                        <div class="text-center py-10 px-4">
+                            <img src="${app.LogoUrl}" class="h-20 mx-auto mb-6 rounded-full shadow-2xl border-4 border-white/50 animate-float">
+                            <h2 class="text-3xl font-black tracking-tighter mb-2 font-[Poppins]">${app.Name}</h2>
+                            <p class="text-[11px] font-bold opacity-50 uppercase tracking-[0.3em] px-10 leading-relaxed">${app.Description}</p>
+                        </div>`;
+                } 
+                // TEMPLATE 2: BANNER IMAGE
+                else if (type === 'image') {
+                    wrapper.innerHTML = `
+                        <a href="${app.Url}" target="_blank" class="block glass rounded-[2.5rem] overflow-hidden tap-effect border-white/60 shadow-2xl relative">
+                            ${buildBadgeHtml(app)}
+                            <img src="${app.ImageUrl}" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                        </a>`;
+                } 
+                // TEMPLATE 3: KARTU HARGA (PRICING)
+                else if (type === 'pricing') {
+                    wrapper.innerHTML = `
+                        <div class="glass rounded-[3rem] p-10 text-center border-t-8 shadow-2xl relative overflow-hidden" style="border-top-color: ${app.BadgeColor1 || '#9333ea'}">
+                            <div class="absolute -top-12 -right-12 w-40 h-40 bg-purple-500/5 rounded-full blur-3xl"></div>
+                            <h3 class="text-2xl font-black uppercase tracking-tighter mb-6 ${app.ColorClass}">${app.Name}</h3>
+                            <div class="text-sm font-medium opacity-80 mb-10 text-left whitespace-pre-line leading-loose italic">${app.Description}</div>
+                            <a href="${app.Url}" target="_blank" class="block w-full py-5 rounded-2xl font-black text-white shadow-xl tap-effect uppercase tracking-widest text-[11px]" style="background: linear-gradient(135deg, ${app.BadgeColor1 || '#9333ea'}, ${app.BadgeColor2 || '#ec4899'})">DAPATKAN SEKARANG</a>
+                        </div>`;
+                } 
+                // TEMPLATE 4: LIST LINK STANDAR
+                else {
+                    const clickHandler = isProtected ? 
+                        `openAuthPortal('${app.ID}','${app.Name}')` : 
+                        `window.open('${app.Url}','_blank'); trackConversion('Click','${app.Name}','${app.ID}')`;
+                        
+                    wrapper.innerHTML = `
+                        <div onclick="${clickHandler}" class="glass rounded-[2rem] p-5 flex items-center gap-5 tap-effect cursor-pointer group shadow-sm border border-white/40 relative">
+                            ${buildBadgeHtml(app)}
+                            <div class="w-14 h-14 rounded-2xl glass-input flex items-center justify-center text-3xl ${app.ColorClass} shadow-inner">
+                                <i class="${isProtected ? 'fas fa-shield-halved' : (app.IconClass || 'fas fa-link')}"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-black text-base truncate tracking-tight">${app.Name}</h4>
+                                <p class="text-[10px] font-bold opacity-40 uppercase tracking-widest truncate mt-1">${app.Description}</p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center bg-white/10 opacity-0 group-hover:opacity-100 transition-all shadow-sm">
+                                <i class="fas fa-chevron-right text-[10px] text-purple-600"></i>
+                            </div>
+                        </div>`;
+                }
+                
+                container.appendChild(wrapper);
+            });
+        }
+
+        /**
+         * FUNGSI BUILD BADGE
+         */
+        function buildBadgeHtml(app) {
+            if (!app.BadgeText || app.BadgeText.trim() === '') return '';
+            
+            const c1 = app.BadgeColor1 || '#ec4899';
+            const c2 = app.BadgeColor2 || '#8b5cf6';
+            const ratio = app.BadgeRatio || '50';
+            
+            return `
+                <div class="absolute top-3 right-3 rounded-bl-2xl rounded-tr-2xl px-4 py-1.5 text-[9px] font-black uppercase tracking-widest text-white shadow-xl z-20 border-b border-l border-white/30" 
+                     style="background: linear-gradient(135deg, ${c1} ${ratio}%, ${c2} 100%)">
+                    ${app.BadgeText}
+                </div>`;
+        }
+
+        /**
+         * FUNGSI CATEGORY TABS RENDERER
+         */
+        function renderCategoryTabs(apps) {
+            const container = document.getElementById('category-container');
+            
+            // Mencari seluruh kategori unik dari data apps
+            const rawCategories = apps.flatMap(item => {
+                const cats = (item.Category || '').split(',').map(c => c.trim());
+                return cats;
+            }).filter(Boolean);
+            
+            const uniqueCategories = ['Semua', ...new Set(rawCategories)];
+            
+            container.innerHTML = uniqueCategories.map(cat => {
+                const isActive = cat === state_activeCategory ? 'glass-active' : '';
+                return `
+                    <button onclick="handleCategoryChange('${cat}')" 
+                            class="px-7 py-3.5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] glass glass-btn shadow-md whitespace-nowrap snap-start ${isActive}">
+                        ${cat}
+                    </button>`;
+            }).join('');
+        }
+
+        /**
+         * EVENT HANDLER: CATEGORY CHANGE
+         */
+        window.handleCategoryChange = (cat) => {
+            state_activeCategory = cat;
+            state_currentPage = 1;
+            
+            // Re-render tabs untuk update UI active
+            renderCategoryTabs(state_appsData);
+            refreshContentDisplay();
+        };
+
+        /**
+         * FUNGSI MARKETPLACE TOGGLE
+         */
         function toggleMarketplace() {
-            isMarketplaceOpen = !isMarketplaceOpen;
-            document.getElementById('apps-container').classList.toggle('hidden', isMarketplaceOpen);
-            document.getElementById('cat-wrapper').classList.toggle('hidden', isMarketplaceOpen);
-            document.getElementById('marketplace-container').classList.toggle('hidden', !isMarketplaceOpen);
-            if (isMarketplaceOpen) renderMarketplace();
-        }
+            state_isMarketplaceMode = !state_isMarketplaceMode;
+            
+            const appArea = document.getElementById('apps-container');
+            const catArea = document.getElementById('cat-wrapper');
+            const mkArea = document.getElementById('marketplace-container');
+            const btnTxt = document.getElementById('text-marketplace');
+            const pagiArea = document.getElementById('pagination-container');
 
-        function renderMarketplace() {
-            const cont = document.getElementById('marketplace-container');
-            cont.innerHTML = currentPages.map(p => `
-                <div onclick="window.location.href='?page=${p.slug}'" class="glass rounded-2xl overflow-hidden tap-effect cursor-pointer group shadow-xl">
-                    <div class="h-32 bg-gray-200 relative overflow-hidden"><img src="${p.thumbnail}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"></div>
-                    <div class="p-3 bg-white/40"><h4 class="font-bold text-[10px] uppercase tracking-widest truncate">${p.title}</h4></div>
-                </div>`).join('');
-        }
-
-        // --- AUTH & TRACKING ---
-        function openPasswordModal(id, name) {
-            document.getElementById('locked-app-id').value = id;
-            document.getElementById('password-modal').classList.remove('hidden');
-            setTimeout(() => {
-                document.getElementById('password-modal-content').classList.remove('scale-95', 'opacity-0');
-            }, 10);
-        }
-
-        function closePasswordModal() {
-            document.getElementById('password-modal-content').classList.add('scale-95', 'opacity-0');
-            setTimeout(() => document.getElementById('password-modal').classList.add('hidden'), 300);
-        }
-
-        document.getElementById('password-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('locked-app-id').value;
-            const pass = document.getElementById('app-password').value;
-            const resp = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'verifyPassword', appId: id, password: pass }) });
-            const res = await resp.json();
-            if (res.success) {
-                closePasswordModal();
-                if (res.url === 'locked_page_content') renderLandingPage(id);
-                else window.open(res.url, '_blank');
+            if (state_isMarketplaceMode) {
+                btnTxt.innerText = "Kembali Ke Link Utama";
+                appArea.classList.add('hidden');
+                catArea.classList.add('hidden');
+                pagiArea.classList.add('hidden');
+                mkArea.classList.remove('hidden');
+                renderMarketplaceItems();
             } else {
-                const err = document.getElementById('password-error');
-                err.innerText = res.message; err.classList.remove('hidden');
+                btnTxt.innerText = "Buka Katalog Sales";
+                appArea.classList.remove('hidden');
+                catArea.classList.remove('hidden');
+                pagiArea.classList.remove('hidden');
+                mkArea.classList.add('hidden');
+            }
+        }
+
+        /**
+         * FUNGSI RENDER ITEM MARKETPLACE
+         */
+        function renderMarketplaceItems() {
+            const container = document.getElementById('marketplace-container');
+            
+            if (state_pagesData.length === 0) {
+                container.innerHTML = `<div class="col-span-2 text-center py-20 opacity-30 font-bold uppercase tracking-widest text-xs italic">Katalog promo belum tersedia...</div>`;
+                return;
+            }
+            
+            container.innerHTML = state_pagesData.map((page, i) => {
+                return `
+                    <div onclick="window.location.href='?page=${page.slug}'" 
+                         class="glass rounded-[2rem] overflow-hidden tap-effect cursor-pointer group shadow-2xl border border-white/50 animate-stagger h-full flex flex-col"
+                         style="animation-delay: ${0.1 + (i * 0.05)}s">
+                        <div class="h-40 bg-slate-200 relative overflow-hidden">
+                            <img src="${page.thumbnail || 'https://via.placeholder.com/300x200?text=Promo'}" 
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col justify-center bg-white/30 dark:bg-black/20">
+                            <h4 class="font-black text-[10px] uppercase tracking-widest leading-tight line-clamp-2">${page.title}</h4>
+                            <p class="text-[9px] opacity-40 mt-1 font-bold line-clamp-1">${page.slug}</p>
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        /**
+         * FUNGSI AUTH PORTAL (PASSWORD)
+         */
+        function openAuthPortal(id, name) {
+            document.getElementById('auth-target-id').value = id;
+            document.getElementById('auth-password').value = '';
+            document.getElementById('auth-error-msg').classList.add('hidden');
+            
+            const portal = document.getElementById('password-portal');
+            const box = document.getElementById('password-portal-box');
+            
+            portal.classList.remove('hidden');
+            setTimeout(() => {
+                box.classList.remove('scale-90', 'opacity-0');
+            }, 50);
+        }
+
+        function closeAuthPortal() {
+            const box = document.getElementById('password-portal-box');
+            box.classList.add('scale-90', 'opacity-0');
+            setTimeout(() => {
+                document.getElementById('password-portal').classList.add('hidden');
+            }, 500);
+        }
+
+        // Event Listener Form Password
+        document.getElementById('auth-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('auth-submit-btn');
+            const err = document.getElementById('auth-error-msg');
+            const targetId = document.getElementById('auth-target-id').value;
+            const inputPass = document.getElementById('auth-password').value;
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+            err.classList.add('hidden');
+
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_ENDPOINT, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'verifyPassword', appId: targetId, password: inputPass })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    closeAuthPortal();
+                    // Jika password halaman sales, jalankan router
+                    if (result.url === 'locked_page_content') {
+                        processPageRouting(targetId);
+                    } else {
+                        // Jika password blok aplikasi biasa, buka link
+                        window.open(result.url, '_blank');
+                    }
+                } else {
+                    err.innerText = result.message || "Sandi Salah!";
+                    err.classList.remove('hidden');
+                }
+            } catch (error) {
+                err.innerText = "Koneksi Terputus.";
+                err.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = "BUKA AKSES";
             }
         });
 
-        async function sendTracking(type, name, id) {
+        /**
+         * FUNGSI TRACKING KONVERSI (ADS ENGINE)
+         */
+        async function trackConversion(type, name, id) {
             try {
-                fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ action: 'recordTracking', type, productName: name, targetId: id }) });
-                if (typeof fbq !== 'undefined') fbq('track', 'AddToCart', { content_name: name });
-            } catch(e) {}
+                // Logika Server-Side
+                fetch(GOOGLE_SCRIPT_ENDPOINT, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify({ action: 'recordTracking', type: type, productName: name, targetId: id })
+                });
+                
+                // Logika Pixel Facebook
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'AddToCart', { content_name: name, content_id: id });
+                }
+                
+                // Increment Click di database (khusus Apps)
+                if (type === 'Click') {
+                    fetch(GOOGLE_SCRIPT_ENDPOINT, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: JSON.stringify({ action: 'incrementClick', appId: id })
+                    });
+                }
+            } catch (e) {
+                console.log("Tracking log suppressed.");
+            }
         }
 
-        async function submitLeadForm(e) {
+        /**
+         * FUNGSI HANDLING LEAD GENERATION (VIP FORM)
+         */
+        async function handleLeadSubmission(e) {
             e.preventDefault();
             const btn = document.getElementById('lead-submit-btn');
-            const msg = document.getElementById('lead-msg');
-            btn.disabled = true; btn.innerText = "MEMPROSES...";
+            const fb = document.getElementById('lead-feedback');
+            const oriText = btn.innerText;
+            
+            btn.disabled = true;
+            btn.innerText = "MEMPROSES DATA...";
+            fb.classList.add('hidden');
+
+            const payload = {
+                action: 'addLead',
+                name: document.getElementById('lead-name').value,
+                email: document.getElementById('lead-email').value,
+                wa: document.getElementById('lead-wa').value
+            };
+
             try {
-                const resp = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'addLead', name: document.getElementById('lead-name').value, email: document.getElementById('lead-email').value, wa: document.getElementById('lead-wa').value }) });
-                const res = await resp.json();
+                const response = await fetch(GOOGLE_SCRIPT_ENDPOINT, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                const res = await response.json();
+
                 if (res.success) {
-                    msg.innerText = "BERHASIL BERLANGGANAN! ✨"; msg.className = "text-[10px] text-center font-black text-green-500 block";
-                    if (globalConfig.vip_redirect_url) setTimeout(() => window.open(globalConfig.vip_redirect_url, '_blank'), 1500);
+                    fb.innerText = "TERIMA KASIH! AKSES VIP SEGERA DIKIRIM! ✨";
+                    fb.className = "text-[10px] text-center font-black text-green-500 block uppercase tracking-widest mt-5";
+                    document.getElementById('lead-form').reset();
+                    
+                    // Redirect otomatis jika diatur di Config
+                    if (state_globalConfig.vip_redirect_url) {
+                        setTimeout(() => window.open(state_globalConfig.vip_redirect_url, '_blank'), 2000);
+                    }
                 }
-            } catch(e) { msg.innerText = "GAGAL. COBA LAGI."; msg.className = "text-[10px] text-center font-black text-red-500 block"; }
-            finally { btn.disabled = false; btn.innerText = "BERLANGGANAN SEKARANG"; }
-        }
-
-        // --- HELPERS ---
-        function renderPagination(total) {
-            const cont = document.getElementById('pagination-container');
-            const pages = Math.ceil(total / ITEMS_PER_PAGE);
-            if (pages <= 1) { cont.innerHTML = ''; return; }
-            let html = '';
-            for (let i = 1; i <= pages; i++) {
-                html += `<button onclick="currentPage=${i};updateDisplay();window.scrollTo({top:0,behavior:'smooth'})" class="w-8 h-8 rounded-lg glass font-bold text-xs ${currentPage===i ? 'glass-active text-purple-600' : ''}">${i}</button>`;
+            } catch (err) {
+                fb.innerText = "GAGAL MENGIRIM. COBA LAGI BRO!";
+                fb.className = "text-[10px] text-center font-black text-red-500 block uppercase tracking-widest mt-5";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = oriText;
             }
-            cont.innerHTML = html;
         }
 
-        function setupSearch() {
+        /**
+         * FUNGSI UTILITY (SHARE, PAGINASI, SEARCH)
+         */
+        function goBackHome() {
+            const currentUrl = new URL(window.location);
+            currentUrl.searchParams.delete('page');
+            window.history.pushState({}, document.title, currentUrl);
+            window.location.reload();
+        }
+
+        function initiateSearchFeature() {
             document.getElementById('app-search').addEventListener('input', (e) => {
-                searchQuery = e.target.value.toLowerCase(); updateDisplay();
+                state_searchQuery = e.target.value.toLowerCase();
+                state_currentPage = 1;
+                refreshContentDisplay();
             });
+        }
+
+        function renderPaginationControls(total) {
+            const container = document.getElementById('pagination-container');
+            const maxPages = Math.ceil(total / PAGINATION_LIMIT);
+            
+            if (maxPages <= 1) { container.innerHTML = ''; return; }
+            
+            let html = '';
+            for (let i = 1; i <= maxPages; i++) {
+                const active = state_currentPage === i ? 'glass-active scale-110 shadow-lg' : '';
+                html += `<button onclick="state_currentPage=${i};refreshContentDisplay();window.scrollTo({top:0,behavior:'smooth'})" 
+                                 class="w-10 h-10 rounded-xl glass font-black text-xs transition-all ${active}">${i}</button>`;
+            }
+            container.innerHTML = html;
         }
 
         function toggleTheme() {
@@ -604,17 +975,28 @@
             localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
         }
 
-        function shareProfile() {
+        function activateShare() {
+            const shareData = { title: document.title, text: "Cek iMers Biopage gue bro!", url: window.location.href };
+            
             if (navigator.share) {
-                navigator.share({ title: document.title, url: window.location.href });
+                navigator.share(shareData).catch(() => console.log("Share cancelled"));
             } else {
-                const el = document.createElement('textarea'); el.value = window.location.href; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el);
-                const toast = document.getElementById('toast'); toast.classList.remove('opacity-0', 'pointer-events-none');
+                const tempInput = document.createElement('textarea');
+                tempInput.value = window.location.href;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                
+                const toast = document.getElementById('toast-notif');
+                toast.classList.remove('opacity-0', 'pointer-events-none');
                 setTimeout(() => toast.classList.add('opacity-0', 'pointer-events-none'), 3000);
             }
         }
 
-        init();
+        // MULAI MESIN iMERS
+        iMersEngineInit();
+        
     </script>
 </body>
 </html>
