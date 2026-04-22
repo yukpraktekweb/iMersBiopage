@@ -342,12 +342,13 @@
         
         const isUsingPlaceholder = SCRIPT_URL === 'ISI_DENGAN_URL_WEB_APP_GOOGLE_APPS_SCRIPT_DI_SINI';
 
-        // --- KONFIGURASI PAGINATION ---
+        // --- KONFIGURASI UMUM & PAGINATION ---
         const ITEMS_PER_PAGE = 5; // Ubah ke 10 nanti sesuai kebutuhan
         let currentPage = 1;
         let activeCategory = 'Semua';
         let searchQuery = '';
         let currentApps = [];
+        let globalConfig = {}; // Untuk menyimpan config agar bisa diakses saat submit form
 
         // --- MOCK DATA DENGAN BANYAK ITEM (Fallback/Offline) ---
         const MOCK_DATA = {
@@ -357,7 +358,8 @@
                 profile_image: "https://ui-avatars.com/api/?name=iMersBiopage&background=7c3aed&color=fff&size=256",
                 verified_badge: "true",
                 footer_text: "Designed with Glassmorphism.",
-                show_vip_form: "true" // Pengaturan default toggle form
+                show_vip_form: "true", // Pengaturan default toggle form
+                vip_redirect_url: "https://youtube.com" // Contoh Link redirect
             },
             socials: [
                 { Platform: "WhatsApp", Url: "https://wa.me", IconClass: "fab fa-whatsapp", ColorClass: "text-green-600 dark:text-green-400", Visible: "true" },
@@ -433,6 +435,8 @@
             const data = await fetchData();
             if (!data) return;
 
+            // Simpan config secara global agar bisa diakses fungsi lain (seperti redirect url)
+            globalConfig = data.config;
             currentApps = data.apps.filter(app => String(app.Visible).toLowerCase() === 'true');
             
             renderProfile(data.config);
@@ -655,7 +659,7 @@
             });
         }
 
-        // --- FUNGSI SUBMIT LEAD / NEWSLETTER ---
+        // --- FUNGSI SUBMIT LEAD / NEWSLETTER DENGAN REDIRECT ---
         async function submitLeadForm(e) {
             e.preventDefault();
             const btn = document.getElementById('lead-submit-btn');
@@ -672,9 +676,17 @@
             try {
                 if (isUsingPlaceholder) {
                     await new Promise(r => setTimeout(r, 1200));
-                    msg.innerText = "Berhasil! (Mode Offline)";
+                    msg.innerText = "Berhasil! Mengarahkan...";
                     msg.className = "text-xs text-center font-bold mt-3 text-green-500 block";
                     document.getElementById('lead-form').reset();
+                    
+                    // Logika Redirect Offline
+                    setTimeout(() => {
+                        if(globalConfig.vip_redirect_url && globalConfig.vip_redirect_url.trim() !== '') {
+                            window.open(globalConfig.vip_redirect_url, '_blank');
+                        }
+                    }, 1500);
+
                 } else {
                     const response = await fetch(SCRIPT_URL, {
                         method: 'POST',
@@ -684,9 +696,17 @@
                     const res = await response.json();
                     
                     if (res.success) {
-                        msg.innerText = "Terima kasih sudah bergabung!";
+                        msg.innerText = "Terima kasih sudah bergabung! Mengarahkan...";
                         msg.className = "text-xs text-center font-bold mt-3 text-green-500 block";
                         document.getElementById('lead-form').reset();
+
+                        // Logika Redirect Online (Mengambil data dari Google Sheets)
+                        setTimeout(() => {
+                            if(globalConfig.vip_redirect_url && globalConfig.vip_redirect_url.trim() !== '') {
+                                window.open(globalConfig.vip_redirect_url, '_blank');
+                            }
+                        }, 1500); // Tunggu 1.5 detik agar tulisan "Terima kasih..." terbaca dulu
+
                     } else {
                         throw new Error("Respon server gagal.");
                     }
