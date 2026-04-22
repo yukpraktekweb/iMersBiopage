@@ -242,7 +242,7 @@
 
         <!-- Footer -->
         <footer class="text-center mt-10 pb-4 opacity-60">
-            <p class="text-xs font-medium tracking-wide">© <span id="year"></span> <span id="footer-name"></span>. Designed with Glassmorphism.</p>
+            <p class="text-xs font-medium tracking-wide">© <span id="year"></span> <span id="footer-name"></span>. <span id="footer-text"></span></p>
         </footer>
 
     </main>
@@ -294,7 +294,7 @@
     <script>
         // --- API CONFIGURATION ---
         // GANTI URL DI BAWAH INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA!
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOOuq8euMjbH-XNkjqdBASmj_a1qvK4DP5SiHotX_mEOspwvybUuUdFwUibl8N4r6Olw/exec';
+        const SCRIPT_URL = 'ISI_DENGAN_URL_WEB_APP_GOOGLE_APPS_SCRIPT_DI_SINI';
         
         // Deteksi apakah pengguna belum mengganti URL
         const isUsingPlaceholder = SCRIPT_URL === 'ISI_DENGAN_URL_WEB_APP_GOOGLE_APPS_SCRIPT_DI_SINI';
@@ -305,7 +305,8 @@
                 profile_name: "iMersBiopage",
                 profile_title: "Digital Creator & Visionary",
                 profile_image: "https://ui-avatars.com/api/?name=iMersBiopage&background=7c3aed&color=fff&size=256",
-                verified_badge: "true"
+                verified_badge: "true",
+                footer_text: "Designed with Glassmorphism." // Penambahan Footer Dinamis
             },
             socials: [
                 { Platform: "WhatsApp", Url: "https://wa.me", IconClass: "fab fa-whatsapp", ColorClass: "text-green-600 dark:text-green-400", Visible: "true" },
@@ -315,10 +316,14 @@
                 { Platform: "Instagram", Url: "https://instagram.com", IconClass: "fab fa-instagram", ColorClass: "text-pink-600 dark:text-pink-400", Visible: "true" }
             ],
             apps: [
-                { ID: "app1", Name: "AI Image Studio", Description: "Generate gambar Neumorphic", Category: "AI Tools", Url: "https://example.com/ai", IconClass: "fas fa-wand-magic-sparkles", ColorClass: "text-purple-600 dark:text-purple-400", Visible: "true", ClickCount: 2045, isLocked: false },
-                { ID: "app2", Name: "Financial Tracker", Description: "Hitung aset dan investasi", Category: "Produktivitas", Url: "https://example.com/finance", IconClass: "fas fa-chart-pie", ColorClass: "text-emerald-600 dark:text-emerald-400", Visible: "true", ClickCount: 890, isLocked: false },
-                { ID: "app3", Name: "Private Blueprint", Description: "Strategi digital eksklusif", Category: "Premium", Url: "https://example.com/premium", IconClass: "fas fa-gem", ColorClass: "text-amber-500", Visible: "true", ClickCount: 120, isLocked: true, PasswordSourceUrl: "https://wa.me/628123456789", Password: "admin" },
-                { ID: "app4", Name: "Mentoring 1-on-1", Description: "Jadwalkan sesi privat", Category: "Produktivitas", Url: "https://example.com/jadwal", IconClass: "fas fa-calendar-check", ColorClass: "text-blue-600 dark:text-blue-400", Visible: "true", ClickCount: 340, isLocked: false }
+                { ID: "app1", Type: "link", Name: "AI Image Studio", Description: "Generate gambar Neumorphic", Category: "AI Tools", Url: "https://example.com/ai", IconClass: "fas fa-wand-magic-sparkles", ColorClass: "text-purple-600 dark:text-purple-400", Visible: "true", ClickCount: 2045, isLocked: false },
+                
+                // INI CONTOH BANNER IMAGE YANG DISISIPKAN
+                { ID: "banner1", Type: "image", Name: "Promo Bundle AI", ImageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop", Url: "https://example.com/promo", Category: "Semua", Visible: "true", ClickCount: 0 },
+                
+                { ID: "app2", Type: "link", Name: "Financial Tracker", Description: "Hitung aset dan investasi", Category: "Produktivitas", Url: "https://example.com/finance", IconClass: "fas fa-chart-pie", ColorClass: "text-emerald-600 dark:text-emerald-400", Visible: "true", ClickCount: 890, isLocked: false },
+                { ID: "app3", Type: "link", Name: "Private Blueprint", Description: "Strategi digital eksklusif", Category: "Premium", Url: "https://example.com/premium", IconClass: "fas fa-gem", ColorClass: "text-amber-500", Visible: "true", ClickCount: 120, isLocked: true, PasswordSourceUrl: "https://wa.me/628123456789", Password: "admin" },
+                { ID: "app4", Type: "link", Name: "Mentoring 1-on-1", Description: "Jadwalkan sesi privat", Category: "Produktivitas", Url: "https://example.com/jadwal", IconClass: "fas fa-calendar-check", ColorClass: "text-blue-600 dark:text-blue-400", Visible: "true", ClickCount: 340, isLocked: false }
             ]
         };
 
@@ -416,6 +421,8 @@
 
             document.getElementById('year').innerText = new Date().getFullYear();
             document.getElementById('footer-name').innerText = data.config.profile_name;
+            // Update teks footer dinamis
+            document.getElementById('footer-text').innerText = data.config.footer_text || 'Designed with Glassmorphism.';
 
             setupSearch();
         }
@@ -458,7 +465,8 @@
 
                 appsCards.forEach(app => {
                     const appCategories = (app.getAttribute('data-category') || '').split(',').map(c => c.trim());
-                    const name = (app.querySelector('h3')?.innerText || '').toLowerCase();
+                    // Cek elemen text pada link biasa (h3, p) atau alt pada image
+                    const name = (app.querySelector('h3')?.innerText || app.querySelector('img')?.alt || '').toLowerCase();
                     const desc = (app.querySelector('p')?.innerText || '').toLowerCase();
                     
                     const matchesSearch = name.includes(term) || desc.includes(term);
@@ -503,52 +511,65 @@
 
             apps.filter(app => String(app.Visible).toLowerCase() === 'true').forEach((app, index) => {
                 const isLocked = app.isLocked || false;
+                const itemType = app.Type || 'link'; // Defaultnya link
+                
                 const link = document.createElement('a');
-                link.href = isLocked ? '#' : app.Url;
-                if(!isLocked) link.target = '_blank';
+                link.href = isLocked ? '#' : app.Url || '#';
+                if(!isLocked && app.Url) link.target = '_blank';
                 link.setAttribute('data-category', app.Category || '');
 
                 if (isLocked) {
                     link.onclick = (e) => { e.preventDefault(); openPasswordModal(app.ID, app.Name, app.PasswordSourceUrl); };
-                } else {
+                } else if (app.Url) {
                      link.addEventListener('click', () => incrementAppClick(app.ID));
                 }
 
-                // Desty.page Style Horizontal Card with Glass Effect
-                link.className = `block glass glass-card tap-effect rounded-[1.5rem] p-3 md:p-4 relative overflow-hidden group cursor-pointer animate-stagger`;
-                link.style.animationDelay = `${0.3 + (index * 0.08)}s`; // Efek jatuh berurutan dari atas
-
-                const lockIcon = isLocked ? `<i class="fas fa-lock text-[10px] ml-2 opacity-50"></i>` : '';
-                const isPopular = (app.ClickCount || 0) > 1000;
-                const iconColor = app.ColorClass || '';
-                
-                // Hot badge kecil
-                const popularBadge = isPopular ? `<div class="absolute top-0 right-0 glass rounded-bl-xl rounded-tr-[1.5rem] px-3 py-1 text-[9px] font-bold text-red-500 uppercase border-t-0 border-r-0"><i class="fas fa-fire mr-1"></i>Hot</div>` : '';
-
-                link.innerHTML = `
-                    ${popularBadge}
-                    <div class="flex items-center gap-4 w-full">
-                        <!-- Left Icon Glass Box -->
-                        <div class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-[1.2rem] glass-input flex items-center justify-center ${iconColor} text-xl md:text-3xl group-hover:scale-110 transition-transform duration-300 shadow-sm border border-white/40">
-                            <i class="${app.IconClass}"></i>
+                // Jika Tipe-nya adalah Gambar (Banner)
+                if (itemType.toLowerCase() === 'image') {
+                    link.className = `block w-full tap-effect rounded-[1.5rem] overflow-hidden relative group cursor-pointer animate-stagger shadow-md glass p-1`;
+                    link.style.animationDelay = `${0.3 + (index * 0.08)}s`;
+                    
+                    link.innerHTML = `
+                        <div class="relative w-full rounded-[1.2rem] overflow-hidden">
+                            <img src="${app.ImageUrl}" alt="${app.Name || 'Banner'}" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                         </div>
-                        
-                        <!-- Middle Text -->
-                        <div class="flex-grow min-w-0 flex flex-col justify-center">
-                            <h3 class="font-bold text-sm md:text-base truncate pr-2 flex items-center">
-                                ${app.Name} ${lockIcon}
-                            </h3>
-                            ${app.Description ? `<p class="text-xs opacity-70 truncate pr-2 mt-1">${app.Description}</p>` : ''}
-                        </div>
-                        
-                        <!-- Right Action Button -->
-                        <div class="flex-shrink-0 flex items-center pr-2">
-                            <div class="w-8 h-8 rounded-full glass flex items-center justify-center opacity-70 group-hover:opacity-100 group-hover:bg-white/20 transition-all">
-                                <i class="fas fa-chevron-right text-xs"></i>
+                    `;
+                } 
+                // Jika Tipe-nya adalah Link (Card Horizontal Standar)
+                else {
+                    link.className = `block glass glass-card tap-effect rounded-[1.5rem] p-3 md:p-4 relative overflow-hidden group cursor-pointer animate-stagger`;
+                    link.style.animationDelay = `${0.3 + (index * 0.08)}s`; 
+
+                    const lockIcon = isLocked ? `<i class="fas fa-lock text-[10px] ml-2 opacity-50"></i>` : '';
+                    const isPopular = (app.ClickCount || 0) > 1000;
+                    const iconColor = app.ColorClass || '';
+                    
+                    const popularBadge = isPopular ? `<div class="absolute top-0 right-0 glass rounded-bl-xl rounded-tr-[1.5rem] px-3 py-1 text-[9px] font-bold text-red-500 uppercase border-t-0 border-r-0"><i class="fas fa-fire mr-1"></i>Hot</div>` : '';
+
+                    link.innerHTML = `
+                        ${popularBadge}
+                        <div class="flex items-center gap-4 w-full">
+                            <div class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-[1.2rem] glass-input flex items-center justify-center ${iconColor} text-xl md:text-3xl group-hover:scale-110 transition-transform duration-300 shadow-sm border border-white/40">
+                                <i class="${app.IconClass}"></i>
+                            </div>
+                            
+                            <div class="flex-grow min-w-0 flex flex-col justify-center">
+                                <h3 class="font-bold text-sm md:text-base truncate pr-2 flex items-center">
+                                    ${app.Name} ${lockIcon}
+                                </h3>
+                                ${app.Description ? `<p class="text-xs opacity-70 truncate pr-2 mt-1">${app.Description}</p>` : ''}
+                            </div>
+                            
+                            <div class="flex-shrink-0 flex items-center pr-2">
+                                <div class="w-8 h-8 rounded-full glass flex items-center justify-center opacity-70 group-hover:opacity-100 group-hover:bg-white/20 transition-all">
+                                    <i class="fas fa-chevron-right text-xs"></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                }
+                
                 container.appendChild(link);
             });
         }
