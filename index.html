@@ -195,12 +195,14 @@
     <!-- ========================================== -->
     <!-- VIEW 1: LANDING PAGE ROUTER (FULL HTML)    -->
     <!-- ========================================== -->
-    <div id="landing-page-view" class="w-full max-w-2xl mx-auto relative z-10 hidden pt-6 pb-12 px-2 md:px-4 animate-stagger">
-        <button onclick="goBackHome()" class="glass px-5 py-3 rounded-xl text-sm font-bold mb-6 hover:bg-white/50 transition-colors flex items-center gap-2 shadow-sm border border-white/50 w-max">
+    <!-- PERBAIKAN: Kontainer dipatenkan seperti kartu VIP (max-w-md) -->
+    <div id="landing-page-view" class="w-full max-w-md mx-auto relative z-10 hidden pt-6 pb-12 px-4 animate-stagger">
+        <button onclick="goBackHome()" class="glass glass-btn tap-effect px-5 py-2.5 rounded-xl text-xs font-bold mb-6 flex items-center gap-2 shadow-sm border border-white/50 w-max mx-auto">
             <i class="fas fa-arrow-left"></i> Kembali ke Menu
         </button>
-        <!-- Tempat muntahan kode HTML dari Sheet_Pages -->
-        <div id="landing-page-content" class="w-full relative glass rounded-[2rem] border border-white/50 shadow-2xl overflow-hidden min-h-[50vh] p-8 md:p-12 flex flex-col items-center justify-center">
+        
+        <!-- Box Landing Page bergaya Kartu VIP -->
+        <div id="landing-page-content" class="glass glass-card rounded-[1.5rem] p-6 md:p-8 text-center relative overflow-hidden border border-white/50 shadow-xl w-full">
             <!-- Injected by JS -->
         </div>
     </div>
@@ -276,7 +278,7 @@
                         <input type="tel" id="lead-wa" placeholder="No. WhatsApp" required class="w-full glass-input rounded-xl pl-10 pr-4 py-3 text-sm outline-none focus:ring-2 focus:ring-purple-400 transition-all font-medium">
                     </div>
 
-                    <button type="submit" id="lead-submit-btn" class="w-full glass glass-btn tap-effect bg-purple-600/10 text-purple-700 dark:text-purple-300 border-purple-300 font-bold py-3 rounded-xl mt-4 transition-all shadow-sm">
+                    <button type="submit" id="lead-submit-btn" class="w-full glass glass-btn tap-effect bg-purple-600/10 text-purple-700 dark:text-purple-300 border border-purple-300 font-bold py-3 rounded-xl mt-4 transition-all shadow-sm">
                         Berlangganan Sekarang
                     </button>
                     <p id="lead-msg" class="text-xs text-center font-bold mt-3 hidden"></p>
@@ -351,6 +353,7 @@
         let globalConfig = {};
         let isMarketplaceOpen = false;
 
+        // DATA MOCKUP DIGANTI BIAR BENTUKNYA PERSIS SEPERTI VIP FORM
         const MOCK_DATA = {
             config: { 
                 profile_name: "iMersBiopage", 
@@ -375,18 +378,32 @@
                     description: "Landing page elegan dengan Google Sheets.", 
                     thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&q=80", 
                     html_content: `
-                        <div class="text-center w-full max-w-sm mx-auto space-y-5">
-                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full glass flex items-center justify-center mx-auto mb-4 overflow-hidden border border-white/50 shadow-inner">
-                                <img src="https://ui-avatars.com/api/?name=PRO&background=fff&color=9333ea&rounded=true" class="w-full h-full object-cover">
+                        <div class="w-12 h-12 mx-auto rounded-full glass-input flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl mb-3 shadow-inner">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2">iMers Biopage</h3>
+                        <p class="text-xs md:text-sm opacity-70 mb-5">Ubah Google Sheets Anda menjadi mesin pembuat Landing Page & Biolink berdesain Glassmorphism dalam hitungan menit.</p>
+                        
+                        <!-- List Box seperti Input Fields -->
+                        <div class="space-y-3 mb-6 text-left">
+                            <div class="relative">
+                                <i class="fas fa-check-circle text-green-500 absolute top-3.5 left-4"></i>
+                                <div class="w-full glass-input rounded-xl pl-10 pr-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200">Script HTML & Google Apps Script</div>
                             </div>
-                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight font-[Poppins] text-transparent bg-clip-text" style="background-image: linear-gradient(to right, #9333ea, #ec4899);">Akses Premium</h2>
-                            <p class="text-sm opacity-80 leading-relaxed mb-6">Ini adalah contoh desain murni 100% transparan Glassmorphism persis seperti popup sandi! Tinggal ganti teks dan warna lewat form.</p>
-                            <div class="pt-4">
-                                <a href="#" target="_blank" class="block w-full py-4 rounded-xl font-extrabold text-white shadow-lg transition-transform hover:scale-[1.02] tap-effect" style="background: linear-gradient(135deg, #9333ea, #ec4899); box-shadow: 0 10px 20px -5px rgba(147, 51, 234, 0.5);">
-                                    Dapatkan Akses <i class="fas fa-arrow-right ml-2"></i>
-                                </a>
+                            <div class="relative">
+                                <i class="fas fa-check-circle text-green-500 absolute top-3.5 left-4"></i>
+                                <div class="w-full glass-input rounded-xl pl-10 pr-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200">Auto Tracker (FB, TikTok, Google)</div>
+                            </div>
+                            <div class="relative">
+                                <i class="fas fa-check-circle text-green-500 absolute top-3.5 left-4"></i>
+                                <div class="w-full glass-input rounded-xl pl-10 pr-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200">Template Canva Seamless</div>
                             </div>
                         </div>
+                        
+                        <!-- Tombol CTA -->
+                        <a href="https://wa.me/" target="_blank" class="w-full glass glass-btn tap-effect bg-purple-600/10 text-purple-700 dark:text-purple-300 border border-purple-300 font-bold py-3.5 rounded-xl transition-all shadow-sm block text-sm">
+                            Ambil Source Code Rp 149rb <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
                     `, 
                     visible: "true" 
                 }
@@ -908,14 +925,21 @@
             const view = document.getElementById('landing-page-view');
             
             if (pageData) {
-                container.innerHTML = pageData.html_content;
+                // Menambahkan sentuhan background blur eksklusif ke dalam content (Seperti Kartu VIP)
+                container.innerHTML = `
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-pink-500/20 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="relative z-10 w-full text-center">
+                        ${pageData.html_content}
+                    </div>
+                `;
                 document.title = pageData.title + " - " + globalConfig.profile_name;
             } else {
                 container.innerHTML = `
-                    <div class="p-10 text-center flex flex-col justify-center items-center">
+                    <div class="p-6 text-center flex flex-col justify-center items-center relative z-10">
                         <i class="fas fa-exclamation-triangle text-4xl text-red-500 mb-4"></i>
-                        <h1 class="text-2xl font-bold">Halaman Tidak Ditemukan</h1>
-                        <p class="mt-2 opacity-70">Maaf, promo atau halaman ini mungkin sudah dihapus.</p>
+                        <h3 class="text-xl font-bold mb-2">Halaman Tidak Ditemukan</h3>
+                        <p class="text-sm opacity-70">Maaf, promo atau halaman ini mungkin sudah dihapus.</p>
                     </div>
                 `;
             }
