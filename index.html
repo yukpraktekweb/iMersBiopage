@@ -336,7 +336,9 @@
     <!-- Main Logic -->
     <script>
         // --- API CONFIGURATION ---
+        // INI URL BARU KAMU YANG SUDAH TERHUBUNG:
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOOuq8euMjbH-XNkjqdBASmj_a1qvK4DP5SiHotX_mEOspwvybUuUdFwUibl8N4r6Olw/exec';
+        
         const isUsingPlaceholder = SCRIPT_URL === 'ISI_DENGAN_URL_WEB_APP_GOOGLE_APPS_SCRIPT_DI_SINI';
 
         // --- KONFIGURASI PAGINATION ---
@@ -346,7 +348,7 @@
         let searchQuery = '';
         let currentApps = [];
 
-        // --- MOCK DATA DENGAN BANYAK ITEM (Untuk Demo Pagination) ---
+        // --- MOCK DATA DENGAN BANYAK ITEM (Fallback/Offline) ---
         const MOCK_DATA = {
             config: {
                 profile_name: "iMersBiopage",
@@ -393,7 +395,6 @@
             }
         };
 
-        // ... (Fungsi verifyAppPassword & incrementAppClick tetap sama) ...
         const verifyAppPassword = async (appId, password) => {
             try {
                 if (isUsingPlaceholder) {
@@ -599,7 +600,7 @@
 
                 if (itemType.toLowerCase() === 'image') {
                     link.className = `block w-full tap-effect rounded-[1.5rem] overflow-hidden relative group cursor-pointer animate-stagger shadow-md glass p-1`;
-                    link.style.animationDelay = `${0.1 + (index * 0.05)}s`; // Animasi lebih cepat untuk pagination
+                    link.style.animationDelay = `${0.1 + (index * 0.05)}s`; 
                     
                     link.innerHTML = `
                         <div class="relative w-full rounded-[1.2rem] overflow-hidden">
