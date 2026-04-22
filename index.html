@@ -181,8 +181,8 @@
         </div>
     </div>
 
-    <!-- Main Content (Padding bottom ditambah agar tidak tertutup navbar) -->
-    <main id="main-content" class="w-full max-w-md md:max-w-2xl mx-auto relative z-10 hidden pt-12 pb-32 opacity-0 transition-opacity duration-700">
+    <!-- Main Content (Padding bottom ditambah agar tidak tertutup navbar di mobile) -->
+    <main id="main-content" class="w-full max-w-md md:max-w-2xl mx-auto relative z-10 hidden pt-12 pb-32 md:pb-12 opacity-0 transition-opacity duration-700">
         
         <!-- Profile Section -->
         <div class="flex flex-col items-center mb-8 text-center px-4 w-full animate-stagger delay-1">
@@ -240,10 +240,10 @@
 
     </main>
 
-    <!-- App-like Floating Bottom Navbar -->
-    <nav class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] max-w-sm glass rounded-[2rem] z-50 px-6 py-2.5 flex justify-between items-center shadow-2xl transition-transform duration-300 animate-stagger delay-3 border border-white/50 backdrop-blur-xl">
+    <!-- App-like Floating Bottom Navbar (Sembunyi di Desktop & Sejajar Sempurna) -->
+    <nav class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] max-w-sm glass rounded-[2rem] z-50 px-2 py-2 grid grid-cols-3 place-items-center shadow-2xl transition-transform duration-300 animate-stagger delay-3 border border-white/50 backdrop-blur-xl md:hidden">
         <!-- Beranda -->
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="flex flex-col items-center gap-1 text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 transition-colors group px-2">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-full flex flex-col items-center justify-center gap-1 text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 transition-colors group">
             <div class="w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all text-blue-500 dark:text-blue-400">
                 <i class="fas fa-home text-xl group-hover:scale-110 transition-transform"></i>
             </div>
@@ -251,7 +251,7 @@
         </button>
         
         <!-- Cari -->
-        <button onclick="fokusPencarian()" class="flex flex-col items-center gap-1 text-gray-700 dark:text-gray-200 hover:text-pink-500 dark:hover:text-pink-400 transition-colors group px-2 relative">
+        <button onclick="fokusPencarian()" class="w-full flex flex-col items-center justify-center gap-1 text-gray-700 dark:text-gray-200 hover:text-pink-500 dark:hover:text-pink-400 transition-colors group">
             <div class="w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all text-pink-500 dark:text-pink-400 relative">
                 <!-- Aksen titik pink -->
                 <div class="absolute top-1 right-1 w-2 h-2 bg-pink-500 rounded-full"></div>
@@ -261,7 +261,7 @@
         </button>
         
         <!-- Bagikan -->
-        <button onclick="shareProfile()" class="flex flex-col items-center gap-1 text-gray-700 dark:text-gray-200 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group px-2">
+        <button onclick="shareProfile()" class="w-full flex flex-col items-center justify-center gap-1 text-gray-700 dark:text-gray-200 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group">
             <div class="w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all text-emerald-500 dark:text-emerald-400">
                 <i class="fas fa-share-nodes text-xl group-hover:scale-110 transition-transform"></i>
             </div>
