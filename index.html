@@ -99,12 +99,13 @@
     <!-- ========================================== -->
     <!-- VIEW 1: LANDING PAGE ROUTER (FULL HTML)    -->
     <!-- ========================================== -->
-    <div id="landing-page-view" class="w-full max-w-2xl mx-auto relative z-10 hidden pt-6 pb-12 animate-stagger">
-        <button onclick="goBackHome()" class="glass px-4 py-2 rounded-full text-xs font-bold mb-6 hover:bg-white/50 transition-colors flex items-center gap-2 shadow-sm">
-            <i class="fas fa-arrow-left"></i> Kembali
+    <!-- PERBAIKAN: Kotak dibikin sama persis seperti Popup Sandi (Glassmorphism penuh) -->
+    <div id="landing-page-view" class="w-full max-w-2xl mx-auto relative z-10 hidden pt-6 pb-12 px-2 md:px-4 animate-stagger">
+        <button onclick="goBackHome()" class="glass px-5 py-3 rounded-xl text-sm font-bold mb-6 hover:bg-white/50 transition-colors flex items-center gap-2 shadow-sm border border-white/50">
+            <i class="fas fa-arrow-left"></i> Kembali ke Menu
         </button>
         <!-- Tempat muntahan kode HTML dari Sheet_Pages -->
-        <div id="landing-page-content" class="w-full relative bg-white/50 dark:bg-black/20 rounded-[2rem] overflow-hidden shadow-xl glass">
+        <div id="landing-page-content" class="w-full relative glass rounded-[2rem] border border-white/50 shadow-2xl overflow-hidden min-h-[50vh]">
             <!-- Injected by JS -->
         </div>
     </div>
@@ -253,6 +254,7 @@
         let currentApps = [], currentPages = [], globalConfig = {};
         let isMarketplaceOpen = false;
 
+        // Mock data ini udah gue update biar kalau internet mati, tampilannya tetep elegan kayak popup sandi
         const MOCK_DATA = {
             config: { profile_name: "iMersBiopage", profile_title: "Semua Kebutuhanmu Ada Di Sini" },
             socials: [],
@@ -260,7 +262,14 @@
                 { ID: "b7", Type: "link", Name: "Chat Admin WA", Url: "https://wa.me/", IconClass: "fab fa-whatsapp", ColorClass: "text-green-500", Visible: "true" }
             ],
             pages: [
-                { slug: "promo-mock", title: "Promo Showcase", description: "Deskripsi", html_content: "<h1 class='text-center p-10 text-2xl font-bold'>Mock Content</h1>", visible: "true" }
+                { slug: "promo-mock", title: "Promo Showcase", description: "Landing page elegan dengan Google Sheets.", thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&q=80", html_content: `
+                <div class="max-w-2xl mx-auto space-y-6 py-8 px-4">
+                    <div class="text-center w-full">
+                        <img src="https://ui-avatars.com/api/?name=iMers&background=fff&color=9333ea&rounded=true" class="h-20 mx-auto mb-6 object-contain drop-shadow-sm rounded-full">
+                        <h2 class="text-4xl font-black tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 font-[Poppins]">iMers Biopage Mock</h2>
+                        <p class="text-base opacity-80 leading-relaxed max-w-md mx-auto">Tampilan ini muncul kalau API belum jalan. Tapi tenang, desain <b>Glassmorphism</b> nya tetep mewah kok!</p>
+                    </div>
+                </div>`, visible: "true" }
             ]
         };
 
@@ -372,7 +381,7 @@
 
         window.changePage = (p) => { currentPage = p; updateDisplay(); window.scrollTo({top: 0, behavior: 'smooth'}); };
 
-        // --- RENDER APPS (FUNGSI UTAMA YG TIDAK DIPOTONG) ---
+        // --- RENDER APPS ---
         function renderApps(apps) {
             const container = document.getElementById('apps-container');
             container.innerHTML = '';
@@ -605,6 +614,9 @@
         }
 
         // --- MARKETPLACE & FULL LANDING PAGE CMS ---
+        
+        // PERBAIKAN PENTING:
+        // Di fungsi inilah gue ubah kotaknya jadi transparan murni seperti popup sandi!
         function renderLandingPage(slug) {
             const pageData = currentPages.find(p => p.slug === slug);
             const container = document.getElementById('landing-page-content');
@@ -618,7 +630,8 @@
             }
             
             view.classList.remove('hidden');
-            document.getElementById('bg-blobs').classList.add('hidden'); // Hilangkan blob background
+            // PERHATIKAN: Bagian menyembunyikan 'bg-blobs' GUE HAPUS TOTAL di sini
+            // Biar landing page tetep dapet efek buram warna-warni dari background persis kaya popup sandi!
         }
 
         function goBackHome() {
