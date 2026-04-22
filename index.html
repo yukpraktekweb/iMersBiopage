@@ -142,9 +142,21 @@
             align-items: flex-start; 
             gap: 0.5rem; 
         }
+
+        /* PERBAIKAN ZERO MARGIN: Biar konten di dalem box nempel mentok */
+        /* Teknik negative margin untuk nabrak padding container utama */
+        #landing-page-content {
+            padding: 1.5rem !important; /* Mobile padding */
+        }
+        @media (min-width: 768px) {
+            #landing-page-content {
+                padding: 2rem !important; /* Desktop padding */
+            }
+        }
     </style>
 
     <script>
+        // Load Theme Preference
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -169,10 +181,8 @@
         </button>
     </div>
 
-    <!-- Loading Spinner Keren dengan Teks -->
+    <!-- Loading Spinner Keren -->
     <div id="loading-spinner" class="fixed inset-0 flex flex-col items-center justify-center z-[100] backdrop-blur-xl bg-white/40 dark:bg-black/60 transition-opacity duration-500 p-4">
-        
-        <!-- Animasi Cincin Ganda -->
         <div class="relative w-24 h-24 flex items-center justify-center mb-6">
             <div class="absolute inset-0 rounded-full border-t-4 border-b-4 border-purple-500 animate-spin opacity-80"></div>
             <div class="absolute inset-2 rounded-full border-r-4 border-l-4 border-pink-500 animate-spin opacity-80" style="animation-direction: reverse; animation-duration: 1.2s;"></div>
@@ -180,171 +190,130 @@
                 <i class="fas fa-rocket text-purple-600 dark:text-purple-400 text-xl animate-pulse"></i>
             </div>
         </div>
-
-        <!-- Box Teks Loading Glassmorphism -->
-        <div class="glass px-8 py-5 rounded-[2rem] text-center border border-white/50 shadow-2xl w-full max-w-sm animate-stagger" style="animation-delay: 0.1s;">
-            <h3 class="text-xl md:text-2xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 mb-2 font-[Poppins]">
-                Memuat Data...
-            </h3>
-            <p class="text-sm font-medium opacity-80 leading-relaxed text-gray-700 dark:text-gray-200">
-                Tunggu sebentar, sedang mengambil data dan tampilan dari server Google 🚀
-            </p>
+        <div class="glass px-8 py-5 rounded-[2rem] text-center border border-white/50 shadow-2xl w-full max-w-sm animate-stagger">
+            <h3 class="text-xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 mb-2 font-[Poppins]">Memuat iMers Biopage...</h3>
+            <p class="text-xs font-medium opacity-80 leading-relaxed text-gray-700 dark:text-gray-200">Sedang mengambil data terbaru dari Google Sheets 🚀</p>
         </div>
     </div>
 
     <!-- ========================================== -->
     <!-- VIEW 1: LANDING PAGE ROUTER (FULL HTML)    -->
     <!-- ========================================== -->
-    <!-- PERBAIKAN: Kontainer dipatenkan seperti kartu VIP (max-w-md) -->
-    <div id="landing-page-view" class="w-full max-w-md mx-auto relative z-10 hidden pt-6 pb-12 px-4 animate-stagger">
+    <div id="landing-page-view" class="w-full max-w-md mx-auto relative z-10 hidden pt-6 pb-12 px-2 animate-stagger">
         <button onclick="goBackHome()" class="glass glass-btn tap-effect px-5 py-2.5 rounded-xl text-xs font-bold mb-6 flex items-center gap-2 shadow-sm border border-white/50 w-max mx-auto">
             <i class="fas fa-arrow-left"></i> Kembali ke Menu
         </button>
         
-        <!-- Box Landing Page bergaya Kartu VIP -->
-        <div id="landing-page-content" class="glass glass-card rounded-[1.5rem] p-6 md:p-8 text-center relative overflow-hidden border border-white/50 shadow-xl w-full">
-            <!-- Injected by JS -->
+        <!-- Box Landing Page bergaya Kartu VIP (Zero Margin Supported) -->
+        <div id="landing-page-content" class="glass glass-card rounded-[2rem] text-center relative overflow-hidden border border-white/50 shadow-2xl w-full">
+            <!-- Konten di-inject dari Sheets via renderLandingPage() -->
         </div>
     </div>
 
     <!-- ========================================== -->
     <!-- VIEW 2: BIOLINK & MARKETPLACE HOME         -->
     <!-- ========================================== -->
-    <main id="main-content" class="w-full max-w-md md:max-w-2xl mx-auto relative z-10 hidden pt-12 pb-8 opacity-0 transition-opacity duration-700">
+    <main id="main-content" class="w-full max-w-md mx-auto relative z-10 hidden pt-12 pb-8 opacity-0 transition-opacity duration-700">
         
         <!-- Profile Section -->
-        <div id="profile-section" class="flex flex-col items-center mb-8 text-center px-4 w-full animate-stagger" style="animation-delay: 0.1s">
-            <div class="glass rounded-[2rem] p-2 mb-4 relative shadow-lg">
-                <img id="profile-image" src="" alt="Profile" class="w-28 h-28 md:w-32 md:h-32 rounded-[1.5rem] object-cover object-top" onerror="this.src='https://ui-avatars.com/api/?name=iMers&background=7c3aed&color=fff&size=128'">
-                <div id="verified-badge" class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full glass flex items-center justify-center hidden text-blue-600 dark:text-blue-400 border border-white/50"><i class="fas fa-check text-xs"></i></div>
+        <div id="profile-section" class="flex flex-col items-center mb-8 text-center px-4 w-full animate-stagger">
+            <div class="glass rounded-[2.5rem] p-2 mb-4 relative shadow-lg">
+                <img id="profile-image" src="" alt="Profile" class="w-28 h-28 md:w-32 md:h-32 rounded-[2.3rem] object-cover border-2 border-white/20">
+                <div id="verified-badge" class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full glass flex items-center justify-center hidden text-blue-500 bg-white border border-white/50 shadow-md">
+                    <i class="fas fa-check text-xs"></i>
+                </div>
             </div>
-            <h1 id="profile-name" class="text-2xl md:text-3xl font-bold tracking-tight">...</h1>
-            <p id="profile-title" class="opacity-70 font-medium mt-1 text-xs md:text-sm uppercase tracking-widest">...</p>
-            <div id="socials-container" class="flex flex-wrap justify-center gap-4 md:gap-6 mt-6"></div>
+            <h1 id="profile-name" class="text-3xl font-black tracking-tight font-[Poppins]">...</h1>
+            <p id="profile-title" class="opacity-70 font-semibold mt-1 text-xs uppercase tracking-widest px-8">...</p>
+            <div id="socials-container" class="flex flex-wrap justify-center gap-4 mt-8"></div>
         </div>
 
-        <div class="space-y-6 px-4 w-full animate-stagger" style="animation-delay: 0.2s">
-            
+        <div class="space-y-6 px-4 w-full animate-stagger" style="animation-delay: 0.1s">
             <!-- Category Tabs -->
             <div class="w-full fade-mask" id="cat-wrapper">
                 <div id="category-container" class="flex gap-3 w-full overflow-x-auto pb-4 pt-2 snap-x"></div>
             </div>
 
             <!-- Search & Marketplace Button -->
-            <div class="w-full mb-6">
-                <div class="glass-input rounded-2xl flex items-center px-5 py-3 md:py-4 shadow-sm focus-within:border-white/80 transition-colors mb-3" id="search-container">
+            <div class="w-full">
+                <div class="glass-input rounded-2xl flex items-center px-5 py-4 shadow-inner mb-3">
                     <i class="fas fa-search opacity-50 mr-3"></i>
-                    <input type="text" id="app-search" class="w-full bg-transparent outline-none text-sm md:text-base font-medium placeholder-gray-500" placeholder="Cari konten...">
+                    <input type="text" id="app-search" class="w-full bg-transparent outline-none text-sm font-medium" placeholder="Cari konten iMers...">
                 </div>
-                <!-- TOMBOL MARKETPLACE -->
-                <button onclick="toggleMarketplace()" id="btn-marketplace" class="w-full glass tap-effect rounded-xl py-3 font-bold text-sm flex justify-center items-center gap-2 border-dashed border-2 border-purple-300 dark:border-purple-600 hover:bg-purple-100 dark:hover:bg-purple-900/30 text-purple-700 dark:text-purple-300 transition-colors hidden">
-                    <i class="fas fa-store"></i> <span id="text-marketplace">Buka Marketplace Promo</span>
+                <button onclick="toggleMarketplace()" id="btn-marketplace" class="w-full glass tap-effect rounded-2xl py-4 font-black text-xs flex justify-center items-center gap-3 border-dashed border-2 border-purple-200 dark:border-purple-800 text-purple-600 dark:text-purple-400 uppercase tracking-widest hidden">
+                    <i class="fas fa-th-large"></i> Katalog Halaman Sales
                 </button>
             </div>
 
-            <!-- TAB CONTAINER 1: STANDARD APPS (Grid Data dari Sheet Apps) -->
-            <div id="apps-container" class="grid grid-cols-1 gap-4 pt-2 min-h-[200px]"></div>
+            <!-- Apps Container -->
+            <div id="apps-container" class="grid grid-cols-1 gap-4 pt-2"></div>
             
-            <!-- TAB CONTAINER 2: MARKETPLACE PAGES (Katalog Landing Page) -->
-            <div id="marketplace-container" class="hidden grid grid-cols-2 md:grid-cols-3 gap-4 pt-2 min-h-[200px]"></div>
+            <!-- Marketplace Container -->
+            <div id="marketplace-container" class="hidden grid grid-cols-2 gap-4 pt-2"></div>
 
-            <!-- Pagination Controls -->
+            <!-- Pagination -->
             <div id="pagination-container" class="flex justify-center items-center gap-2 mt-8 mb-4"></div>
         </div>
 
-        <!-- Lead Generation Form (VIP List) -->
-        <div id="vip-list-section" class="mt-8 mb-6 px-4 w-full animate-stagger hidden" style="animation-delay: 0.3s">
-            <div class="glass glass-card rounded-[1.5rem] p-6 text-center relative overflow-hidden border border-white/50">
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl"></div>
-                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-pink-500/20 rounded-full blur-2xl"></div>
-
-                <div class="w-12 h-12 mx-auto rounded-full glass-input flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl mb-3 shadow-inner">
-                    <i class="fas fa-envelope-open-text"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-2">Join VIP List ✨</h3>
-                <p class="text-xs md:text-sm opacity-70 mb-5">Dapatkan info eksklusif, promo, dan update terbaru langsung ke kontakmu.</p>
-
+        <!-- VIP List Section -->
+        <div id="vip-list-section" class="mt-12 px-4 w-full animate-stagger hidden">
+            <div class="glass glass-card rounded-[2rem] p-8 text-center relative overflow-hidden border border-white/50 shadow-xl">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl"></div>
+                <h3 class="text-xl font-black mb-2 uppercase tracking-tight">Join VIP List 🚀</h3>
+                <p class="text-xs opacity-60 mb-6 px-4">Dapatkan akses promo dan update terbaru langsung ke kontakmu.</p>
                 <form id="lead-form" onsubmit="submitLeadForm(event)" class="space-y-3 relative z-10 text-left">
-                    <div class="relative">
-                        <i class="fas fa-user absolute top-3.5 left-4 text-gray-400"></i>
-                        <input type="text" id="lead-name" placeholder="Nama Lengkap" required class="w-full glass-input rounded-xl pl-10 pr-4 py-3 text-sm outline-none focus:ring-2 focus:ring-purple-400 transition-all font-medium">
-                    </div>
-                    <div class="relative">
-                        <i class="fas fa-at absolute top-3.5 left-4 text-gray-400"></i>
-                        <input type="email" id="lead-email" placeholder="Alamat Email" required class="w-full glass-input rounded-xl pl-10 pr-4 py-3 text-sm outline-none focus:ring-2 focus:ring-purple-400 transition-all font-medium">
-                    </div>
-                    <div class="relative">
-                        <i class="fab fa-whatsapp absolute top-3.5 left-4 text-gray-400"></i>
-                        <input type="tel" id="lead-wa" placeholder="No. WhatsApp" required class="w-full glass-input rounded-xl pl-10 pr-4 py-3 text-sm outline-none focus:ring-2 focus:ring-purple-400 transition-all font-medium">
-                    </div>
-
-                    <button type="submit" id="lead-submit-btn" class="w-full glass glass-btn tap-effect bg-purple-600/10 text-purple-700 dark:text-purple-300 border border-purple-300 font-bold py-3 rounded-xl mt-4 transition-all shadow-sm">
-                        Berlangganan Sekarang
-                    </button>
-                    <p id="lead-msg" class="text-xs text-center font-bold mt-3 hidden"></p>
+                    <input type="text" id="lead-name" placeholder="Nama Lengkap" required class="w-full glass-input rounded-xl px-5 py-4 text-sm font-bold outline-none focus:ring-2 focus:ring-purple-400 transition-all">
+                    <input type="email" id="lead-email" placeholder="Email Aktif" required class="w-full glass-input rounded-xl px-5 py-4 text-sm font-bold outline-none focus:ring-2 focus:ring-purple-400 transition-all">
+                    <input type="tel" id="lead-wa" placeholder="Nomor WhatsApp" required class="w-full glass-input rounded-xl px-5 py-4 text-sm font-bold outline-none focus:ring-2 focus:ring-purple-400 transition-all">
+                    <button type="submit" id="lead-submit-btn" class="w-full glass glass-btn tap-effect bg-purple-600 text-white font-black py-4 rounded-xl mt-4 shadow-lg uppercase tracking-widest text-[11px]">Berlangganan Sekarang</button>
+                    <p id="lead-msg" class="text-[10px] text-center font-bold mt-4 hidden"></p>
                 </form>
             </div>
         </div>
 
-        <!-- Share Button -->
-        <div class="mt-8 mb-4 flex justify-center animate-stagger" style="animation-delay: 0.4s">
-            <button onclick="shareProfile()" class="glass glass-btn tap-effect px-6 py-3 rounded-full flex items-center gap-3 font-semibold text-sm transition-colors shadow-md">
-                <i class="fas fa-share-nodes"></i> Bagikan Profil
+        <!-- Share & Footer -->
+        <div class="mt-12 mb-6 flex justify-center animate-stagger">
+            <button onclick="shareProfile()" class="glass glass-btn tap-effect px-8 py-4 rounded-full flex items-center gap-3 font-black text-[10px] uppercase tracking-widest shadow-md">
+                <i class="fas fa-share-nodes"></i> Bagikan Link iMers
             </button>
         </div>
-
-        <!-- Footer -->
-        <footer class="text-center mt-6 opacity-60">
-            <p class="text-xs font-medium tracking-wide">© <span id="year"></span> <span id="footer-name"></span>. <span id="footer-text"></span></p>
+        <footer class="text-center mt-10 pb-8 opacity-40">
+            <p class="text-[9px] font-black uppercase tracking-[0.3em]"><span id="footer-name"></span> © <span id="year"></span>. <span id="footer-text"></span></p>
         </footer>
     </main>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 glass rounded-full px-6 py-3 opacity-0 transition-opacity duration-300 pointer-events-none z-[60] flex items-center gap-3">
-        <i class="fas fa-check text-green-500"></i>
-        <span class="text-sm font-bold">Link disalin!</span>
-    </div>
-
     <!-- Password Modal -->
-    <div id="password-modal" class="fixed inset-0 hidden z-[60] flex items-center justify-center p-4 transition-all duration-300 bg-gray-900/40 backdrop-blur-sm">
-        <div class="glass rounded-[2rem] border border-white/50 w-full max-w-sm p-8 transform scale-95 opacity-0 transition-all duration-300 shadow-2xl" id="password-modal-content">
+    <div id="password-modal" class="fixed inset-0 hidden z-[200] flex items-center justify-center p-4 bg-gray-900/40 backdrop-blur-xl transition-all">
+        <div class="glass rounded-[3rem] border border-white/50 w-full max-w-sm p-10 transform scale-95 opacity-0 transition-all" id="password-modal-content">
             <div class="text-center mb-8">
-                <div class="w-20 h-20 rounded-full glass flex items-center justify-center mx-auto mb-5 text-purple-600 dark:text-purple-400">
-                    <i class="fas fa-lock text-3xl"></i>
+                <div class="w-20 h-20 rounded-[2rem] glass flex items-center justify-center mx-auto mb-6 text-purple-600 shadow-inner">
+                    <i class="fas fa-lock-open text-3xl"></i>
                 </div>
-                <h3 class="text-2xl font-bold">Akses Terkunci</h3>
-                <p class="text-sm opacity-70 mt-2">Masukkan sandi untuk <br><span id="locked-app-name" class="font-bold"></span></p>
+                <h3 class="text-2xl font-black tracking-tight">Area Terkunci</h3>
+                <p class="text-sm opacity-50 mt-2 px-4">Konten ini dilindungi sandi. Masukkan sandi akses untuk membukanya.</p>
             </div>
-
             <form id="password-form" class="space-y-6">
                 <input type="hidden" id="locked-app-id">
-                
-                <div class="glass-input rounded-2xl flex items-center px-5 py-4 relative shadow-inner">
-                    <i class="fas fa-key opacity-50 mr-3"></i>
-                    <input type="password" id="app-password" placeholder="Password..." 
-                           class="w-full bg-transparent outline-none text-center tracking-widest text-lg font-bold" required>
-                    <button type="button" onclick="togglePasswordVisibility('app-password', this)" class="absolute right-5 opacity-50 hover:opacity-100 outline-none transition-opacity">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                </div>
-                
-                <p id="password-error" class="text-red-500 dark:text-red-400 text-xs text-center hidden font-bold"></p>
-                
-                <div class="flex gap-4 mt-8">
-                    <button type="button" onclick="closePasswordModal()" class="flex-1 glass glass-btn py-3 rounded-xl font-bold text-sm">Batal</button>
-                    <button type="submit" id="unlock-btn" class="flex-1 glass glass-btn py-3 rounded-xl font-bold text-sm text-purple-600 dark:text-purple-300">Buka</button>
+                <input type="password" id="app-password" placeholder="PASSWORD..." class="w-full glass-input rounded-2xl px-6 py-5 text-center tracking-[0.5em] font-black text-xl outline-none focus:ring-4 focus:ring-purple-400/20" required>
+                <p id="password-error" class="text-red-500 text-[10px] text-center hidden font-black uppercase tracking-widest"></p>
+                <div class="flex gap-4">
+                    <button type="button" onclick="closePasswordModal()" class="flex-1 glass glass-btn py-4 rounded-2xl font-black text-[11px] uppercase">Batal</button>
+                    <button type="submit" id="unlock-btn" class="flex-1 glass glass-btn py-4 rounded-2xl font-black text-[11px] uppercase text-purple-600 bg-white shadow-xl">Buka</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MAIN LOGIC -->
-    <script>
-        // URL WEB APP KAMU
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOOuq8euMjbH-XNkjqdBASmj_a1qvK4DP5SiHotX_mEOspwvybUuUdFwUibl8N4r6Olw/exec';
-        const isUsingPlaceholder = false;
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 glass rounded-full px-8 py-4 opacity-0 transition-all pointer-events-none z-[300] flex items-center gap-3 shadow-2xl">
+        <i class="fas fa-check-circle text-green-500"></i>
+        <span class="text-xs font-black uppercase tracking-widest">Link Berhasil Disalin!</span>
+    </div>
 
-        const ITEMS_PER_PAGE = 20; 
+    <!-- MAIN LOGIC (SCRIPT ENGINE) -->
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOOuq8euMjbH-XNkjqdBASmj_a1qvK4DP5SiHotX_mEOspwvybUuUdFwUibl8N4r6Olw/exec';
+        
         let currentPage = 1;
         let activeCategory = 'Semua';
         let searchQuery = '';
@@ -352,530 +321,73 @@
         let currentPages = [];
         let globalConfig = {};
         let isMarketplaceOpen = false;
+        const ITEMS_PER_PAGE = 20;
 
-        // DATA MOCKUP DIGANTI BIAR BENTUKNYA PERSIS SEPERTI VIP FORM
-        const MOCK_DATA = {
-            config: { 
-                profile_name: "iMersBiopage", 
-                profile_title: "Semua Kebutuhanmu Ada Di Sini" 
-            },
-            socials: [],
-            apps: [
-                { 
-                    ID: "b7", 
-                    Type: "link", 
-                    Name: "Chat Admin WA", 
-                    Url: "https://wa.me/", 
-                    IconClass: "fab fa-whatsapp", 
-                    ColorClass: "text-green-500", 
-                    Visible: "true" 
-                }
-            ],
-            pages: [
-                { 
-                    slug: "promo-mock", 
-                    title: "Promo Showcase", 
-                    description: "Landing page elegan dengan Google Sheets.", 
-                    thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&q=80", 
-                    html_content: `
-                        <div class="w-12 h-12 mx-auto rounded-full glass-input flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl mb-3 shadow-inner">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <h3 class="text-xl md:text-2xl font-bold mb-2">iMers Biopage</h3>
-                        <p class="text-xs md:text-sm opacity-70 mb-5">Ubah Google Sheets Anda menjadi mesin pembuat Landing Page & Biolink berdesain Glassmorphism dalam hitungan menit.</p>
-                        
-                        <!-- List Box seperti Input Fields -->
-                        <div class="space-y-3 mb-6 text-left">
-                            <div class="relative">
-                                <i class="fas fa-check-circle text-green-500 absolute top-3.5 left-4"></i>
-                                <div class="w-full glass-input rounded-xl pl-10 pr-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200">Script HTML & Google Apps Script</div>
-                            </div>
-                            <div class="relative">
-                                <i class="fas fa-check-circle text-green-500 absolute top-3.5 left-4"></i>
-                                <div class="w-full glass-input rounded-xl pl-10 pr-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200">Auto Tracker (FB, TikTok, Google)</div>
-                            </div>
-                            <div class="relative">
-                                <i class="fas fa-check-circle text-green-500 absolute top-3.5 left-4"></i>
-                                <div class="w-full glass-input rounded-xl pl-10 pr-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-200">Template Canva Seamless</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Tombol CTA -->
-                        <a href="https://wa.me/" target="_blank" class="w-full glass glass-btn tap-effect bg-purple-600/10 text-purple-700 dark:text-purple-300 border border-purple-300 font-bold py-3.5 rounded-xl transition-all shadow-sm block text-sm">
-                            Ambil Source Code Rp 149rb <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    `, 
-                    visible: "true" 
-                }
-            ]
-        };
-
-        const fetchData = async () => {
+        // --- FETCH & PIXEL ENGINE ---
+        async function init() {
             try {
                 const response = await fetch(`${SCRIPT_URL}?action=getData`);
-                if (!response.ok) {
-                    throw new Error("Network error");
-                }
-                return await response.json();
-            } catch (error) { 
-                return MOCK_DATA; 
-            }
-        };
-
-        // --- PIXEL TRACKER ---
-        function injectPixels(config) {
-            if (config.pixel_fb && config.pixel_fb.trim() !== '') {
-                const fbId = config.pixel_fb.trim();
-                !function(f,b,e,v,n,t,s){
-                    if(f.fbq)return;
-                    n=f.fbq=function(){
-                        n.callMethod? n.callMethod.apply(n,arguments) : n.queue.push(arguments)
-                    };
-                    if(!f._fbq)f._fbq=n;
-                    n.push=n;
-                    n.loaded=!0;
-                    n.version='2.0';
-                    n.queue=[];
-                    t=b.createElement(e);
-                    t.async=!0;
-                    t.src=v;
-                    s=b.getElementsByTagName(e)[0];
-                    s.parentNode.insertBefore(t,s)
-                }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+                const data = await response.json();
                 
-                fbq('init', fbId); 
-                fbq('track', 'PageView');
-                console.log('✅ FB Pixel Active');
-            }
-            
-            if (config.pixel_tiktok && config.pixel_tiktok.trim() !== '') {
-                const ttId = config.pixel_tiktok.trim();
-                !function (w, d, t) {
-                  w.TiktokAnalyticsObject=t;
-                  var ttq=w[t]=w[t]||[];
-                  ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
-                  ttq.setAndDefer=function(t,e){
-                      t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}
-                  };
-                  for(var i=0;i<ttq.methods.length;i++) {
-                      ttq.setAndDefer(ttq,ttq.methods[i]);
-                  }
-                  ttq.instance=function(t){
-                      for(var e=ttq._iq||{},n=0;n<ttq.methods.length;n++) {
-                          ttq.setAndDefer(e,ttq.methods[n]);
-                      }
-                      return e
-                  };
-                  ttq.load=function(e,n){
-                      var i="https://analytics.tiktok.com/i18n/pixel/events.js";
-                      ttq._i=ttq._i||{};
-                      ttq._i[e]=[];
-                      ttq._i[e]._u=i;
-                      ttq._t=ttq._t||{};
-                      ttq._t[e]=+new Date;
-                      ttq._o=ttq._o||{};
-                      ttq._o[e]=n||{};
-                      var o=document.createElement("script");
-                      o.type="text/javascript";
-                      o.async=!0;
-                      o.src=i+"?sdkid="+e+"&lib="+t;
-                      var a=document.getElementsByTagName("script")[0];
-                      a.parentNode.insertBefore(o,a)
-                  };
-                  ttq.load(ttId); 
-                  ttq.page();
-                }(window, document, 'ttq');
-                console.log('✅ TikTok Pixel Active');
-            }
-            
-            if (config.pixel_google && config.pixel_google.trim() !== '') {
-                const gId = config.pixel_google.trim();
-                const script = document.createElement('script'); 
-                script.async = true;
-                script.src = 'https://www.googletagmanager.com/gtag/js?id=' + gId;
-                document.head.appendChild(script); 
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){
-                    dataLayer.push(arguments);
-                } 
-                gtag('js', new Date()); 
-                gtag('config', gId);
-                console.log('✅ Google Tag Active');
-            }
-        }
+                globalConfig = data.config;
+                currentApps = (data.apps || []).filter(a => String(a.Visible).toLowerCase() === 'true');
+                currentPages = (data.pages || []).filter(p => String(p.visible).toLowerCase() === 'true');
 
-        // --- INIT & ROUTER ---
-        async function init() {
-            const data = await fetchData();
-            if (!data) return;
+                // Injeksi Pixel Facebook & TikTok
+                injectPixels(globalConfig);
+                
+                document.getElementById('loading-spinner').classList.add('hidden');
 
-            globalConfig = data.config;
-            
-            currentApps = (data.apps || []).filter(a => {
-                return String(a.Visible).toLowerCase() === 'true' || String(a.visible).toLowerCase() === 'true';
-            });
-            
-            currentPages = (data.pages || []).filter(p => {
-                return String(p.visible).toLowerCase() === 'true';
-            });
+                const urlParams = new URLSearchParams(window.location.search);
+                const activeSlug = urlParams.get('page');
 
-            injectPixels(globalConfig);
-            
-            // Hapus Loading Spinner secara perlahan dengan menambah kelas hidden
-            const loadingSpinner = document.getElementById('loading-spinner');
-            loadingSpinner.classList.add('hidden');
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const activeSlug = urlParams.get('page');
-
-            if (activeSlug) {
-                // TAMPILKAN SPESIFIK LANDING PAGE DARI SHEET_PAGES
-                renderLandingPage(activeSlug);
-            } else {
-                // TAMPILKAN BIO-LINK UTAMA
-                renderProfile(data.config);
-                renderSocials(data.socials);
-                renderCategories(currentApps);
-                updateDisplay();
-
-                const btnMarketplace = document.getElementById('btn-marketplace');
-                if (globalConfig.show_marketplace && String(globalConfig.show_marketplace).toLowerCase() === 'false') {
-                    btnMarketplace.classList.add('hidden');
+                if (activeSlug) {
+                    renderLandingPage(activeSlug);
                 } else {
-                    if (currentPages.length > 0) {
-                        btnMarketplace.classList.remove('hidden');
+                    renderProfile(data.config);
+                    renderSocials(data.socials);
+                    renderCategories(currentApps);
+                    updateDisplay();
+
+                    if (globalConfig.show_marketplace !== 'false' && currentPages.length > 0) {
+                        document.getElementById('btn-marketplace').classList.remove('hidden');
                     }
-                }
-
-                const vipSection = document.getElementById('vip-list-section');
-                if (globalConfig.show_vip_form && String(globalConfig.show_vip_form).toLowerCase() === 'false') {
-                    vipSection.classList.add('hidden');
-                } else {
-                    vipSection.classList.remove('hidden');
-                }
-                
-                const mainContent = document.getElementById('main-content');
-                mainContent.classList.remove('hidden');
-                setTimeout(() => {
-                    mainContent.classList.remove('opacity-0');
-                }, 50);
-            }
-
-            document.getElementById('year').innerText = new Date().getFullYear();
-            document.getElementById('footer-name').innerText = data.config.profile_name || '';
-            document.getElementById('footer-text').innerText = data.config.footer_text || '';
-            setupSearch();
-        }
-
-        // --- FUNGSI UPDATE DISPLAY BIO-LINK ---
-        function updateDisplay() {
-            let filteredApps = currentApps.filter(app => {
-                const appCategories = (app.Category || '').split(',').map(c => c.trim());
-                const nameCheck = (app.Name || '').toLowerCase().includes(searchQuery);
-                const descCheck = (app.Description || '').toLowerCase().includes(searchQuery);
-                const matchesSearch = nameCheck || descCheck;
-                
-                const matchesCategory = activeCategory === 'Semua' || appCategories.includes(activeCategory);
-                
-                return matchesSearch && matchesCategory;
-            });
-
-            const totalItems = filteredApps.length;
-            const paginatedApps = filteredApps.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
-
-            renderApps(paginatedApps);
-            renderPagination(totalItems);
-        }
-
-        window.changePage = (p) => { 
-            currentPage = p; 
-            updateDisplay(); 
-            window.scrollTo({
-                top: 0, 
-                behavior: 'smooth'
-            }); 
-        };
-
-        // --- RENDER APPS ---
-        function renderApps(apps) {
-            const container = document.getElementById('apps-container');
-            container.innerHTML = '';
-
-            if (apps.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8 opacity-50">
-                        <i class="fas fa-box-open text-3xl mb-3"></i>
-                        <p>Tidak ada konten.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            apps.forEach((app, index) => {
-                const isLocked = app.isLocked || app.IsLocked || false;
-                const itemType = (app.Type || 'link').toLowerCase();
-                
-                const isLinkable = ['link', 'image', 'cta', 'poster'].includes(itemType) && app.Url;
-                const wrapperTag = (isLinkable || isLocked) ? 'a' : 'div';
-                const el = document.createElement(wrapperTag);
-                
-                if (wrapperTag === 'a') {
-                    el.href = isLocked ? '#' : app.Url;
-                    if (!isLocked) {
-                        el.target = '_blank';
+                    if (globalConfig.show_vip_form !== 'false') {
+                        document.getElementById('vip-list-section').classList.remove('hidden');
                     }
-                    if (isLocked) {
-                        el.onclick = (e) => { 
-                            e.preventDefault(); 
-                            openPasswordModal(app.ID, app.Name, app.PasswordSourceUrl); 
-                        };
-                    }
-                }
-
-                let customBadge = '';
-                if (app.BadgeText && String(app.BadgeText).trim() !== '') {
-                    const c1 = app.BadgeColor1 || '#ec4899'; 
-                    const c2 = app.BadgeColor2 || '#8b5cf6'; 
-                    const ratio = app.BadgeRatio || '50';
-                    const bgStyle = `background: linear-gradient(135deg, ${c1} ${ratio}%, ${c2} 100%); color: white;`;
                     
-                    customBadge = `
-                        <div class="absolute top-2 right-2 rounded-bl-xl rounded-tr-xl px-3 py-1 text-[10px] font-extrabold tracking-wider uppercase shadow-lg border-b border-l border-white/20 z-10" style="${bgStyle}">
-                            ${app.BadgeText}
-                        </div>
-                    `;
+                    const mainContent = document.getElementById('main-content');
+                    mainContent.classList.remove('hidden');
+                    setTimeout(() => mainContent.classList.remove('opacity-0'), 50);
                 }
 
-                const delay = `${0.1 + (index * 0.05)}s`;
-
-                switch (itemType) {
-                    case 'poster':
-                        el.className = `block w-full overflow-hidden animate-stagger shadow-sm rounded-2xl relative ${isLinkable ? 'tap-effect hover:shadow-md transition-shadow cursor-pointer' : ''}`;
-                        el.style.animationDelay = delay;
-                        el.innerHTML = `
-                            ${customBadge}
-                            <img src="${app.ImageUrl}" alt="${app.Name || 'Poster'}" class="w-full h-auto object-cover ${isLinkable ? 'hover:opacity-90 transition-opacity' : ''}">
-                        `;
-                        break;
-
-                    case 'hero':
-                        const heroFont = app.FontFamily || app.fontFamily || 'font-sans';
-                        let heroTitleStyle = '';
-                        let heroTitleClass = `text-3xl md:text-4xl font-extrabold tracking-tight mb-4 ${heroFont} `;
-
-                        if ((app.ColorType || app.colorType) === 'solid') {
-                            heroTitleStyle = `color: ${app.HeroColor1 || app.heroColor1 || '#9333ea'};`;
-                        } else {
-                            const c1 = app.HeroColor1 || app.heroColor1 || '#9333ea';
-                            const c2 = app.HeroColor2 || app.heroColor2 || '#ec4899';
-                            heroTitleClass += 'text-transparent bg-clip-text ';
-                            heroTitleStyle = `background-image: linear-gradient(to right, ${c1}, ${c2});`;
-                        }
-
-                        const appLogoUrl = app.LogoUrl || app.logoUrl;
-                        const logoHtml = appLogoUrl ? `<img src="${appLogoUrl}" class="h-16 md:h-20 mx-auto mb-6 object-contain drop-shadow-sm rounded-full">` : '';
-                        const imgHtml = app.ImageUrl ? `<img src="${app.ImageUrl}" class="w-full max-w-sm mx-auto rounded-3xl shadow-lg mb-6 object-cover aspect-video border border-white/40">` : '';
-
-                        el.className = `text-center py-6 px-2 animate-stagger w-full`;
-                        el.style.animationDelay = delay;
-                        el.innerHTML = `
-                            ${logoHtml}
-                            ${imgHtml}
-                            <h2 class="${heroTitleClass}" style="${heroTitleStyle}">${app.Name}</h2>
-                            <p class="text-sm md:text-base opacity-80 leading-relaxed max-w-md mx-auto">${app.Description}</p>
-                        `;
-                        break;
-                    
-                    case 'text':
-                        el.className = `glass glass-card rounded-[1.5rem] p-5 md:p-6 text-sm md:text-base opacity-90 leading-relaxed animate-stagger shadow-sm w-full`;
-                        el.style.animationDelay = delay;
-                        el.innerHTML = app.Description;
-                        break;
-                        
-                    case 'video':
-                        el.className = `glass glass-card rounded-[1.5rem] p-2 animate-stagger shadow-md w-full border border-white/40`;
-                        el.style.animationDelay = delay;
-                        let videoTitleHtml = '';
-                        if (app.Name) {
-                            videoTitleHtml = `<h3 class="font-bold text-sm mt-3 mb-1 px-3 opacity-80 text-center">${app.Name}</h3>`;
-                        }
-                        
-                        el.innerHTML = `
-                            <div class="relative w-full overflow-hidden rounded-[1.2rem] pb-[56.25%] bg-black/10">
-                                <iframe class="absolute top-0 left-0 w-full h-full" src="${app.Url}" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                            ${videoTitleHtml}
-                        `;
-                        break;
-                        
-                    case 'pricing':
-                        const btnLabel = app.PasswordSourceUrl || 'Beli Sekarang';
-                        const pC1 = app.BadgeColor1 || '#8b5cf6';
-                        const pC2 = app.BadgeColor2 || '#ec4899';
-                        const colorClassStr = app.ColorClass || 'text-purple-600 dark:text-purple-300';
-                        const iconClassStr = app.IconClass || 'fas fa-shopping-cart';
-                        
-                        el.className = `glass glass-card rounded-[2rem] p-6 relative overflow-hidden animate-stagger w-full shadow-xl border-t-4`;
-                        el.style.animationDelay = delay;
-                        el.style.borderTopColor = pC1;
-                        
-                        el.innerHTML = `
-                            ${customBadge}
-                            <h3 class="text-lg font-extrabold text-center mb-4 uppercase tracking-widest ${colorClassStr}">${app.Name}</h3>
-                            <div class="pricing-list text-sm opacity-90 leading-relaxed mb-6">${app.Description}</div>
-                            <a href="${app.Url}" target="_blank" class="block w-full py-3.5 rounded-xl font-extrabold text-center text-white transition-transform hover:scale-[1.02] shadow-lg tap-effect" style="background: linear-gradient(135deg, ${pC1} 0%, ${pC2} 100%);">
-                                <i class="${iconClassStr} mr-2"></i> ${btnLabel}
-                            </a>
-                        `;
-                        break;
-
-                    case 'cta':
-                        const ctaIcon = app.IconClass || 'fas fa-arrow-right';
-                        el.className = `block w-full py-4 px-6 rounded-2xl font-extrabold text-center text-white bg-gradient-to-r from-pink-500 to-orange-400 hover:scale-[1.02] transition-all shadow-lg animate-stagger tap-effect text-lg animate-pulseGlow border border-white/30`;
-                        el.style.animationDelay = delay;
-                        el.innerHTML = `${app.Name} <i class="${ctaIcon} ml-2"></i>`;
-                        break;
-                        
-                    case 'image':
-                        el.className = `block w-full tap-effect rounded-[1.5rem] overflow-hidden relative group cursor-pointer animate-stagger shadow-md glass p-1`;
-                        el.style.animationDelay = delay;
-                        el.innerHTML = `
-                            ${customBadge}
-                            <div class="relative w-full rounded-[1.2rem] overflow-hidden">
-                                <img src="${app.ImageUrl}" alt="${app.Name || 'Banner'}" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500">
-                                <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
-                            </div>
-                        `;
-                        break;
-
-                    default: 
-                        let lockIconHtml = '';
-                        if (isLocked) {
-                            lockIconHtml = `<i class="fas fa-lock text-[10px] ml-2 opacity-50"></i>`;
-                        }
-                        
-                        let descHtml = '';
-                        if (app.Description) {
-                            descHtml = `<p class="text-xs opacity-70 truncate pr-2 mt-1">${app.Description}</p>`;
-                        }
-                        
-                        el.className = `block glass glass-card tap-effect rounded-[1.5rem] p-3 md:p-4 relative overflow-hidden group cursor-pointer animate-stagger w-full`;
-                        el.style.animationDelay = delay;
-                        el.innerHTML = `
-                            ${customBadge}
-                            <div class="flex items-center gap-4 w-full relative z-0">
-                                <div class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-[1.2rem] glass-input flex items-center justify-center ${app.ColorClass || ''} text-xl md:text-3xl group-hover:scale-110 transition-transform duration-300 shadow-sm border border-white/40">
-                                    <i class="${app.IconClass || 'fas fa-link'}"></i>
-                                </div>
-                                <div class="flex-grow min-w-0 flex flex-col justify-center">
-                                    <h3 class="font-bold text-sm md:text-base truncate pr-2 flex items-center">${app.Name} ${lockIconHtml}</h3>
-                                    ${descHtml}
-                                </div>
-                                <div class="flex-shrink-0 flex items-center pr-2">
-                                    <div class="w-8 h-8 rounded-full glass flex items-center justify-center opacity-70 group-hover:opacity-100 group-hover:bg-white/20 transition-all">
-                                        <i class="fas fa-chevron-right text-xs"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        break;
-                }
-                container.appendChild(el);
-            });
+                document.getElementById('footer-name').innerText = globalConfig.profile_name || 'iMers Biopage';
+                document.getElementById('footer-text').innerText = globalConfig.footer_text || '';
+                document.getElementById('year').innerText = new Date().getFullYear();
+                
+                setupSearch();
+            } catch (error) {
+                console.error("Engine failure:", error);
+            }
         }
 
-        // --- FUNGSI PAGINASI ---
-        function renderPagination(totalItems) {
-            const container = document.getElementById('pagination-container');
-            const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-            
-            if (totalPages <= 1) { 
-                container.innerHTML = ''; 
-                return; 
+        function injectPixels(cfg) {
+            if (cfg.pixel_fb) {
+                !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', cfg.pixel_fb); fbq('track', 'PageView');
+                console.log("FB Pixel Active");
             }
-
-            let html = '';
-            let prevDisabled = '';
-            
-            if (currentPage === 1) {
-                prevDisabled = 'opacity-30 cursor-not-allowed pointer-events-none';
-            } else {
-                prevDisabled = 'hover:bg-white/40 cursor-pointer';
+            if (cfg.pixel_tiktok) {
+                !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","trackWithContext","setAndTrack"],ttq.instance=function(t){for(var e=ttq._instances[t]||[],n=0;n<ttq.methods.length;n++)ttq.set(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._instances=ttq._instances||{},ttq._instances[t]=ttq.instance(t),ttq._flex=ttq._flex||{},ttq._flex.p=ttq._flex.p||{};var o=d.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};ttq.load(cfg.pixel_tiktok);ttq.page();}(window,document,'ttq');
+                console.log("TikTok Pixel Active");
             }
-            
-            html += `<button onclick="changePage(${currentPage - 1})" class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-xl glass transition-all ${prevDisabled}"><i class="fas fa-chevron-left text-xs"></i></button>`;
-            
-            for (let i = 1; i <= totalPages; i++) {
-                let activeClass = '';
-                if (i === currentPage) {
-                    activeClass = 'glass-active font-bold text-purple-600 scale-110 shadow-md';
-                } else {
-                    activeClass = 'hover:bg-white/40 cursor-pointer';
-                }
-                html += `<button onclick="changePage(${i})" class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-xl glass transition-all text-sm ${activeClass}">${i}</button>`;
-            }
-            
-            let nextDisabled = '';
-            if (currentPage === totalPages) {
-                nextDisabled = 'opacity-30 cursor-not-allowed pointer-events-none';
-            } else {
-                nextDisabled = 'hover:bg-white/40 cursor-pointer';
-            }
-            
-            html += `<button onclick="changePage(${currentPage + 1})" class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-xl glass transition-all ${nextDisabled}"><i class="fas fa-chevron-right text-xs"></i></button>`;
-            container.innerHTML = html;
         }
 
-        // --- FILTER KATEGORI ---
-        window.filterCategory = (category) => {
-            activeCategory = category; 
-            currentPage = 1;
-            
-            const allButtons = document.querySelectorAll('#category-container button');
-            allButtons.forEach(b => {
-                b.classList.remove('glass-active');
-            });
-            
-            const btnId = `btn-cat-${category.replace(/\s+/g, '-')}`;
-            const btn = document.getElementById(btnId);
-            if (btn) {
-                btn.classList.add('glass-active');
-            }
-            updateDisplay();
-        };
-
-        function renderCategories(apps) {
-            const container = document.getElementById('category-container');
-            const allCats = apps.flatMap(a => {
-                return (a.Category || '').split(',').map(c => c.trim()).filter(Boolean);
-            });
-            
-            const uniqueCats = [...new Set(allCats)].sort((a, b) => a.localeCompare(b));
-            
-            if (uniqueCats.length === 0) {
-                return;
-            }
-            
-            const finalCats = ['Semua', ...uniqueCats];
-            
-            const catsHtml = finalCats.map(cat => {
-                const id = `btn-cat-${cat.replace(/\s+/g, '-')}`;
-                let activeClass = '';
-                if (cat === 'Semua') {
-                    activeClass = 'glass-active';
-                }
-                return `<button onclick="window.filterCategory('${cat}')" id="${id}" class="px-5 py-2.5 rounded-2xl text-xs md:text-sm font-bold whitespace-nowrap transition-all outline-none snap-start glass glass-btn ${activeClass}">${cat}</button>`;
-            }).join('');
-            
-            container.innerHTML = catsHtml;
-        }
-
-        // --- RENDER BASIC ---
+        // --- RENDER UI ---
         function renderProfile(c) {
             document.getElementById('profile-name').innerText = c.profile_name;
             document.getElementById('profile-title').innerText = c.profile_title;
             document.getElementById('profile-image').src = c.profile_image;
-            
             if (String(c.verified_badge).toLowerCase() === 'true') {
                 document.getElementById('verified-badge').classList.remove('hidden');
             }
@@ -883,160 +395,143 @@
 
         function renderSocials(socs) {
             const container = document.getElementById('socials-container');
-            
-            socs.forEach((s, i) => {
-                if (String(s.Visible).toLowerCase() !== 'true') {
-                    return;
-                }
-                
-                const a = document.createElement('a'); 
-                a.href = s.Url; 
-                a.target = "_blank";
-                a.className = `w-12 h-12 md:w-14 md:h-14 rounded-full glass glass-btn flex items-center justify-center text-xl md:text-2xl shadow-sm hover:scale-110 transition-transform animate-stagger ${s.ColorClass}`;
-                a.style.animationDelay = `${0.15 + (i * 0.05)}s`; 
+            container.innerHTML = '';
+            socs.filter(s => String(s.Visible).toLowerCase() === 'true').forEach((s, i) => {
+                const a = document.createElement('a');
+                a.href = s.Url; a.target = "_blank";
+                a.className = `w-12 h-12 md:w-14 md:h-14 rounded-2xl glass glass-btn flex items-center justify-center text-xl shadow-lg hover:scale-110 transition-transform ${s.ColorClass}`;
+                a.style.animationDelay = `${0.1 + (i * 0.05)}s`;
                 a.innerHTML = `<i class="${s.IconClass}"></i>`;
-                
                 container.appendChild(a);
             });
         }
 
-        function setupSearch() {
-            const searchInput = document.getElementById('app-search');
+        function updateDisplay() {
+            let filtered = currentApps.filter(app => {
+                const cats = (app.Category || '').split(',').map(c => c.trim());
+                const matchSearch = (app.Name || '').toLowerCase().includes(searchQuery) || (app.Description || '').toLowerCase().includes(searchQuery);
+                const matchCat = activeCategory === 'Semua' || cats.includes(activeCategory);
+                return matchSearch && matchCat;
+            });
             
-            searchInput.addEventListener('input', (e) => {
-                searchQuery = e.target.value.toLowerCase();
-                
-                if (isMarketplaceOpen) {
-                    const filtered = currentPages.filter(p => {
-                        return p.title.toLowerCase().includes(searchQuery);
-                    });
-                    renderMarketplace(filtered);
+            const total = filtered.length;
+            const paginated = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+            
+            renderApps(paginated);
+            renderPagination(total);
+        }
+
+        function renderApps(apps) {
+            const container = document.getElementById('apps-container');
+            container.innerHTML = '';
+            apps.forEach((app, index) => {
+                const div = document.createElement('div');
+                div.className = 'w-full animate-stagger';
+                div.style.animationDelay = `${0.1 + (index * 0.05)}s`;
+
+                const type = (app.Type || 'link').toLowerCase();
+                const isLocked = app.isLocked === true;
+
+                if (type === 'hero') {
+                    div.innerHTML = `
+                        <div class="text-center py-6">
+                            <img src="${app.LogoUrl}" class="h-16 mx-auto mb-4 rounded-full shadow-lg">
+                            <h2 class="text-2xl font-black tracking-tighter">${app.Name}</h2>
+                            <p class="text-[11px] opacity-60 mt-1 uppercase tracking-widest px-10">${app.Description}</p>
+                        </div>`;
+                } else if (type === 'image') {
+                    div.innerHTML = `
+                        <a href="${app.Url}" target="_blank" class="block glass rounded-3xl overflow-hidden tap-effect border-white/40 shadow-xl relative">
+                            ${renderBadge(app)}
+                            <img src="${app.ImageUrl}" class="w-full h-auto object-cover">
+                        </a>`;
+                } else if (type === 'pricing') {
+                    div.innerHTML = `
+                        <div class="glass rounded-[2rem] p-6 text-center border-t-4 shadow-xl" style="border-top-color: ${app.BadgeColor1 || '#9333ea'}">
+                            <h3 class="text-lg font-black uppercase tracking-widest mb-4 ${app.ColorClass}">${app.Name}</h3>
+                            <div class="text-sm opacity-80 mb-6 text-left whitespace-pre-line">${app.Description}</div>
+                            <a href="${app.Url}" target="_blank" class="block w-full py-4 rounded-xl font-black text-white shadow-lg tap-effect" style="background: linear-gradient(135deg, ${app.BadgeColor1 || '#9333ea'}, ${app.BadgeColor2 || '#ec4899'})">BELI SEKARANG</a>
+                        </div>`;
                 } else {
-                    currentPage = 1;
-                    updateDisplay();
+                    div.innerHTML = `
+                        <div onclick="${isLocked ? `openPasswordModal('${app.ID}','${app.Name}')` : `window.open('${app.Url}','_blank'); sendTracking('Click','${app.Name}','${app.ID}')`}" class="glass rounded-2xl p-4 flex items-center gap-4 tap-effect cursor-pointer group shadow-sm relative">
+                            ${renderBadge(app)}
+                            <div class="w-12 h-12 rounded-xl glass-input flex items-center justify-center text-2xl ${app.ColorClass}">
+                                <i class="${isLocked ? 'fas fa-lock' : (app.IconClass || 'fas fa-link')}"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-bold text-sm truncate">${app.Name}</h4>
+                                <p class="text-[10px] opacity-40 uppercase tracking-widest truncate font-semibold">${app.Description}</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-[10px] opacity-20 group-hover:opacity-100 transition-opacity pr-2"></i>
+                        </div>`;
                 }
+                container.appendChild(div);
             });
         }
 
-        // --- MARKETPLACE & FULL LANDING PAGE CMS ---
+        function renderBadge(app) {
+            if (!app.BadgeText) return '';
+            return `<div class="absolute top-2 right-2 rounded-bl-xl rounded-tr-xl px-3 py-1 text-[10px] font-black uppercase text-white shadow-lg z-10" style="background: linear-gradient(135deg, ${app.BadgeColor1 || '#ec4899'}, ${app.BadgeColor2 || '#8b5cf6'})">${app.BadgeText}</div>`;
+        }
+
+        function renderCategories(apps) {
+            const container = document.getElementById('category-container');
+            const uniqueCats = ['Semua', ...new Set(apps.flatMap(a => (a.Category || '').split(',').map(c => c.trim())).filter(Boolean))];
+            container.innerHTML = uniqueCats.map(cat => `<button onclick="filterCategory('${cat}')" class="px-5 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-widest glass glass-btn ${cat === 'Semua' ? 'glass-active' : ''}">${cat}</button>`).join('');
+        }
+
+        window.filterCategory = (cat) => {
+            activeCategory = cat; currentPage = 1;
+            document.querySelectorAll('#category-container button').forEach(b => b.classList.remove('glass-active'));
+            event.target.classList.add('glass-active');
+            updateDisplay();
+        };
+
+        // --- LANDING PAGE ENGINE ---
         function renderLandingPage(slug) {
-            const pageData = currentPages.find(p => p.slug === slug);
-            const container = document.getElementById('landing-page-content');
-            const view = document.getElementById('landing-page-view');
-            
-            if (pageData) {
-                // Menambahkan sentuhan background blur eksklusif ke dalam content (Seperti Kartu VIP)
-                container.innerHTML = `
-                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl pointer-events-none"></div>
-                    <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-pink-500/20 rounded-full blur-2xl pointer-events-none"></div>
-                    <div class="relative z-10 w-full text-center">
-                        ${pageData.html_content}
-                    </div>
-                `;
-                document.title = pageData.title + " - " + globalConfig.profile_name;
-            } else {
-                container.innerHTML = `
-                    <div class="p-6 text-center flex flex-col justify-center items-center relative z-10">
-                        <i class="fas fa-exclamation-triangle text-4xl text-red-500 mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Halaman Tidak Ditemukan</h3>
-                        <p class="text-sm opacity-70">Maaf, promo atau halaman ini mungkin sudah dihapus.</p>
-                    </div>
-                `;
+            const page = currentPages.find(p => p.slug === slug);
+            if (page) {
+                if (page.password) {
+                    openPasswordModal(page.slug, page.title);
+                } else {
+                    document.getElementById('landing-page-content').innerHTML = page.html_content;
+                    document.getElementById('landing-page-view').classList.remove('hidden');
+                    document.getElementById('main-content').classList.add('hidden');
+                    document.title = page.title;
+                    sendTracking('View Page', page.title, page.slug);
+                }
             }
-            
-            view.classList.remove('hidden');
         }
 
         function goBackHome() {
-            window.history.pushState({}, document.title, window.location.pathname);
-            window.location.reload(); 
-        }
-
-        function goToPage(slug) {
             const url = new URL(window.location);
-            url.searchParams.set('page', slug);
+            url.searchParams.delete('page');
             window.history.pushState({}, '', url);
             window.location.reload();
         }
 
         function toggleMarketplace() {
             isMarketplaceOpen = !isMarketplaceOpen;
-            
-            const btnText = document.getElementById('text-marketplace');
-            const appCont = document.getElementById('apps-container');
-            const markCont = document.getElementById('marketplace-container');
-            const catWrap = document.getElementById('cat-wrapper');
-            const pagiCont = document.getElementById('pagination-container');
-
-            if (isMarketplaceOpen) {
-                btnText.innerText = "Tutup Marketplace";
-                
-                appCont.classList.add('hidden');
-                catWrap.classList.add('hidden');
-                pagiCont.classList.add('hidden');
-                
-                markCont.classList.remove('hidden');
-                renderMarketplace(currentPages);
-            } else {
-                btnText.innerText = "Buka Marketplace Promo";
-                
-                appCont.classList.remove('hidden');
-                catWrap.classList.remove('hidden');
-                pagiCont.classList.remove('hidden');
-                
-                markCont.classList.add('hidden');
-            }
+            document.getElementById('apps-container').classList.toggle('hidden', isMarketplaceOpen);
+            document.getElementById('cat-wrapper').classList.toggle('hidden', isMarketplaceOpen);
+            document.getElementById('marketplace-container').classList.toggle('hidden', !isMarketplaceOpen);
+            if (isMarketplaceOpen) renderMarketplace();
         }
 
-        function renderMarketplace(pages) {
-            const container = document.getElementById('marketplace-container');
-            container.innerHTML = '';
-
-            if (pages.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-2 text-center py-6 opacity-60">Katalog masih kosong.</div>
-                `; 
-                return;
-            }
-
-            pages.forEach((p, i) => {
-                const el = document.createElement('div');
-                el.onclick = () => goToPage(p.slug);
-                el.className = `glass glass-card rounded-2xl overflow-hidden cursor-pointer tap-effect shadow-md animate-stagger group flex flex-col h-full`;
-                el.style.animationDelay = `${0.1 + (i * 0.05)}s`;
-                
-                const thumbImage = p.thumbnail || 'https://via.placeholder.com/300x200?text=Promo';
-                const descText = p.description || '';
-                
-                el.innerHTML = `
-                    <div class="h-32 bg-gray-200 overflow-hidden relative">
-                        <img src="${thumbImage}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                        <div class="absolute bottom-2 right-2 glass px-2 py-0.5 rounded text-[10px] font-bold text-white">
-                            <i class="fas fa-external-link-alt"></i> Buka
-                        </div>
-                    </div>
-                    <div class="p-3 flex-grow flex flex-col justify-between bg-white/40 dark:bg-black/20">
-                        <div>
-                            <h3 class="font-bold text-sm leading-tight mb-1 line-clamp-2">${p.title}</h3>
-                            <p class="text-[11px] opacity-70 line-clamp-2 leading-snug">${descText}</p>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(el);
-            });
+        function renderMarketplace() {
+            const cont = document.getElementById('marketplace-container');
+            cont.innerHTML = currentPages.map(p => `
+                <div onclick="window.location.href='?page=${p.slug}'" class="glass rounded-2xl overflow-hidden tap-effect cursor-pointer group shadow-xl">
+                    <div class="h-32 bg-gray-200 relative overflow-hidden"><img src="${p.thumbnail}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"></div>
+                    <div class="p-3 bg-white/40"><h4 class="font-bold text-[10px] uppercase tracking-widest truncate">${p.title}</h4></div>
+                </div>`).join('');
         }
 
-        // --- PASSWORD MODAL & TRACKING ---
-        function openPasswordModal(id, name, passUrl) {
+        // --- AUTH & TRACKING ---
+        function openPasswordModal(id, name) {
             document.getElementById('locked-app-id').value = id;
-            document.getElementById('locked-app-name').innerText = name;
-            
-            document.getElementById('password-error').classList.add('hidden');
-            document.getElementById('app-password').value = '';
-            
             document.getElementById('password-modal').classList.remove('hidden');
-            
             setTimeout(() => {
                 document.getElementById('password-modal-content').classList.remove('scale-95', 'opacity-0');
             }, 10);
@@ -1044,170 +539,78 @@
 
         function closePasswordModal() {
             document.getElementById('password-modal-content').classList.add('scale-95', 'opacity-0');
-            
-            setTimeout(() => {
-                document.getElementById('password-modal').classList.add('hidden');
-            }, 300);
-        }
-
-        function togglePasswordVisibility(id, btn) {
-            const input = document.getElementById(id);
-            const icon = btn.querySelector('i');
-            
-            if (input.type === 'password') { 
-                input.type = 'text'; 
-                icon.classList.replace('fa-eye', 'fa-eye-slash'); 
-            } else { 
-                input.type = 'password'; 
-                icon.classList.replace('fa-eye-slash', 'fa-eye'); 
-            }
+            setTimeout(() => document.getElementById('password-modal').classList.add('hidden'), 300);
         }
 
         document.getElementById('password-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('unlock-btn');
-            const err = document.getElementById('password-error');
             const id = document.getElementById('locked-app-id').value;
             const pass = document.getElementById('app-password').value;
-            
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; 
-            btn.disabled = true; 
-            err.classList.add('hidden');
-            
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({ 
-                        action: 'verifyPassword', 
-                        appId: id, 
-                        password: pass 
-                    }),
-                    headers: { 
-                        'Content-Type': 'text/plain;charset=utf-8' 
-                    }
-                });
-                
-                const res = await response.json();
-                
-                if (res.success) { 
-                    closePasswordModal(); 
-                    window.open(res.url, '_blank'); 
-                    incrementClick(id); 
-                } else { 
-                    err.innerText = res.message; 
-                    err.classList.remove('hidden'); 
-                }
-            } catch(error) { 
-                err.innerText = "Koneksi gagal."; 
-                err.classList.remove('hidden'); 
-            } finally { 
-                btn.innerHTML = 'Buka'; 
-                btn.disabled = false; 
+            const resp = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'verifyPassword', appId: id, password: pass }) });
+            const res = await resp.json();
+            if (res.success) {
+                closePasswordModal();
+                if (res.url === 'locked_page_content') renderLandingPage(id);
+                else window.open(res.url, '_blank');
+            } else {
+                const err = document.getElementById('password-error');
+                err.innerText = res.message; err.classList.remove('hidden');
             }
         });
 
-        function incrementClick(appId) {
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify({ 
-                    action: 'incrementClick', 
-                    appId: appId 
-                }),
-                headers: { 
-                    'Content-Type': 'text/plain;charset=utf-8' 
+        async function sendTracking(type, name, id) {
+            try {
+                fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ action: 'recordTracking', type, productName: name, targetId: id }) });
+                if (typeof fbq !== 'undefined') fbq('track', 'AddToCart', { content_name: name });
+            } catch(e) {}
+        }
+
+        async function submitLeadForm(e) {
+            e.preventDefault();
+            const btn = document.getElementById('lead-submit-btn');
+            const msg = document.getElementById('lead-msg');
+            btn.disabled = true; btn.innerText = "MEMPROSES...";
+            try {
+                const resp = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'addLead', name: document.getElementById('lead-name').value, email: document.getElementById('lead-email').value, wa: document.getElementById('lead-wa').value }) });
+                const res = await resp.json();
+                if (res.success) {
+                    msg.innerText = "BERHASIL BERLANGGANAN! ✨"; msg.className = "text-[10px] text-center font-black text-green-500 block";
+                    if (globalConfig.vip_redirect_url) setTimeout(() => window.open(globalConfig.vip_redirect_url, '_blank'), 1500);
                 }
-            }).catch(() => {
-                // Silently fail if incrementing click fails
+            } catch(e) { msg.innerText = "GAGAL. COBA LAGI."; msg.className = "text-[10px] text-center font-black text-red-500 block"; }
+            finally { btn.disabled = false; btn.innerText = "BERLANGGANAN SEKARANG"; }
+        }
+
+        // --- HELPERS ---
+        function renderPagination(total) {
+            const cont = document.getElementById('pagination-container');
+            const pages = Math.ceil(total / ITEMS_PER_PAGE);
+            if (pages <= 1) { cont.innerHTML = ''; return; }
+            let html = '';
+            for (let i = 1; i <= pages; i++) {
+                html += `<button onclick="currentPage=${i};updateDisplay();window.scrollTo({top:0,behavior:'smooth'})" class="w-8 h-8 rounded-lg glass font-bold text-xs ${currentPage===i ? 'glass-active text-purple-600' : ''}">${i}</button>`;
+            }
+            cont.innerHTML = html;
+        }
+
+        function setupSearch() {
+            document.getElementById('app-search').addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase(); updateDisplay();
             });
         }
 
-        // --- LEAD FORM ---
-        async function submitLeadForm(e) { 
-            e.preventDefault();
-            
-            const btn = document.getElementById('lead-submit-btn');
-            const msg = document.getElementById('lead-msg');
-            const originalText = btn.innerText;
-            
-            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Memproses...'; 
-            btn.disabled = true; 
-            msg.classList.add('hidden');
-
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({ 
-                        action: 'addLead', 
-                        name: document.getElementById('lead-name').value, 
-                        email: document.getElementById('lead-email').value, 
-                        wa: document.getElementById('lead-wa').value 
-                    }),
-                    headers: { 
-                        'Content-Type': 'text/plain;charset=utf-8' 
-                    }
-                });
-                
-                const resJson = await response.json();
-                
-                if (resJson.success) {
-                    msg.innerText = "Terima kasih! Mengarahkan..."; 
-                    msg.className = "text-xs text-center font-bold mt-3 text-green-500 block";
-                    document.getElementById('lead-form').reset();
-                    
-                    setTimeout(() => { 
-                        if (globalConfig.vip_redirect_url) {
-                            window.open(globalConfig.vip_redirect_url, '_blank'); 
-                        }
-                    }, 1500);
-                } else {
-                    throw new Error("Failed to submit lead");
-                }
-            } catch (err) {
-                msg.innerText = "Koneksi terputus. Coba lagi."; 
-                msg.className = "text-xs text-center font-bold mt-3 text-red-500 block";
-            } finally {
-                btn.innerHTML = originalText; 
-                btn.disabled = false; 
-                
-                setTimeout(() => {
-                    msg.classList.add('hidden');
-                }, 4000);
-            }
-        }
-
-        // --- THEME & SHARE ---
         function toggleTheme() {
             document.documentElement.classList.toggle('dark');
-            
-            if (document.documentElement.classList.contains('dark')) {
-                localStorage.theme = 'dark';
-            } else {
-                localStorage.theme = 'light';
-            }
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
         }
 
         function shareProfile() {
             if (navigator.share) {
-                navigator.share({ 
-                    title: document.title, 
-                    url: window.location.href 
-                }).catch(() => {
-                    // Fail silently
-                });
+                navigator.share({ title: document.title, url: window.location.href });
             } else {
-                const dummy = document.createElement('input'); 
-                document.body.appendChild(dummy);
-                dummy.value = window.location.href; 
-                dummy.select(); 
-                document.execCommand('copy'); 
-                document.body.removeChild(dummy);
-                
-                const toast = document.getElementById('toast');
-                toast.classList.remove('opacity-0', 'pointer-events-none');
-                
-                setTimeout(() => {
-                    toast.classList.add('opacity-0', 'pointer-events-none');
-                }, 3000);
+                const el = document.createElement('textarea'); el.value = window.location.href; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el);
+                const toast = document.getElementById('toast'); toast.classList.remove('opacity-0', 'pointer-events-none');
+                setTimeout(() => toast.classList.add('opacity-0', 'pointer-events-none'), 3000);
             }
         }
 
