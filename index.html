@@ -181,8 +181,8 @@
         </div>
     </div>
 
-    <!-- Main Content -->
-    <main id="main-content" class="w-full max-w-md md:max-w-2xl mx-auto relative z-10 hidden pt-12 pb-8 opacity-0 transition-opacity duration-700">
+    <!-- Main Content (Padding bottom ditambah agar tidak tertutup navbar) -->
+    <main id="main-content" class="w-full max-w-md md:max-w-2xl mx-auto relative z-10 hidden pt-12 pb-32 opacity-0 transition-opacity duration-700">
         
         <!-- Profile Section -->
         <div class="flex flex-col items-center mb-8 text-center px-4 w-full animate-stagger delay-1">
@@ -190,7 +190,7 @@
             <div class="glass rounded-[2rem] p-2 mb-4 relative shadow-lg">
                 <img id="profile-image" src="" alt="Profile" 
                      class="w-28 h-28 md:w-32 md:h-32 rounded-[1.5rem] object-cover object-top" 
-                     onerror="this.src='https://ui-avatars.com/api/?name=Katarimers&background=7c3aed&color=fff&size=128'">
+                     onerror="this.src='https://ui-avatars.com/api/?name=iMersBiopage&background=7c3aed&color=fff&size=128'">
                 
                 <!-- Verification Badge -->
                 <div id="verified-badge" class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full glass flex items-center justify-center hidden text-blue-600 dark:text-blue-400 border border-white/50" title="Verified">
@@ -233,22 +233,44 @@
             </div>
         </div>
 
-        <!-- Share Button -->
-        <div class="mt-10 mb-6 flex justify-center animate-stagger delay-3">
-            <button onclick="shareProfile()" class="glass glass-btn tap-effect px-6 py-3 md:px-8 md:py-4 rounded-full flex items-center gap-3 font-semibold text-sm transition-colors shadow-md">
-                <i class="fas fa-share-nodes"></i> Bagikan Profil
-            </button>
-        </div>
-
         <!-- Footer -->
-        <footer class="text-center mt-10 pb-4 opacity-60">
+        <footer class="text-center mt-10 opacity-60">
             <p class="text-xs font-medium tracking-wide">© <span id="year"></span> <span id="footer-name"></span>. <span id="footer-text"></span></p>
         </footer>
 
     </main>
 
+    <!-- App-like Floating Bottom Navbar -->
+    <nav class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] max-w-sm glass rounded-[2rem] z-50 px-6 py-2.5 flex justify-between items-center shadow-2xl transition-transform duration-300 animate-stagger delay-3 border border-white/50 backdrop-blur-xl">
+        <!-- Beranda -->
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="flex flex-col items-center gap-1 text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 transition-colors group px-2">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all text-blue-500 dark:text-blue-400">
+                <i class="fas fa-home text-xl group-hover:scale-110 transition-transform"></i>
+            </div>
+            <span class="text-[10px] font-bold tracking-wide">Beranda</span>
+        </button>
+        
+        <!-- Cari -->
+        <button onclick="fokusPencarian()" class="flex flex-col items-center gap-1 text-gray-700 dark:text-gray-200 hover:text-pink-500 dark:hover:text-pink-400 transition-colors group px-2 relative">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all text-pink-500 dark:text-pink-400 relative">
+                <!-- Aksen titik pink -->
+                <div class="absolute top-1 right-1 w-2 h-2 bg-pink-500 rounded-full"></div>
+                <i class="fas fa-search text-xl group-hover:scale-110 transition-transform"></i>
+            </div>
+            <span class="text-[10px] font-bold tracking-wide">Cari</span>
+        </button>
+        
+        <!-- Bagikan -->
+        <button onclick="shareProfile()" class="flex flex-col items-center gap-1 text-gray-700 dark:text-gray-200 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group px-2">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all text-emerald-500 dark:text-emerald-400">
+                <i class="fas fa-share-nodes text-xl group-hover:scale-110 transition-transform"></i>
+            </div>
+            <span class="text-[10px] font-bold tracking-wide">Bagikan</span>
+        </button>
+    </nav>
+
     <!-- Toast -->
-    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 glass rounded-full px-6 py-3 opacity-0 transition-opacity duration-300 pointer-events-none z-50 flex items-center gap-3">
+    <div id="toast" class="fixed top-6 left-1/2 transform -translate-x-1/2 glass rounded-full px-6 py-3 opacity-0 transition-opacity duration-300 pointer-events-none z-[60] flex items-center gap-3">
         <i class="fas fa-check text-green-500"></i>
         <span class="text-sm font-bold">Link disalin!</span>
     </div>
@@ -306,7 +328,7 @@
                 profile_title: "Digital Creator & Visionary",
                 profile_image: "https://ui-avatars.com/api/?name=iMersBiopage&background=7c3aed&color=fff&size=256",
                 verified_badge: "true",
-                footer_text: "Designed with Glassmorphism." // Penambahan Footer Dinamis
+                footer_text: "Designed with Glassmorphism."
             },
             socials: [
                 { Platform: "WhatsApp", Url: "https://wa.me", IconClass: "fab fa-whatsapp", ColorClass: "text-green-600 dark:text-green-400", Visible: "true" },
@@ -318,7 +340,6 @@
             apps: [
                 { ID: "app1", Type: "link", Name: "AI Image Studio", Description: "Generate gambar Neumorphic", Category: "AI Tools", Url: "https://example.com/ai", IconClass: "fas fa-wand-magic-sparkles", ColorClass: "text-purple-600 dark:text-purple-400", Visible: "true", ClickCount: 2045, isLocked: false },
                 
-                // INI CONTOH BANNER IMAGE YANG DISISIPKAN
                 { ID: "banner1", Type: "image", Name: "Promo Bundle AI", ImageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop", Url: "https://example.com/promo", Category: "Semua", Visible: "true", ClickCount: 0 },
                 
                 { ID: "app2", Type: "link", Name: "Financial Tracker", Description: "Hitung aset dan investasi", Category: "Produktivitas", Url: "https://example.com/finance", IconClass: "fas fa-chart-pie", ColorClass: "text-emerald-600 dark:text-emerald-400", Visible: "true", ClickCount: 890, isLocked: false },
@@ -329,7 +350,6 @@
 
         const fetchData = async () => {
             try {
-                // Paksa tampilkan loading spinner saat pertama kali buka
                 document.getElementById('loading-spinner').classList.remove('hidden');
                 
                 if (isUsingPlaceholder) {
@@ -344,7 +364,7 @@
             } catch (error) {
                 console.error("Gagal mengambil data:", error);
                 alert("Gagal terhubung ke database. Menampilkan data offline sementara.");
-                return MOCK_DATA; // Fallback jika fetch error
+                return MOCK_DATA;
             }
         };
 
@@ -367,7 +387,6 @@
                     method: 'POST',
                     body: JSON.stringify({ action: 'verifyPassword', appId: appId, password: password }),
                     headers: {
-                        // text/plain digunakan agar API Google Sheets tidak nge-block dengan CORS preflight error
                         'Content-Type': 'text/plain;charset=utf-8', 
                     }
                 });
@@ -386,7 +405,6 @@
             }
 
             try {
-                // Jalan di background secara asinkron tanpa harus ditunggu
                 fetch(SCRIPT_URL, {
                     method: 'POST',
                     body: JSON.stringify({ action: 'incrementClick', appId: appId }),
@@ -421,7 +439,6 @@
 
             document.getElementById('year').innerText = new Date().getFullYear();
             document.getElementById('footer-name').innerText = data.config.profile_name;
-            // Update teks footer dinamis
             document.getElementById('footer-text').innerText = data.config.footer_text || 'Designed with Glassmorphism.';
 
             setupSearch();
@@ -465,7 +482,6 @@
 
                 appsCards.forEach(app => {
                     const appCategories = (app.getAttribute('data-category') || '').split(',').map(c => c.trim());
-                    // Cek elemen text pada link biasa (h3, p) atau alt pada image
                     const name = (app.querySelector('h3')?.innerText || app.querySelector('img')?.alt || '').toLowerCase();
                     const desc = (app.querySelector('p')?.innerText || '').toLowerCase();
                     
@@ -499,7 +515,7 @@
                 a.target = "_blank";
                 const iconColor = s.ColorClass || '';
                 a.className = `w-12 h-12 md:w-14 md:h-14 rounded-full glass glass-btn tap-effect flex items-center justify-center text-xl md:text-2xl group shadow-sm animate-stagger`;
-                a.style.animationDelay = `${0.15 + (index * 0.05)}s`; // Efek berurutan
+                a.style.animationDelay = `${0.15 + (index * 0.05)}s`; 
                 a.innerHTML = `<i class="${s.IconClass} ${iconColor} group-hover:scale-110 transition-transform"></i>`;
                 container.appendChild(a);
             });
@@ -511,7 +527,7 @@
 
             apps.filter(app => String(app.Visible).toLowerCase() === 'true').forEach((app, index) => {
                 const isLocked = app.isLocked || false;
-                const itemType = app.Type || 'link'; // Defaultnya link
+                const itemType = app.Type || 'link'; 
                 
                 const link = document.createElement('a');
                 link.href = isLocked ? '#' : app.Url || '#';
@@ -524,7 +540,6 @@
                      link.addEventListener('click', () => incrementAppClick(app.ID));
                 }
 
-                // Jika Tipe-nya adalah Gambar (Banner)
                 if (itemType.toLowerCase() === 'image') {
                     link.className = `block w-full tap-effect rounded-[1.5rem] overflow-hidden relative group cursor-pointer animate-stagger shadow-md glass p-1`;
                     link.style.animationDelay = `${0.3 + (index * 0.08)}s`;
@@ -535,9 +550,7 @@
                             <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                         </div>
                     `;
-                } 
-                // Jika Tipe-nya adalah Link (Card Horizontal Standar)
-                else {
+                } else {
                     link.className = `block glass glass-card tap-effect rounded-[1.5rem] p-3 md:p-4 relative overflow-hidden group cursor-pointer animate-stagger`;
                     link.style.animationDelay = `${0.3 + (index * 0.08)}s`; 
 
@@ -572,6 +585,16 @@
                 
                 container.appendChild(link);
             });
+        }
+
+        // --- FUNGSI NAVBAR TAMBAHAN ---
+        function fokusPencarian() {
+            const searchInput = document.getElementById('app-search');
+            // Scroll sedikit ke bawah agar kotak pencarian tidak tertutup batas atas layar
+            const y = searchInput.getBoundingClientRect().top + window.scrollY - 100;
+            window.scrollTo({top: y, behavior: 'smooth'});
+            // Memberi delay sedikit sebelum fokus agar animasi scroll selesai
+            setTimeout(() => { searchInput.focus(); }, 300);
         }
 
         // --- PASSWORD MODAL ---
@@ -674,6 +697,7 @@
                 document.body.removeChild(dummy);
                 
                 const toast = document.getElementById('toast');
+                // Ganti class penempatan dari "bottom-6" menjadi "top-6" karena "bottom-6" sudah dipakai oleh navbar baru
                 toast.classList.remove('opacity-0', 'pointer-events-none');
                 setTimeout(() => toast.classList.add('opacity-0', 'pointer-events-none'), 3000);
             }
