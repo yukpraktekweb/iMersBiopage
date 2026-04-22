@@ -25,8 +25,13 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { sans: ['"Outfit"', 'sans-serif'] },
-                    animation: { blob: "blob 7s infinite", pulseGlow: "pulseGlow 2s infinite" },
+                    fontFamily: { 
+                        sans: ['"Outfit"', 'sans-serif'] 
+                    },
+                    animation: { 
+                        blob: "blob 7s infinite", 
+                        pulseGlow: "pulseGlow 2s infinite" 
+                    },
                     keyframes: {
                         blob: {
                             "0%": { transform: "translate(0px, 0px) scale(1)" },
@@ -34,7 +39,10 @@
                             "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
                             "100%": { transform: "translate(0px, 0px) scale(1)" }
                         },
-                        pulseGlow: { "0%, 100%": { opacity: 1, transform: "scale(1)" }, "50%": { opacity: .9, transform: "scale(1.02)" } }
+                        pulseGlow: { 
+                            "0%, 100%": { opacity: 1, transform: "scale(1)" }, 
+                            "50%": { opacity: .9, transform: "scale(1.02)" } 
+                        }
                     }
                 }
             }
@@ -43,32 +51,104 @@
 
     <!-- GLASSMORPHISM CSS -->
     <style>
-        body { font-family: 'Outfit', sans-serif; background-color: #f3f4f6; color: #1f2937; transition: background-color 0.4s ease, color 0.4s ease; }
-        .dark body { background-color: #111827; color: #f9fafb; }
-        .glass { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .dark .glass { background: rgba(17, 24, 39, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); }
-        .glass-btn:hover, .glass-card:hover { background: rgba(255, 255, 255, 0.6); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15); border: 1px solid rgba(255, 255, 255, 0.8); }
-        .dark .glass-btn:hover, .dark .glass-card:hover { background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); }
-        .glass-input { background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.5); }
-        .dark .glass-input { background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .glass-active { background: rgba(255, 255, 255, 0.8) !important; border-color: rgba(255, 255, 255, 1) !important; box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
-        .dark .glass-active { background: rgba(59, 130, 246, 0.5) !important; border-color: rgba(96, 165, 250, 0.8) !important; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
-        @keyframes fadeSlideUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-        .animate-stagger { opacity: 0; animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; will-change: transform, opacity; }
-        .tap-effect { transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1); }
-        .tap-effect:active { transform: scale(0.96) !important; }
-        ::-webkit-scrollbar { width: 0px; height: 0px; }
-        .fade-mask { mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
-        input::placeholder, textarea::placeholder { color: inherit; opacity: 0.6; }
-        .pricing-list ul { padding-left: 0.5rem; margin-bottom: 1.5rem; text-align: left; }
-        .pricing-list li { margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: #f3f4f6; 
+            color: #1f2937; 
+            transition: background-color 0.4s ease, color 0.4s ease; 
+        }
+        .dark body { 
+            background-color: #111827; 
+            color: #f9fafb; 
+        }
+        .glass { 
+            background: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px); 
+            border: 1px solid rgba(255, 255, 255, 0.6); 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .dark .glass { 
+            background: rgba(17, 24, 39, 0.6); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); 
+        }
+        .glass-btn:hover, .glass-card:hover { 
+            background: rgba(255, 255, 255, 0.6); 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15); 
+            border: 1px solid rgba(255, 255, 255, 0.8); 
+        }
+        .dark .glass-btn:hover, .dark .glass-card:hover { 
+            background: rgba(31, 41, 55, 0.8); 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); 
+        }
+        .glass-input { 
+            background: rgba(255, 255, 255, 0.3); 
+            backdrop-filter: blur(8px); 
+            border: 1px solid rgba(255, 255, 255, 0.5); 
+        }
+        .dark .glass-input { 
+            background: rgba(0, 0, 0, 0.3); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+        .glass-active { 
+            background: rgba(255, 255, 255, 0.8) !important; 
+            border-color: rgba(255, 255, 255, 1) !important; 
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); 
+        }
+        .dark .glass-active { 
+            background: rgba(59, 130, 246, 0.5) !important; 
+            border-color: rgba(96, 165, 250, 0.8) !important; 
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); 
+        }
+        @keyframes fadeSlideUp { 
+            0% { opacity: 0; transform: translateY(20px); } 
+            100% { opacity: 1; transform: translateY(0); } 
+        }
+        .animate-stagger { 
+            opacity: 0; 
+            animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+            will-change: transform, opacity; 
+        }
+        .tap-effect { 
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .tap-effect:active { 
+            transform: scale(0.96) !important; 
+        }
+        ::-webkit-scrollbar { 
+            width: 0px; 
+            height: 0px; 
+        }
+        .fade-mask { 
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); 
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); 
+        }
+        input::placeholder, textarea::placeholder { 
+            color: inherit; 
+            opacity: 0.6; 
+        }
+        .pricing-list ul { 
+            padding-left: 0.5rem; 
+            margin-bottom: 1.5rem; 
+            text-align: left; 
+        }
+        .pricing-list li { 
+            margin-bottom: 0.5rem; 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 0.5rem; 
+        }
     </style>
 
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
+            document.documentElement.classList.add('dark');
         } else {
-            document.documentElement.classList.remove('dark')
+            document.documentElement.classList.remove('dark');
         }
     </script>
 </head>
@@ -99,13 +179,12 @@
     <!-- ========================================== -->
     <!-- VIEW 1: LANDING PAGE ROUTER (FULL HTML)    -->
     <!-- ========================================== -->
-    <!-- PERBAIKAN: Kotak dibikin sama persis seperti Popup Sandi (Glassmorphism penuh) -->
     <div id="landing-page-view" class="w-full max-w-2xl mx-auto relative z-10 hidden pt-6 pb-12 px-2 md:px-4 animate-stagger">
-        <button onclick="goBackHome()" class="glass px-5 py-3 rounded-xl text-sm font-bold mb-6 hover:bg-white/50 transition-colors flex items-center gap-2 shadow-sm border border-white/50">
+        <button onclick="goBackHome()" class="glass px-5 py-3 rounded-xl text-sm font-bold mb-6 hover:bg-white/50 transition-colors flex items-center gap-2 shadow-sm border border-white/50 w-max">
             <i class="fas fa-arrow-left"></i> Kembali ke Menu
         </button>
         <!-- Tempat muntahan kode HTML dari Sheet_Pages -->
-        <div id="landing-page-content" class="w-full relative glass rounded-[2rem] border border-white/50 shadow-2xl overflow-hidden min-h-[50vh]">
+        <div id="landing-page-content" class="w-full relative glass rounded-[2rem] border border-white/50 shadow-2xl overflow-hidden min-h-[50vh] p-8 md:p-12 flex flex-col items-center justify-center">
             <!-- Injected by JS -->
         </div>
     </div>
@@ -119,7 +198,9 @@
         <div id="profile-section" class="flex flex-col items-center mb-8 text-center px-4 w-full animate-stagger" style="animation-delay: 0.1s">
             <div class="glass rounded-[2rem] p-2 mb-4 relative shadow-lg">
                 <img id="profile-image" src="" alt="Profile" class="w-28 h-28 md:w-32 md:h-32 rounded-[1.5rem] object-cover object-top" onerror="this.src='https://ui-avatars.com/api/?name=iMers&background=7c3aed&color=fff&size=128'">
-                <div id="verified-badge" class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full glass flex items-center justify-center hidden text-blue-600 dark:text-blue-400 border border-white/50"><i class="fas fa-check text-xs"></i></div>
+                <div id="verified-badge" class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full glass flex items-center justify-center hidden text-blue-600 dark:text-blue-400 border border-white/50">
+                    <i class="fas fa-check text-xs"></i>
+                </div>
             </div>
             <h1 id="profile-name" class="text-2xl md:text-3xl font-bold tracking-tight">...</h1>
             <p id="profile-title" class="opacity-70 font-medium mt-1 text-xs md:text-sm uppercase tracking-widest">...</p>
@@ -251,32 +332,59 @@
         let currentPage = 1;
         let activeCategory = 'Semua';
         let searchQuery = '';
-        let currentApps = [], currentPages = [], globalConfig = {};
+        let currentApps = [];
+        let currentPages = [];
+        let globalConfig = {};
         let isMarketplaceOpen = false;
 
-        // Mock data ini udah gue update biar kalau internet mati, tampilannya tetep elegan kayak popup sandi
         const MOCK_DATA = {
-            config: { profile_name: "iMersBiopage", profile_title: "Semua Kebutuhanmu Ada Di Sini" },
+            config: { 
+                profile_name: "iMersBiopage", 
+                profile_title: "Semua Kebutuhanmu Ada Di Sini" 
+            },
             socials: [],
             apps: [
-                { ID: "b7", Type: "link", Name: "Chat Admin WA", Url: "https://wa.me/", IconClass: "fab fa-whatsapp", ColorClass: "text-green-500", Visible: "true" }
+                { 
+                    ID: "b7", 
+                    Type: "link", 
+                    Name: "Chat Admin WA", 
+                    Url: "https://wa.me/", 
+                    IconClass: "fab fa-whatsapp", 
+                    ColorClass: "text-green-500", 
+                    Visible: "true" 
+                }
             ],
             pages: [
-                { slug: "promo-mock", title: "Promo Showcase", description: "Landing page elegan dengan Google Sheets.", thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&q=80", html_content: `
-                <div class="max-w-2xl mx-auto space-y-6 py-8 px-4">
-                    <div class="text-center w-full">
-                        <img src="https://ui-avatars.com/api/?name=iMers&background=fff&color=9333ea&rounded=true" class="h-20 mx-auto mb-6 object-contain drop-shadow-sm rounded-full">
-                        <h2 class="text-4xl font-black tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 font-[Poppins]">iMers Biopage Mock</h2>
-                        <p class="text-base opacity-80 leading-relaxed max-w-md mx-auto">Tampilan ini muncul kalau API belum jalan. Tapi tenang, desain <b>Glassmorphism</b> nya tetep mewah kok!</p>
-                    </div>
-                </div>`, visible: "true" }
+                { 
+                    slug: "promo-mock", 
+                    title: "Promo Showcase", 
+                    description: "Landing page elegan dengan Google Sheets.", 
+                    thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&q=80", 
+                    html_content: `
+                        <div class="text-center w-full max-w-sm mx-auto space-y-5">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full glass flex items-center justify-center mx-auto mb-4 overflow-hidden border border-white/50 shadow-inner">
+                                <img src="https://ui-avatars.com/api/?name=PRO&background=fff&color=9333ea&rounded=true" class="w-full h-full object-cover">
+                            </div>
+                            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight font-[Poppins] text-transparent bg-clip-text" style="background-image: linear-gradient(to right, #9333ea, #ec4899);">Akses Premium</h2>
+                            <p class="text-sm opacity-80 leading-relaxed mb-6">Ini adalah contoh desain murni 100% transparan Glassmorphism persis seperti popup sandi! Tinggal ganti teks dan warna lewat form.</p>
+                            <div class="pt-4">
+                                <a href="#" target="_blank" class="block w-full py-4 rounded-xl font-extrabold text-white shadow-lg transition-transform hover:scale-[1.02] tap-effect" style="background: linear-gradient(135deg, #9333ea, #ec4899); box-shadow: 0 10px 20px -5px rgba(147, 51, 234, 0.5);">
+                                    Dapatkan Akses <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `, 
+                    visible: "true" 
+                }
             ]
         };
 
         const fetchData = async () => {
             try {
                 const response = await fetch(`${SCRIPT_URL}?action=getData`);
-                if (!response.ok) throw new Error("Network error");
+                if (!response.ok) {
+                    throw new Error("Network error");
+                }
                 return await response.json();
             } catch (error) { 
                 return MOCK_DATA; 
@@ -287,28 +395,80 @@
         function injectPixels(config) {
             if (config.pixel_fb && config.pixel_fb.trim() !== '') {
                 const fbId = config.pixel_fb.trim();
-                !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-                n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-                t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-                document,'script','https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', fbId); fbq('track', 'PageView');
+                !function(f,b,e,v,n,t,s){
+                    if(f.fbq)return;
+                    n=f.fbq=function(){
+                        n.callMethod? n.callMethod.apply(n,arguments) : n.queue.push(arguments)
+                    };
+                    if(!f._fbq)f._fbq=n;
+                    n.push=n;
+                    n.loaded=!0;
+                    n.version='2.0';
+                    n.queue=[];
+                    t=b.createElement(e);
+                    t.async=!0;
+                    t.src=v;
+                    s=b.getElementsByTagName(e)[0];
+                    s.parentNode.insertBefore(t,s)
+                }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+                
+                fbq('init', fbId); 
+                fbq('track', 'PageView');
                 console.log('✅ FB Pixel Active');
             }
+            
             if (config.pixel_tiktok && config.pixel_tiktok.trim() !== '') {
                 const ttId = config.pixel_tiktok.trim();
                 !function (w, d, t) {
-                  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._iq||{},n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
-                  ttq.load(ttId); ttq.page();
+                  w.TiktokAnalyticsObject=t;
+                  var ttq=w[t]=w[t]||[];
+                  ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+                  ttq.setAndDefer=function(t,e){
+                      t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}
+                  };
+                  for(var i=0;i<ttq.methods.length;i++) {
+                      ttq.setAndDefer(ttq,ttq.methods[i]);
+                  }
+                  ttq.instance=function(t){
+                      for(var e=ttq._iq||{},n=0;n<ttq.methods.length;n++) {
+                          ttq.setAndDefer(e,ttq.methods[n]);
+                      }
+                      return e
+                  };
+                  ttq.load=function(e,n){
+                      var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+                      ttq._i=ttq._i||{};
+                      ttq._i[e]=[];
+                      ttq._i[e]._u=i;
+                      ttq._t=ttq._t||{};
+                      ttq._t[e]=+new Date;
+                      ttq._o=ttq._o||{};
+                      ttq._o[e]=n||{};
+                      var o=document.createElement("script");
+                      o.type="text/javascript";
+                      o.async=!0;
+                      o.src=i+"?sdkid="+e+"&lib="+t;
+                      var a=document.getElementsByTagName("script")[0];
+                      a.parentNode.insertBefore(o,a)
+                  };
+                  ttq.load(ttId); 
+                  ttq.page();
                 }(window, document, 'ttq');
                 console.log('✅ TikTok Pixel Active');
             }
+            
             if (config.pixel_google && config.pixel_google.trim() !== '') {
                 const gId = config.pixel_google.trim();
-                const script = document.createElement('script'); script.async = true;
+                const script = document.createElement('script'); 
+                script.async = true;
                 script.src = 'https://www.googletagmanager.com/gtag/js?id=' + gId;
-                document.head.appendChild(script); window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', gId);
+                document.head.appendChild(script); 
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){
+                    dataLayer.push(arguments);
+                } 
+                gtag('js', new Date()); 
+                gtag('config', gId);
                 console.log('✅ Google Tag Active');
             }
         }
@@ -319,11 +479,19 @@
             if (!data) return;
 
             globalConfig = data.config;
-            currentApps = (data.apps || []).filter(a => String(a.Visible).toLowerCase() === 'true' || String(a.visible).toLowerCase() === 'true');
-            currentPages = (data.pages || []).filter(p => String(p.visible).toLowerCase() === 'true');
+            
+            currentApps = (data.apps || []).filter(a => {
+                return String(a.Visible).toLowerCase() === 'true' || String(a.visible).toLowerCase() === 'true';
+            });
+            
+            currentPages = (data.pages || []).filter(p => {
+                return String(p.visible).toLowerCase() === 'true';
+            });
 
             injectPixels(globalConfig);
-            document.getElementById('loading-spinner').classList.add('hidden');
+            
+            const loadingSpinner = document.getElementById('loading-spinner');
+            loadingSpinner.classList.add('hidden');
 
             const urlParams = new URLSearchParams(window.location.search);
             const activeSlug = urlParams.get('page');
@@ -336,13 +504,15 @@
                 renderProfile(data.config);
                 renderSocials(data.socials);
                 renderCategories(currentApps);
-                updateDisplay(); // Menangani paginasi & rendering block
+                updateDisplay();
 
                 const btnMarketplace = document.getElementById('btn-marketplace');
                 if (globalConfig.show_marketplace && String(globalConfig.show_marketplace).toLowerCase() === 'false') {
                     btnMarketplace.classList.add('hidden');
                 } else {
-                    if(currentPages.length > 0) btnMarketplace.classList.remove('hidden');
+                    if (currentPages.length > 0) {
+                        btnMarketplace.classList.remove('hidden');
+                    }
                 }
 
                 const vipSection = document.getElementById('vip-list-section');
@@ -354,7 +524,9 @@
                 
                 const mainContent = document.getElementById('main-content');
                 mainContent.classList.remove('hidden');
-                setTimeout(() => mainContent.classList.remove('opacity-0'), 50);
+                setTimeout(() => {
+                    mainContent.classList.remove('opacity-0');
+                }, 50);
             }
 
             document.getElementById('year').innerText = new Date().getFullYear();
@@ -367,8 +539,12 @@
         function updateDisplay() {
             let filteredApps = currentApps.filter(app => {
                 const appCategories = (app.Category || '').split(',').map(c => c.trim());
-                const matchesSearch = (app.Name||'').toLowerCase().includes(searchQuery) || (app.Description||'').toLowerCase().includes(searchQuery);
+                const nameCheck = (app.Name || '').toLowerCase().includes(searchQuery);
+                const descCheck = (app.Description || '').toLowerCase().includes(searchQuery);
+                const matchesSearch = nameCheck || descCheck;
+                
                 const matchesCategory = activeCategory === 'Semua' || appCategories.includes(activeCategory);
+                
                 return matchesSearch && matchesCategory;
             });
 
@@ -379,7 +555,14 @@
             renderPagination(totalItems);
         }
 
-        window.changePage = (p) => { currentPage = p; updateDisplay(); window.scrollTo({top: 0, behavior: 'smooth'}); };
+        window.changePage = (p) => { 
+            currentPage = p; 
+            updateDisplay(); 
+            window.scrollTo({
+                top: 0, 
+                behavior: 'smooth'
+            }); 
+        };
 
         // --- RENDER APPS ---
         function renderApps(apps) {
@@ -387,7 +570,12 @@
             container.innerHTML = '';
 
             if (apps.length === 0) {
-                container.innerHTML = `<div class="text-center py-8 opacity-50"><i class="fas fa-box-open text-3xl mb-3"></i><p>Tidak ada konten.</p></div>`;
+                container.innerHTML = `
+                    <div class="text-center py-8 opacity-50">
+                        <i class="fas fa-box-open text-3xl mb-3"></i>
+                        <p>Tidak ada konten.</p>
+                    </div>
+                `;
                 return;
             }
 
@@ -401,8 +589,15 @@
                 
                 if (wrapperTag === 'a') {
                     el.href = isLocked ? '#' : app.Url;
-                    if(!isLocked) el.target = '_blank';
-                    if (isLocked) el.onclick = (e) => { e.preventDefault(); openPasswordModal(app.ID, app.Name, app.PasswordSourceUrl); };
+                    if (!isLocked) {
+                        el.target = '_blank';
+                    }
+                    if (isLocked) {
+                        el.onclick = (e) => { 
+                            e.preventDefault(); 
+                            openPasswordModal(app.ID, app.Name, app.PasswordSourceUrl); 
+                        };
+                    }
                 }
 
                 let customBadge = '';
@@ -411,7 +606,12 @@
                     const c2 = app.BadgeColor2 || '#8b5cf6'; 
                     const ratio = app.BadgeRatio || '50';
                     const bgStyle = `background: linear-gradient(135deg, ${c1} ${ratio}%, ${c2} 100%); color: white;`;
-                    customBadge = `<div class="absolute top-2 right-2 rounded-bl-xl rounded-tr-xl px-3 py-1 text-[10px] font-extrabold tracking-wider uppercase shadow-lg border-b border-l border-white/20 z-10" style="${bgStyle}">${app.BadgeText}</div>`;
+                    
+                    customBadge = `
+                        <div class="absolute top-2 right-2 rounded-bl-xl rounded-tr-xl px-3 py-1 text-[10px] font-extrabold tracking-wider uppercase shadow-lg border-b border-l border-white/20 z-10" style="${bgStyle}">
+                            ${app.BadgeText}
+                        </div>
+                    `;
                 }
 
                 const delay = `${0.1 + (index * 0.05)}s`;
@@ -463,11 +663,16 @@
                     case 'video':
                         el.className = `glass glass-card rounded-[1.5rem] p-2 animate-stagger shadow-md w-full border border-white/40`;
                         el.style.animationDelay = delay;
+                        let videoTitleHtml = '';
+                        if (app.Name) {
+                            videoTitleHtml = `<h3 class="font-bold text-sm mt-3 mb-1 px-3 opacity-80 text-center">${app.Name}</h3>`;
+                        }
+                        
                         el.innerHTML = `
                             <div class="relative w-full overflow-hidden rounded-[1.2rem] pb-[56.25%] bg-black/10">
                                 <iframe class="absolute top-0 left-0 w-full h-full" src="${app.Url}" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
-                            ${app.Name ? `<h3 class="font-bold text-sm mt-3 mb-1 px-3 opacity-80 text-center">${app.Name}</h3>` : ''}
+                            ${videoTitleHtml}
                         `;
                         break;
                         
@@ -475,6 +680,8 @@
                         const btnLabel = app.PasswordSourceUrl || 'Beli Sekarang';
                         const pC1 = app.BadgeColor1 || '#8b5cf6';
                         const pC2 = app.BadgeColor2 || '#ec4899';
+                        const colorClassStr = app.ColorClass || 'text-purple-600 dark:text-purple-300';
+                        const iconClassStr = app.IconClass || 'fas fa-shopping-cart';
                         
                         el.className = `glass glass-card rounded-[2rem] p-6 relative overflow-hidden animate-stagger w-full shadow-xl border-t-4`;
                         el.style.animationDelay = delay;
@@ -482,18 +689,19 @@
                         
                         el.innerHTML = `
                             ${customBadge}
-                            <h3 class="text-lg font-extrabold text-center mb-4 uppercase tracking-widest ${app.ColorClass || 'text-purple-600 dark:text-purple-300'}">${app.Name}</h3>
+                            <h3 class="text-lg font-extrabold text-center mb-4 uppercase tracking-widest ${colorClassStr}">${app.Name}</h3>
                             <div class="pricing-list text-sm opacity-90 leading-relaxed mb-6">${app.Description}</div>
                             <a href="${app.Url}" target="_blank" class="block w-full py-3.5 rounded-xl font-extrabold text-center text-white transition-transform hover:scale-[1.02] shadow-lg tap-effect" style="background: linear-gradient(135deg, ${pC1} 0%, ${pC2} 100%);">
-                                <i class="${app.IconClass || 'fas fa-shopping-cart'} mr-2"></i> ${btnLabel}
+                                <i class="${iconClassStr} mr-2"></i> ${btnLabel}
                             </a>
                         `;
                         break;
 
                     case 'cta':
+                        const ctaIcon = app.IconClass || 'fas fa-arrow-right';
                         el.className = `block w-full py-4 px-6 rounded-2xl font-extrabold text-center text-white bg-gradient-to-r from-pink-500 to-orange-400 hover:scale-[1.02] transition-all shadow-lg animate-stagger tap-effect text-lg animate-pulseGlow border border-white/30`;
                         el.style.animationDelay = delay;
-                        el.innerHTML = `${app.Name} <i class="${app.IconClass || 'fas fa-arrow-right'} ml-2"></i>`;
+                        el.innerHTML = `${app.Name} <i class="${ctaIcon} ml-2"></i>`;
                         break;
                         
                     case 'image':
@@ -509,7 +717,16 @@
                         break;
 
                     default: 
-                        const lockIcon = isLocked ? `<i class="fas fa-lock text-[10px] ml-2 opacity-50"></i>` : '';
+                        let lockIconHtml = '';
+                        if (isLocked) {
+                            lockIconHtml = `<i class="fas fa-lock text-[10px] ml-2 opacity-50"></i>`;
+                        }
+                        
+                        let descHtml = '';
+                        if (app.Description) {
+                            descHtml = `<p class="text-xs opacity-70 truncate pr-2 mt-1">${app.Description}</p>`;
+                        }
+                        
                         el.className = `block glass glass-card tap-effect rounded-[1.5rem] p-3 md:p-4 relative overflow-hidden group cursor-pointer animate-stagger w-full`;
                         el.style.animationDelay = delay;
                         el.innerHTML = `
@@ -519,8 +736,8 @@
                                     <i class="${app.IconClass || 'fas fa-link'}"></i>
                                 </div>
                                 <div class="flex-grow min-w-0 flex flex-col justify-center">
-                                    <h3 class="font-bold text-sm md:text-base truncate pr-2 flex items-center">${app.Name} ${lockIcon}</h3>
-                                    ${app.Description ? `<p class="text-xs opacity-70 truncate pr-2 mt-1">${app.Description}</p>` : ''}
+                                    <h3 class="font-bold text-sm md:text-base truncate pr-2 flex items-center">${app.Name} ${lockIconHtml}</h3>
+                                    ${descHtml}
                                 </div>
                                 <div class="flex-shrink-0 flex items-center pr-2">
                                     <div class="w-8 h-8 rounded-full glass flex items-center justify-center opacity-70 group-hover:opacity-100 group-hover:bg-white/20 transition-all">
@@ -539,43 +756,86 @@
         function renderPagination(totalItems) {
             const container = document.getElementById('pagination-container');
             const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-            if (totalPages <= 1) { container.innerHTML = ''; return; }
+            
+            if (totalPages <= 1) { 
+                container.innerHTML = ''; 
+                return; 
+            }
 
             let html = '';
-            const prevDisabled = currentPage === 1 ? 'opacity-30 cursor-not-allowed pointer-events-none' : 'hover:bg-white/40 cursor-pointer';
+            let prevDisabled = '';
+            
+            if (currentPage === 1) {
+                prevDisabled = 'opacity-30 cursor-not-allowed pointer-events-none';
+            } else {
+                prevDisabled = 'hover:bg-white/40 cursor-pointer';
+            }
+            
             html += `<button onclick="changePage(${currentPage - 1})" class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-xl glass transition-all ${prevDisabled}"><i class="fas fa-chevron-left text-xs"></i></button>`;
             
             for (let i = 1; i <= totalPages; i++) {
-                const activeClass = i === currentPage ? 'glass-active font-bold text-purple-600 scale-110 shadow-md' : 'hover:bg-white/40 cursor-pointer';
+                let activeClass = '';
+                if (i === currentPage) {
+                    activeClass = 'glass-active font-bold text-purple-600 scale-110 shadow-md';
+                } else {
+                    activeClass = 'hover:bg-white/40 cursor-pointer';
+                }
                 html += `<button onclick="changePage(${i})" class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-xl glass transition-all text-sm ${activeClass}">${i}</button>`;
             }
             
-            const nextDisabled = currentPage === totalPages ? 'opacity-30 cursor-not-allowed pointer-events-none' : 'hover:bg-white/40 cursor-pointer';
+            let nextDisabled = '';
+            if (currentPage === totalPages) {
+                nextDisabled = 'opacity-30 cursor-not-allowed pointer-events-none';
+            } else {
+                nextDisabled = 'hover:bg-white/40 cursor-pointer';
+            }
+            
             html += `<button onclick="changePage(${currentPage + 1})" class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-xl glass transition-all ${nextDisabled}"><i class="fas fa-chevron-right text-xs"></i></button>`;
             container.innerHTML = html;
         }
 
         // --- FILTER KATEGORI ---
         window.filterCategory = (category) => {
-            activeCategory = category; currentPage = 1;
-            document.querySelectorAll('#category-container button').forEach(b => b.classList.remove('glass-active'));
-            const btn = document.getElementById(`btn-cat-${category.replace(/\s+/g, '-')}`);
-            if(btn) btn.classList.add('glass-active');
+            activeCategory = category; 
+            currentPage = 1;
+            
+            const allButtons = document.querySelectorAll('#category-container button');
+            allButtons.forEach(b => {
+                b.classList.remove('glass-active');
+            });
+            
+            const btnId = `btn-cat-${category.replace(/\s+/g, '-')}`;
+            const btn = document.getElementById(btnId);
+            if (btn) {
+                btn.classList.add('glass-active');
+            }
             updateDisplay();
         };
 
         function renderCategories(apps) {
             const container = document.getElementById('category-container');
-            const allCats = apps.flatMap(a => (a.Category || '').split(',').map(c => c.trim()).filter(Boolean));
+            const allCats = apps.flatMap(a => {
+                return (a.Category || '').split(',').map(c => c.trim()).filter(Boolean);
+            });
+            
             const uniqueCats = [...new Set(allCats)].sort((a, b) => a.localeCompare(b));
-            if(uniqueCats.length === 0) return; 
+            
+            if (uniqueCats.length === 0) {
+                return;
+            }
             
             const finalCats = ['Semua', ...uniqueCats];
-            container.innerHTML = finalCats.map(cat => {
+            
+            const catsHtml = finalCats.map(cat => {
                 const id = `btn-cat-${cat.replace(/\s+/g, '-')}`;
-                const activeClass = cat === 'Semua' ? 'glass-active' : '';
+                let activeClass = '';
+                if (cat === 'Semua') {
+                    activeClass = 'glass-active';
+                }
                 return `<button onclick="window.filterCategory('${cat}')" id="${id}" class="px-5 py-2.5 rounded-2xl text-xs md:text-sm font-bold whitespace-nowrap transition-all outline-none snap-start glass glass-btn ${activeClass}">${cat}</button>`;
             }).join('');
+            
+            container.innerHTML = catsHtml;
         }
 
         // --- RENDER BASIC ---
@@ -583,6 +843,7 @@
             document.getElementById('profile-name').innerText = c.profile_name;
             document.getElementById('profile-title').innerText = c.profile_title;
             document.getElementById('profile-image').src = c.profile_image;
+            
             if (String(c.verified_badge).toLowerCase() === 'true') {
                 document.getElementById('verified-badge').classList.remove('hidden');
             }
@@ -590,21 +851,33 @@
 
         function renderSocials(socs) {
             const container = document.getElementById('socials-container');
+            
             socs.forEach((s, i) => {
-                if(String(s.Visible).toLowerCase() !== 'true') return;
-                const a = document.createElement('a'); a.href = s.Url; a.target = "_blank";
+                if (String(s.Visible).toLowerCase() !== 'true') {
+                    return;
+                }
+                
+                const a = document.createElement('a'); 
+                a.href = s.Url; 
+                a.target = "_blank";
                 a.className = `w-12 h-12 md:w-14 md:h-14 rounded-full glass glass-btn flex items-center justify-center text-xl md:text-2xl shadow-sm hover:scale-110 transition-transform animate-stagger ${s.ColorClass}`;
                 a.style.animationDelay = `${0.15 + (i * 0.05)}s`; 
                 a.innerHTML = `<i class="${s.IconClass}"></i>`;
+                
                 container.appendChild(a);
             });
         }
 
         function setupSearch() {
-            document.getElementById('app-search').addEventListener('input', (e) => {
+            const searchInput = document.getElementById('app-search');
+            
+            searchInput.addEventListener('input', (e) => {
                 searchQuery = e.target.value.toLowerCase();
-                if(isMarketplaceOpen) {
-                    const filtered = currentPages.filter(p => p.title.toLowerCase().includes(searchQuery));
+                
+                if (isMarketplaceOpen) {
+                    const filtered = currentPages.filter(p => {
+                        return p.title.toLowerCase().includes(searchQuery);
+                    });
                     renderMarketplace(filtered);
                 } else {
                     currentPage = 1;
@@ -614,9 +887,6 @@
         }
 
         // --- MARKETPLACE & FULL LANDING PAGE CMS ---
-        
-        // PERBAIKAN PENTING:
-        // Di fungsi inilah gue ubah kotaknya jadi transparan murni seperti popup sandi!
         function renderLandingPage(slug) {
             const pageData = currentPages.find(p => p.slug === slug);
             const container = document.getElementById('landing-page-content');
@@ -626,12 +896,16 @@
                 container.innerHTML = pageData.html_content;
                 document.title = pageData.title + " - " + globalConfig.profile_name;
             } else {
-                container.innerHTML = `<div class="p-10 text-center"><i class="fas fa-exclamation-triangle text-4xl text-red-500 mb-4"></i><h1 class="text-2xl font-bold">Halaman Tidak Ditemukan</h1><p>Maaf, promo atau halaman ini mungkin sudah dihapus.</p></div>`;
+                container.innerHTML = `
+                    <div class="p-10 text-center flex flex-col justify-center items-center">
+                        <i class="fas fa-exclamation-triangle text-4xl text-red-500 mb-4"></i>
+                        <h1 class="text-2xl font-bold">Halaman Tidak Ditemukan</h1>
+                        <p class="mt-2 opacity-70">Maaf, promo atau halaman ini mungkin sudah dihapus.</p>
+                    </div>
+                `;
             }
             
             view.classList.remove('hidden');
-            // PERHATIKAN: Bagian menyembunyikan 'bg-blobs' GUE HAPUS TOTAL di sini
-            // Biar landing page tetep dapet efek buram warna-warni dari background persis kaya popup sandi!
         }
 
         function goBackHome() {
@@ -648,6 +922,7 @@
 
         function toggleMarketplace() {
             isMarketplaceOpen = !isMarketplaceOpen;
+            
             const btnText = document.getElementById('text-marketplace');
             const appCont = document.getElementById('apps-container');
             const markCont = document.getElementById('marketplace-container');
@@ -656,16 +931,20 @@
 
             if (isMarketplaceOpen) {
                 btnText.innerText = "Tutup Marketplace";
+                
                 appCont.classList.add('hidden');
                 catWrap.classList.add('hidden');
                 pagiCont.classList.add('hidden');
+                
                 markCont.classList.remove('hidden');
                 renderMarketplace(currentPages);
             } else {
                 btnText.innerText = "Buka Marketplace Promo";
+                
                 appCont.classList.remove('hidden');
                 catWrap.classList.remove('hidden');
                 pagiCont.classList.remove('hidden');
+                
                 markCont.classList.add('hidden');
             }
         }
@@ -674,8 +953,11 @@
             const container = document.getElementById('marketplace-container');
             container.innerHTML = '';
 
-            if(pages.length === 0) {
-                container.innerHTML = `<div class="col-span-2 text-center py-6 opacity-60">Katalog masih kosong.</div>`; return;
+            if (pages.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-2 text-center py-6 opacity-60">Katalog masih kosong.</div>
+                `; 
+                return;
             }
 
             pages.forEach((p, i) => {
@@ -684,16 +966,21 @@
                 el.className = `glass glass-card rounded-2xl overflow-hidden cursor-pointer tap-effect shadow-md animate-stagger group flex flex-col h-full`;
                 el.style.animationDelay = `${0.1 + (i * 0.05)}s`;
                 
+                const thumbImage = p.thumbnail || 'https://via.placeholder.com/300x200?text=Promo';
+                const descText = p.description || '';
+                
                 el.innerHTML = `
                     <div class="h-32 bg-gray-200 overflow-hidden relative">
-                        <img src="${p.thumbnail || 'https://via.placeholder.com/300x200?text=Promo'}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="${thumbImage}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                        <div class="absolute bottom-2 right-2 glass px-2 py-0.5 rounded text-[10px] font-bold text-white"><i class="fas fa-external-link-alt"></i> Buka</div>
+                        <div class="absolute bottom-2 right-2 glass px-2 py-0.5 rounded text-[10px] font-bold text-white">
+                            <i class="fas fa-external-link-alt"></i> Buka
+                        </div>
                     </div>
                     <div class="p-3 flex-grow flex flex-col justify-between bg-white/40 dark:bg-black/20">
                         <div>
                             <h3 class="font-bold text-sm leading-tight mb-1 line-clamp-2">${p.title}</h3>
-                            <p class="text-[11px] opacity-70 line-clamp-2 leading-snug">${p.description || ''}</p>
+                            <p class="text-[11px] opacity-70 line-clamp-2 leading-snug">${descText}</p>
                         </div>
                     </div>
                 `;
@@ -705,22 +992,36 @@
         function openPasswordModal(id, name, passUrl) {
             document.getElementById('locked-app-id').value = id;
             document.getElementById('locked-app-name').innerText = name;
+            
             document.getElementById('password-error').classList.add('hidden');
             document.getElementById('app-password').value = '';
+            
             document.getElementById('password-modal').classList.remove('hidden');
-            setTimeout(() => document.getElementById('password-modal-content').classList.remove('scale-95', 'opacity-0'), 10);
+            
+            setTimeout(() => {
+                document.getElementById('password-modal-content').classList.remove('scale-95', 'opacity-0');
+            }, 10);
         }
 
         function closePasswordModal() {
             document.getElementById('password-modal-content').classList.add('scale-95', 'opacity-0');
-            setTimeout(() => document.getElementById('password-modal').classList.add('hidden'), 300);
+            
+            setTimeout(() => {
+                document.getElementById('password-modal').classList.add('hidden');
+            }, 300);
         }
 
         function togglePasswordVisibility(id, btn) {
             const input = document.getElementById(id);
             const icon = btn.querySelector('i');
-            if (input.type === 'password') { input.type = 'text'; icon.classList.replace('fa-eye', 'fa-eye-slash'); } 
-            else { input.type = 'password'; icon.classList.replace('fa-eye-slash', 'fa-eye'); }
+            
+            if (input.type === 'password') { 
+                input.type = 'text'; 
+                icon.classList.replace('fa-eye', 'fa-eye-slash'); 
+            } else { 
+                input.type = 'password'; 
+                icon.classList.replace('fa-eye-slash', 'fa-eye'); 
+            }
         }
 
         document.getElementById('password-form').addEventListener('submit', async (e) => {
@@ -730,71 +1031,144 @@
             const id = document.getElementById('locked-app-id').value;
             const pass = document.getElementById('app-password').value;
             
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; btn.disabled = true; err.classList.add('hidden');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; 
+            btn.disabled = true; 
+            err.classList.add('hidden');
             
             try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    body: JSON.stringify({ action: 'verifyPassword', appId: id, password: pass }),
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                    body: JSON.stringify({ 
+                        action: 'verifyPassword', 
+                        appId: id, 
+                        password: pass 
+                    }),
+                    headers: { 
+                        'Content-Type': 'text/plain;charset=utf-8' 
+                    }
                 });
+                
                 const res = await response.json();
-                if(res.success) { closePasswordModal(); window.open(res.url, '_blank'); incrementClick(id); }
-                else { err.innerText = res.message; err.classList.remove('hidden'); }
-            } catch(e) { 
-                err.innerText = "Koneksi gagal."; err.classList.remove('hidden'); 
+                
+                if (res.success) { 
+                    closePasswordModal(); 
+                    window.open(res.url, '_blank'); 
+                    incrementClick(id); 
+                } else { 
+                    err.innerText = res.message; 
+                    err.classList.remove('hidden'); 
+                }
+            } catch(error) { 
+                err.innerText = "Koneksi gagal."; 
+                err.classList.remove('hidden'); 
             } finally { 
-                btn.innerHTML = 'Buka'; btn.disabled = false; 
+                btn.innerHTML = 'Buka'; 
+                btn.disabled = false; 
             }
         });
 
         function incrementClick(appId) {
             fetch(SCRIPT_URL, {
                 method: 'POST',
-                body: JSON.stringify({ action: 'incrementClick', appId: appId }),
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-            }).catch(()=>{});
+                body: JSON.stringify({ 
+                    action: 'incrementClick', 
+                    appId: appId 
+                }),
+                headers: { 
+                    'Content-Type': 'text/plain;charset=utf-8' 
+                }
+            }).catch(() => {
+                // Silently fail if incrementing click fails
+            });
         }
 
         // --- LEAD FORM ---
         async function submitLeadForm(e) { 
             e.preventDefault();
-            const btn = document.getElementById('lead-submit-btn'), msg = document.getElementById('lead-msg');
+            
+            const btn = document.getElementById('lead-submit-btn');
+            const msg = document.getElementById('lead-msg');
             const originalText = btn.innerText;
-            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Memproses...'; btn.disabled = true; msg.classList.add('hidden');
+            
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Memproses...'; 
+            btn.disabled = true; 
+            msg.classList.add('hidden');
 
             try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    body: JSON.stringify({ action: 'addLead', name: document.getElementById('lead-name').value, email: document.getElementById('lead-email').value, wa: document.getElementById('lead-wa').value }),
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                    body: JSON.stringify({ 
+                        action: 'addLead', 
+                        name: document.getElementById('lead-name').value, 
+                        email: document.getElementById('lead-email').value, 
+                        wa: document.getElementById('lead-wa').value 
+                    }),
+                    headers: { 
+                        'Content-Type': 'text/plain;charset=utf-8' 
+                    }
                 });
-                if ((await response.json()).success) {
-                    msg.innerText = "Terima kasih! Mengarahkan..."; msg.className = "text-xs text-center font-bold mt-3 text-green-500 block";
+                
+                const resJson = await response.json();
+                
+                if (resJson.success) {
+                    msg.innerText = "Terima kasih! Mengarahkan..."; 
+                    msg.className = "text-xs text-center font-bold mt-3 text-green-500 block";
                     document.getElementById('lead-form').reset();
-                    setTimeout(() => { if(globalConfig.vip_redirect_url) window.open(globalConfig.vip_redirect_url, '_blank'); }, 1500);
-                } else throw new Error();
+                    
+                    setTimeout(() => { 
+                        if (globalConfig.vip_redirect_url) {
+                            window.open(globalConfig.vip_redirect_url, '_blank'); 
+                        }
+                    }, 1500);
+                } else {
+                    throw new Error("Failed to submit lead");
+                }
             } catch (err) {
-                msg.innerText = "Koneksi terputus. Coba lagi."; msg.className = "text-xs text-center font-bold mt-3 text-red-500 block";
+                msg.innerText = "Koneksi terputus. Coba lagi."; 
+                msg.className = "text-xs text-center font-bold mt-3 text-red-500 block";
             } finally {
-                btn.innerHTML = originalText; btn.disabled = false; setTimeout(() => msg.classList.add('hidden'), 4000);
+                btn.innerHTML = originalText; 
+                btn.disabled = false; 
+                
+                setTimeout(() => {
+                    msg.classList.add('hidden');
+                }, 4000);
             }
         }
 
         // --- THEME & SHARE ---
         function toggleTheme() {
             document.documentElement.classList.toggle('dark');
-            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+            } else {
+                localStorage.theme = 'light';
+            }
         }
 
         function shareProfile() {
-            if (navigator.share) navigator.share({ title: document.title, url: window.location.href }).catch(()=>{});
-            else {
-                const dummy = document.createElement('input'); document.body.appendChild(dummy);
-                dummy.value = window.location.href; dummy.select(); document.execCommand('copy'); document.body.removeChild(dummy);
+            if (navigator.share) {
+                navigator.share({ 
+                    title: document.title, 
+                    url: window.location.href 
+                }).catch(() => {
+                    // Fail silently
+                });
+            } else {
+                const dummy = document.createElement('input'); 
+                document.body.appendChild(dummy);
+                dummy.value = window.location.href; 
+                dummy.select(); 
+                document.execCommand('copy'); 
+                document.body.removeChild(dummy);
+                
                 const toast = document.getElementById('toast');
                 toast.classList.remove('opacity-0', 'pointer-events-none');
-                setTimeout(() => toast.classList.add('opacity-0', 'pointer-events-none'), 3000);
+                
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'pointer-events-none');
+                }, 3000);
             }
         }
 
